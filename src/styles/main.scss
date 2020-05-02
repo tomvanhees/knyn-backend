@@ -1,0 +1,54 @@
+#menu-grid {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  grid-template-rows: 1fr 100px 100px 1fr;
+  width: 100vw;
+  height: 100vh;
+
+
+  #inspiration {
+    background: #00bbff;
+    grid-column-start: 1;
+    grid-column-end: 7;
+
+    grid-row-start: 1;
+    grid-row-end:3
+  }
+
+  #product {
+    background: #1be611;
+    grid-column-start: 7;
+    grid-column-end: 13;
+
+    grid-row-start: 1;
+    grid-row-end:3;
+  }
+
+  #feedback {
+    background: #3C4858;
+    grid-column-start: 1;
+    grid-column-end: 7;
+
+    grid-row-start: 3;
+    grid-row-end:5;
+  }
+
+  #social {
+    background: #857b26;
+    grid-column-start: 7;
+    grid-column-end: 13;
+
+    grid-row-start: 3;
+    grid-row-end:5;
+  }
+
+  #logo {
+    background: #9561e2;
+
+    grid-column-start: 6;
+    grid-column-end: 8;
+
+    grid-row-start: 2;
+    grid-row-end:4;
+  }
+}
