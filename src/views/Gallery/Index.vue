@@ -4,16 +4,20 @@
             <div class="row">
                 <div class="col-12">
                     <div class="form-group">
-                        <input type="text" class="form-control" v-model="gallery.name">
-                        <button class="btn btn-primary" @click="createGallery">gallerij aanmaken</button>
+                        <div class="input-group">
+                            <input type="text" class="form-control" v-model="gallery.name">
+                            <div class="input-group-append">
+                                <button class="btn btn-primary" @click="createGallery">gallerij aanmaken</button>
+                            </div>
+                        </div>
                     </div>
 
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-12 d-flex justify-content-between flex-wrap">
-                    <div class="card" style="width: 300px;" :key="gallery.id" v-for="gallery in galleries">
+                <div class="col-12 d-flex flex-wrap">
+                    <div class="card m-2" style="width: 300px;" :key="gallery.id" v-for="gallery in galleries">
                         <router-link :to="`/gallery/${gallery.id}/${gallery.slug}`">
                             <img src="https://via.placeholder.com/300x300" class="card-img-top" alt="">
                             <div class="card-body">
@@ -51,7 +55,7 @@
                 })
             },
             createGallery() {
-              http.post("/gallery/store",{
+              http.post("/gallery",{
                   name: this.gallery.name
               }).then(response =>{
                   this.galleries.push(response.data)

@@ -50,10 +50,10 @@ const routes = [
         }
     },
     {
-        path      : '/gallery/*',
+        path      : '/gallery/:id/*',
         name      : 'GalleryShow',
         components: {
-            default: () => import('../views/Gallery/Edit'),
+            default: () => import('../views/Gallery/Show'),
             menu   : Menu
         },
         beforeEnter(to, from, next) {
