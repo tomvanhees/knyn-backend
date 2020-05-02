@@ -2,8 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-8 d-flex flex-wrap">
-                <dl-gallery-image :key="index" v-bind:item="item" v-for="(item, index) in media"></dl-gallery-image>
-
+                <dl-gallery-image :key="item.id" v-bind:item="item" v-for="(item) in media"></dl-gallery-image>
             </div>
             <div class="col-4">
                 <div class="form-group">
@@ -52,14 +51,15 @@
                 gallery: {
                     name: ""
                 },
-                media:[]
+                media  : []
             }
         },
 
         methods: {
             getGallery() {
                 http.get(`/gallery/${this.$route.params.id}`).then(response => {
-                    this.gallery = response.data.gallery
+                    this.gallery = response.data.gallery;
+                    this.media   = response.data.media;
                 })
             },
             updateGallery() {
@@ -67,7 +67,7 @@
                     "name"   : this.gallery.name,
                     "_method": "PATCH"
                 }).then(response => {
-console.log(response.data)
+                    console.log(response.data)
                 })
             },
 
@@ -82,14 +82,14 @@ console.log(response.data)
 
                 const formData = new FormData;
 
-                fileList.forEach((item,index) => {
+                fileList.forEach((item, index) => {
                     formData.append(`image[${index}]`, item)
                 })
 
                 formData.append("_method", "PATCH");
 
                 http.post(`/gallery/${this.$route.params.id}/media`, formData).then(response => {
-                    this.media = response.data
+                    this.media = response.data.media
                 })
             }
         },

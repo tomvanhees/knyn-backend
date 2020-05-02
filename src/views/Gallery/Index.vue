@@ -19,7 +19,7 @@
                 <div class="col-12 d-flex flex-wrap">
                     <div class="card m-2" style="width: 300px;" :key="gallery.id" v-for="gallery in galleries">
                         <router-link :to="`/gallery/${gallery.id}/${gallery.slug}`">
-                            <img src="https://via.placeholder.com/300x300" class="card-img-top" alt="">
+                            <img :src="gallery.cover" class="card-img-top" alt="">
                             <div class="card-body">
                                 <h5 class="card-title">{{ gallery.name}}</h5>
                                 <p class="card-text"></p>
@@ -49,7 +49,7 @@
         methods: {
             getGalleries() {
                 http.get("/gallery").then(response => {
-                    this.galleries = response.data
+                    this.galleries = response.data.galleries
                 }).catch(error => {
                     console.log(error)
                 })
