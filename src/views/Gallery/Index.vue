@@ -17,15 +17,7 @@
 
             <div class="row">
                 <div class="col-12 d-flex flex-wrap">
-                    <div class="card m-2" style="width: 300px;" :key="gallery.id" v-for="gallery in galleries">
-                        <router-link :to="`/gallery/${gallery.id}/${gallery.slug}`">
-                            <img :src="gallery.cover" class="card-img-top" alt="">
-                            <div class="card-body">
-                                <h5 class="card-title">{{ gallery.name}}</h5>
-                                <p class="card-text"></p>
-                            </div>
-                        </router-link>
-                    </div>
+                    <dl-gallery-index-card :gallery="gallery" :key="gallery.id" v-for="gallery in galleries"></dl-gallery-index-card>
                 </div>
             </div>
         </div>
@@ -35,9 +27,13 @@
 
 <script>
     import http from "../../http/http";
+    import GalleryIndexCard from "../../components/Gallery/GalleryIndexCard";
 
     export default {
-        name   : "GalleryIndex",
+        name      : "GalleryIndex",
+        components: {
+            "dl-gallery-index-card": GalleryIndexCard
+        },
         data() {
             return {
                 galleries: [],
@@ -46,7 +42,7 @@
                 }
             }
         },
-        methods: {
+        methods   : {
             getGalleries() {
                 http.get("/gallery").then(response => {
                     this.galleries = response.data.galleries
@@ -55,11 +51,11 @@
                 })
             },
             createGallery() {
-              http.post("/gallery",{
-                  name: this.gallery.name
-              }).then(response =>{
-                  this.galleries.push(response.data)
-              })
+                http.post("/gallery", {
+                    name: this.gallery.name
+                }).then(response => {
+                    this.galleries.push(response.data)
+                })
             }
         },
         created() {

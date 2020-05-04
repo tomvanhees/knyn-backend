@@ -6,14 +6,12 @@
             <div class="card-text">
                 {{ item.name}}
             </div>
-            <button class="btn btn-primary" @click="removeItem">Verwijderen</button>
+            <button class="btn btn-primary" @click="removeMedia">Verwijderen</button>
         </div>
     </div>
 </template>
 
 <script>
-    import http from "../../http/http";
-
     export default {
         name   : "GalleryImage",
         props  : {
@@ -23,10 +21,8 @@
             }
         },
         methods: {
-            removeItem() {
-                http.post(`/gallery/${this.$route.params.id}/media/${this.item.id}`, {
-                    "_method": 'DELETE'
-                }).then()
+            removeMedia() {
+               this.$emit("remove-media", this.item)
             }
         }
     }

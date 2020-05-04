@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-8 d-flex flex-wrap">
-                <dl-gallery-image :key="item.id" v-bind:item="item" v-for="(item) in media"></dl-gallery-image>
+                <dl-gallery-image :key="item.id" v-bind:item="item" v-for="(item) in media" v-on:remove-media="removeMedia"></dl-gallery-image>
             </div>
             <div class="col-4">
                 <div class="form-group">
@@ -22,7 +22,7 @@
                 <div class="form-group">
                     <div class="card">
                         <div class="card-body">
-                            <label class="d-block bg-info p-5 text-center">
+                            <label class="d-block bg-info p-5 text-center" @dragover.prevent @drop="onImageDrop">
                                 <input ref="upload" type="file" style="opacity: 0; position: absolute" multiple @change="onImageChange">
                                 <span class="text-white">Afbeeldingen toevoegen</span>
                             </label>
@@ -70,9 +70,10 @@
                     console.log(response.data)
                 })
             },
-
-            onImageDrop() {
-
+            onImageDrop(event) {
+                event.stopPropagation();
+                event.preventDefault();
+                this.uploadImages(event.dataTransfer.files);
             },
             onImageChange() {
                 this.uploadImages(this.$refs.upload.files);
@@ -86,10 +87,20 @@
                     formData.append(`image[${index}]`, item)
                 })
 
+                formData.append(`gallery`, this.id)
                 formData.append("_method", "PATCH");
 
-                http.post(`/gallery/${this.$route.params.id}/media`, formData).then(response => {
+                http.post(`/gallery/media`, formData).then(response => {
                     this.media = response.data.media
+                })
+            },
+            removeMedia(value) {
+                const index = this.media.findIndex(mediaItem => mediaItem === value);
+
+                http.post(`/gallery/media/${value.id}`, {
+                    "_method": 'DELETE'
+                }).then(() => {
+                    this.media.splice(index, 1);
                 })
             }
         },
