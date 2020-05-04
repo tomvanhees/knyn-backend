@@ -5,9 +5,9 @@
                 <dl-gallery-image :key="item.id" v-bind:item="item" v-for="(item) in media" v-on:remove-media="removeMedia"></dl-gallery-image>
             </div>
             <div class="col-4">
-                <div class="form-group">
-                    <div class="card">
-                        <div class="card-body">
+                <div class="card mb-2">
+                    <div class="card-body">
+                        <div class="form-group">
                             <label for="">Gallerij naam</label>
                             <div class="input-group">
                                 <input type="text" class="form-control" v-model="gallery.name">
@@ -16,12 +16,16 @@
                                 </div>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <button class="btn btn-danger btn-block">Gallerij verwijderen (wip)</button>
+                        </div>
                     </div>
                 </div>
 
-                <div class="form-group">
-                    <div class="card">
-                        <div class="card-body">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="form-group">
                             <label class="d-block bg-info p-5 text-center" @dragover.prevent @drop="onImageDrop">
                                 <input ref="upload" type="file" style="opacity: 0; position: absolute" multiple @change="onImageChange">
                                 <span class="text-white">Afbeeldingen toevoegen</span>
@@ -87,7 +91,7 @@
                     formData.append(`image[${index}]`, item)
                 })
 
-                formData.append(`gallery`, this.id)
+                formData.append("gallery", this.id);
                 formData.append("_method", "PATCH");
 
                 http.post(`/gallery/media`, formData).then(response => {

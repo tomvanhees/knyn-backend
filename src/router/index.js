@@ -5,10 +5,14 @@ import SignIn from "../views/SignIn";
 import SignUp from "../views/SignUp";
 import store from "../store/index";
 import Menu from "../components/Menu";
+import {products} from "./components/products"
+import {gallery} from "./components/gallery"
 
 Vue.use(VueRouter)
 
 const routes = [
+    products,
+    gallery,
     {
         path     : '/signin',
         name     : 'SignIn',
@@ -34,36 +38,7 @@ const routes = [
 
         }
     },
-    {
-        path      : '/gallery',
-        name      : 'Gallery',
-        components: {
-            default: () => import('../views/Gallery/Index'),
-            menu   : Menu
-        },
-        beforeEnter(to, from, next) {
-            if (store.state.authentication.token) {
-                next()
-            } else {
-                next("/signin")
-            }
-        }
-    },
-    {
-        path      : '/gallery/:id/*',
-        name      : 'GalleryShow',
-        components: {
-            default: () => import('../views/Gallery/Show'),
-            menu   : Menu
-        },
-        beforeEnter(to, from, next) {
-            if (store.state.authentication.token) {
-                next()
-            } else {
-                next("/signin")
-            }
-        }
-    },
+
     {
         path      : '/feedback',
         name      : 'Feedback',
@@ -79,21 +54,7 @@ const routes = [
             }
         }
     },
-    {
-        path      : '/products',
-        name      : 'Products',
-        components: {
-            default: () => import('../views/Products'),
-            menu   : Menu
-        },
-        beforeEnter(to, from, next) {
-            if (store.state.authentication.token) {
-                next()
-            } else {
-                next("/signin")
-            }
-        }
-    },
+
     {
         path      : '/information',
         name      : 'Information',
