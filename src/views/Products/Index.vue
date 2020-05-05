@@ -55,19 +55,21 @@
 <script>
     import http from "../../http/http";
     import ProductIndexCard from "../../components/Products/ProductIndexCard";
+    import {CategoryMixin} from "../../mixins/CategoryMixin";
+    import {BrandMixin} from "../../mixins/BrandMixin";
 
     export default {
         name      : "Products",
         components: {
             "dl-product-index-card": ProductIndexCard
         },
+        mixins    : [
+            CategoryMixin,
+            BrandMixin
+        ],
         data() {
             return {
-                brands    : [],
-                categories: [],
-                products  : [],
-
-
+                products: [],
                 selected_brands    : [],
                 selected_categories: [],
             }
@@ -104,16 +106,6 @@
             }
         },
         methods : {
-            getBrands() {
-                http.get("product/brands").then(response => {
-                    this.brands = response.data
-                })
-            },
-            getCategories() {
-                http.get("product/categories").then(response => {
-                    this.categories = response.data
-                })
-            },
             getProducts() {
                 http.get("/product").then(response => {
                     this.products = response.data;
@@ -130,13 +122,5 @@
 </script>
 
 <style scoped>
-    .component-fade-enter-active, .component-fade-leave-active {
-        transition: opacity .2s;
-    }
 
-    .component-fade-enter, .component-fade-leave-to
-        /* .component-fade-leave-active below version 2.1.8 */
-    {
-        opacity: 0;
-    }
 </style>

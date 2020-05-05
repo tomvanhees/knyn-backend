@@ -6,7 +6,7 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-8">fsdf</div>
+                                <div class="col-8">(Voorbeeld van de afbeeldingen WIP)</div>
                                 <div class="col-4">
                                     <div>
                                         <label for="" class="d-block bg-info p-5 text-center" @dragover.prevent @drop="onImageDrop">
@@ -52,7 +52,7 @@
                             <div class="mb-2">
 
                                 <div class="form-check" :key="category.id" v-for="category in categories">
-                                    <input type="checkbox" :value="category.id" v-model="product.categories" :id="`category_${category.id}`" class="form-check-input">
+                                    <input type="checkbox" :value="category" v-model="product.categories" :id="`category_${category.id}`" class="form-check-input">
                                     <label :for="`category_${category.id}`" class="form-check-label">{{category.name}}</label>
                                 </div>
 
@@ -100,9 +100,16 @@
 
 <script>
     import http from "../../http/http";
+    import {CategoryMixin} from "../../mixins/CategoryMixin";
+    import {BrandMixin} from "../../mixins/BrandMixin";
 
     export default {
-        name   : "Create",
+        name  : "Create",
+        mixins: [
+            CategoryMixin,
+            BrandMixin
+        ],
+
         data() {
             return {
                 product     : {
@@ -151,16 +158,6 @@
 
                 this.new_category = "";
             },
-            getBrands() {
-                http.get("product/brands").then(response => {
-                    this.brands = response.data
-                })
-            },
-            getCategories() {
-                http.get("product/categories").then(response => {
-                    this.categories = response.data
-                })
-            },
             onImageDrop(event) {
                 event.preventDefault();
                 event.stopPropagation();
@@ -168,16 +165,12 @@
                 event.dataTransfer.files.forEach(image => {
                     this.images.push(image)
                 })
-
-
             },
             onImageChange() {
                 this.$refs.images.files.forEach(image => {
                     this.images.push(image)
                 })
             }
-
-
         },
         created() {
             this.getBrands();

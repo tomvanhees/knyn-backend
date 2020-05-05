@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row">
             <div class="col-8 d-flex flex-wrap">
-                <dl-gallery-image :key="item.id" v-bind:item="item" v-for="(item) in media" v-on:remove-media="removeMedia"></dl-gallery-image>
+                <dl-gallery-image :key="item.id" v-bind:item="item" v-for="(item) in gallery.media" v-on:remove-media="removeMedia"></dl-gallery-image>
             </div>
             <div class="col-4">
                 <div class="card mb-2">
@@ -53,17 +53,17 @@
             return {
                 id     : this.$route.params.id,
                 gallery: {
-                    name: ""
+                    name : "",
+                    media: []
                 },
-                media  : []
+
             }
         },
 
         methods: {
             getGallery() {
                 http.get(`/gallery/${this.$route.params.id}`).then(response => {
-                    this.gallery = response.data.gallery;
-                    this.media   = response.data.media;
+                    this.gallery = response.data;
                 })
             },
             updateGallery() {

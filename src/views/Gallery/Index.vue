@@ -44,7 +44,7 @@
         methods   : {
             getGalleries() {
                 http.get("/gallery").then(response => {
-                    this.galleries = response.data.galleries
+                    this.galleries = response.data
                 }).catch(error => {
                     console.log(error)
                 })
