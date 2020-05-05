@@ -175,7 +175,6 @@
                 this.$refs.images.files.forEach(image => {
                     this.images.push(image)
                 })
-
             }
 
 

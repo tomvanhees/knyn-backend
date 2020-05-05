@@ -21,7 +21,11 @@
 
             <div class="row">
                 <div class="col-8 d-flex flex-wrap">
-                    <dl-product-index-card :key="product.id" :product="product" v-for="product in FilteredProducts"></dl-product-index-card>
+
+                    <transition-group name="component-fade" mode="out-in" class="d-flex flex-wrap">
+                        <dl-product-index-card :key="product.id" :product="product" v-for="product in FilteredProducts"></dl-product-index-card>
+                    </transition-group>
+
                 </div>
                 <div class="col-4">
                     <div class="card">
@@ -71,6 +75,31 @@
 
         computed: {
             FilteredProducts() {
+                if (this.selected_brands.length !== 0 && this.selected_categories.length !== 0) {
+                    return this.products.filter(product => {
+                        if (this.selected_brands.includes(product.brand.id) && product.categories.some(category => this.selected_categories.includes(category.id))) {
+                            return product;
+                        }
+                    })
+
+                }
+
+                if (this.selected_brands.length !== 0) {
+                    return this.products.filter(product => {
+                        if (this.selected_brands.includes(product.brand.id)) {
+                            return product;
+                        }
+                    })
+                }
+
+                if (this.selected_categories.length !== 0) {
+                    return this.products.filter(product => {
+                        if (product.categories.some(category => this.selected_categories.includes(category.id))) {
+                            return product;
+                        }
+                    });
+                }
+
                 return this.products
             }
         },
@@ -101,5 +130,13 @@
 </script>
 
 <style scoped>
+    .component-fade-enter-active, .component-fade-leave-active {
+        transition: opacity .2s;
+    }
 
+    .component-fade-enter, .component-fade-leave-to
+        /* .component-fade-leave-active below version 2.1.8 */
+    {
+        opacity: 0;
+    }
 </style>
