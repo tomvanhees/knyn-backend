@@ -95,16 +95,16 @@
                 formData.append("_method", "PATCH");
 
                 http.post(`/gallery/media`, formData).then(response => {
-                    this.media = response.data.media
+                   this.gallery.media = response.data
                 })
             },
             removeMedia(value) {
-                const index = this.media.findIndex(mediaItem => mediaItem === value);
+                const index = this.gallery.media.findIndex(mediaItem => mediaItem === value);
 
                 http.post(`/gallery/media/${value.id}`, {
                     "_method": 'DELETE'
                 }).then(() => {
-                    this.media.splice(index, 1);
+                    this.gallery.media.splice(index, 1);
                 })
             }
         },

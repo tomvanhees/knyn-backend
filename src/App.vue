@@ -2,7 +2,7 @@
     <div id="app">
         <router-view name="menu"/>
         <transition name="component-fade" mode="out-in">
-            <router-view/>
+            <router-view :key="$router.fullPath"/>
         </transition>
 
     </div>
