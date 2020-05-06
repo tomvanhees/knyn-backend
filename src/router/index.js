@@ -38,12 +38,11 @@ const routes = [
 
         }
     },
-
     {
         path      : '/feedback',
         name      : 'Feedback',
         components: {
-            default: () => import('../views/Feedback'),
+            default: () => import('../views/Feedback/Feedback'),
             menu   : Menu
         },
         beforeEnter(to, from, next) {
@@ -59,7 +58,7 @@ const routes = [
         path      : '/information',
         name      : 'Information',
         components: {
-            default: () => import('../views/Information'),
+            default: () => import('../views/Information/Show'),
             menu   : Menu
         },
         beforeEnter(to, from, next) {

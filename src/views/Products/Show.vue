@@ -6,7 +6,17 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
-                                <div class="col-8">(Voorbeeld van de afbeeldingen WIP)</div>
+                                <div class="col-8">
+                                    <div class="mb-3">
+                                        <img :src="ActiveImage" alt="" class="mw-100 rounded">
+                                    </div>
+                                    <div class="d-flex flex-wrap mw-100">
+                                        <div :key="index" v-for="(image,index) in product.media" class="mr-1">
+                                            <div class="p-1 border rounded" :class="{'bg-dark' : index === active_image}">
+                                                <img :src="image.path" alt="" style="max-width: 50px" class="rounded" @click="active_image = index"></div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-4">
                                     <div>
                                         <label for="" class="d-block bg-info p-5 text-center" @dragover.prevent @drop="onImageDrop">
@@ -82,38 +92,65 @@
     import {BrandMixin} from "../../mixins/BrandMixin";
 
     export default {
-        name  : "Show",
-        mixins: [
+        name    : "Show",
+        mixins  : [
             CategoryMixin,
             BrandMixin
         ],
         data() {
             return {
-                product: {}
+                product     : {
+                    media: []
+                },
+                active_image: 0
             }
         },
+        computed: {
+            ActiveImage() {
+                if (this.product.media.length === 0) {
+                    return "";
+                }
 
-        methods: {
+                return this.product.media[this.active_image].path
+            }
+        },
+        methods : {
+            getProduct() {
+                http.get(`/product/${this.$route.params.id}`).then(response => {
+                    this.$set(this.product, response.data)
+
+                    this.product = response.data;
+                })
+            },
+
             updateProduct() {
 
             },
-            getProduct() {
-                http.get(`/product/${this.$route.params.id}`).then(response => {
-                    this.product = response.data;
+            addImage(fileList) {
+
+                let formData = new FormData;
+
+                formData.append("product_id", this.$route.params.id);
+
+                fileList.forEach((file, index) => {
+                    formData.append(`image[${index}]`, file);
                 })
+
+                http.post("/product/media", formData).then(response => {
+                    this.product.media = response.data;
+                })
+            },
+            removeImage() {
+
             },
             onImageDrop(event) {
                 event.preventDefault();
                 event.stopPropagation();
 
-                event.dataTransfer.files.forEach(image => {
-                    this.images.push(image)
-                })
+                this.addImage(event.dataTransfer.files)
             },
             onImageChange() {
-                this.$refs.images.files.forEach(image => {
-                    this.images.push(image)
-                })
+                this.addImage(this.$refs.images.files)
             }
         },
         created() {
