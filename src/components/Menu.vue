@@ -6,16 +6,15 @@
                     <div class="col-12 d-flex">
                         <ul class="nav nav-pills">
                             <li class="nav-item"><router-link tag="a" class="nav-link text-white" active-class="active bg-light text-dark" to="/gallery">Gallery</router-link></li>
-                            <li class="nav-item"><router-link tag="a" class="nav-link text-white" active-class="active bg-light text-dark" to="/feedback">feedback (wip)</router-link></li>
-                            <li class="nav-item"><router-link tag="a" class="nav-link text-white" active-class="active bg-light text-dark" to="/products">products</router-link></li>
-                            <li class="nav-item"><router-link tag="a" class="nav-link text-white" active-class="active bg-light text-dark" to="/information">information (wip)</router-link></li>
+                            <li class="nav-item"><router-link tag="a" class="nav-link text-white" active-class="active bg-light text-dark" to="/feedback">Feedback (wip)</router-link></li>
+                            <li class="nav-item"><router-link tag="a" class="nav-link text-white" active-class="active bg-light text-dark" to="/products">Products</router-link></li>
+                            <li class="nav-item"><router-link tag="a" class="nav-link text-white" active-class="active bg-light text-dark" to="/information">Information (wip)</router-link></li>
                         </ul>
                         <div class="ml-auto">
                             <router-link tag="a" class="btn btn-dark mr-1" to="/information">Instellingen (wip)</router-link>
                             <a class="btn btn-danger text-white" @click="logout">Logout</a>
                         </div>
                     </div>
-
                 </div>
             </div>
 
@@ -28,8 +27,8 @@
         name: "Menu",
         methods:{
             logout(){
-                this.$store.dispatch("authentication/clearToken");
-                this.$router.push("/login")
+                this.$store.dispatch("authentication/logout");
+                this.$router.push("/signin")
             }
         }
     }

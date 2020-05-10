@@ -8,7 +8,12 @@
                             <div class="row">
                                 <div class="col-8">
                                     <div class="mb-3">
-                                        <img :src="ActiveImage" alt="" class="mw-100 rounded">
+                                        <div class="position-relative">
+                                            <img :src="ActiveImage" alt="" class="mw-100 rounded">
+                                            <div class="position-absolute" style="top:0; right: 0" v-show="!ProductHasNoMedia">
+                                                <button class="btn btn-sm  btn-danger" @click="removeImage">X</button>
+                                            </div>
+                                        </div>
                                     </div>
                                     <div class="d-flex flex-wrap mw-100">
                                         <div :key="index" v-for="(image,index) in product.media" class="mr-1">
@@ -27,28 +32,27 @@
                                 </div>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <div>
-                                <div class="form-group">
-                                    <label for="">Naam</label>
-                                    <input type="text" class="form-control" v-model="product.name">
-                                </div>
-                                <div class="form-group">
-                                    <label for="">Omschrijving</label>
-                                    <textarea name="" id="" class="form-control" v-model="product.description"></textarea>
-                                </div>
 
-                                <div class="form-group">
-                                    <label for="">Prijs</label>
-                                    <input type="text" class="form-control" v-model="product.price">
-                                </div>
+                        <div class="card-body">
+                            <div class="form-group">
+                                <label for="">Naam</label>
+                                <input type="text" class="form-control" v-model="product.name">
+                            </div>
+                            <div class="form-group">
+                                <label for="">Omschrijving</label>
+                                <textarea name="" id="" class="form-control" v-model="product.description"></textarea>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="">Prijs</label>
+                                <input type="text" class="form-control" v-model="product.price">
+                            </div>
+
+                            <div class="form-group">
+                                <button class="btn btn-dark" @click="updateProduct">Aanpassen</button>
                             </div>
                         </div>
-                        <div class="card-body">
-                            <button class="btn btn-dark" @click="updateProduct">Aanpassen</button>
-                        </div>
                     </div>
-
 
                 </div>
                 <div class="col-4">
@@ -62,8 +66,6 @@
                                     <input type="checkbox" :value="category" v-model="product.categories" :id="`category_${category.id}`" class="form-check-input">
                                     <label :for="`category_${category.id}`" class="form-check-label">{{category.name}}</label>
                                 </div>
-
-
                             </div>
                         </div>
 
@@ -106,8 +108,11 @@
             }
         },
         computed: {
+            ProductHasNoMedia() {
+                return this.product.media.length === 0;
+            },
             ActiveImage() {
-                if (this.product.media.length === 0) {
+                if (this.ProductHasNoMedia) {
                     return "";
                 }
 
@@ -117,31 +122,48 @@
         methods : {
             getProduct() {
                 http.get(`/product/${this.$route.params.id}`).then(response => {
-                    this.$set(this.product, response.data)
-
                     this.product = response.data;
                 })
             },
-
             updateProduct() {
+                http.post(`/product/${this.product.id}`, {
+                    "name"       : this.product.name,
+                    "description": this.product.description,
+                    "price"      : this.product.price,
+                    "brand_id"   : this.product.brand.id,
+                    "categories" : this.product.categories,
+                    "_method"    : "PATCH"
+                }).then(() => {
 
+                })
             },
             addImage(fileList) {
 
-                let formData = new FormData;
-
-                formData.append("product_id", this.$route.params.id);
+                const formData = new FormData;
 
                 fileList.forEach((file, index) => {
                     formData.append(`image[${index}]`, file);
                 })
 
-                http.post("/product/media", formData).then(response => {
+                formData.append("_method", "PATCH")
+                http.post(`/product/${this.product.id}/media`, formData).then(response => {
                     this.product.media = response.data;
                 })
+
+
             },
             removeImage() {
+                http.post(`/product/${this.product.id}/media/${this.product.media[this.active_image].id}`, {
+                    "_method": "DELETE"
+                }).then(() => {
+                    this.product.media.splice(this.active_image, 1);
 
+                    if (this.ProductHasNoMedia || this.active_image === 0) {
+                        this.active_image = 0
+                    } else {
+                        this.active_image--;
+                    }
+                })
             },
             onImageDrop(event) {
                 event.preventDefault();

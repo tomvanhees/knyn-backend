@@ -1,5 +1,7 @@
 <template>
     <div id="app">
+        <notifications/>
+
         <router-view name="menu"/>
         <transition name="component-fade" mode="out-in">
             <router-view :key="$router.fullPath"/>

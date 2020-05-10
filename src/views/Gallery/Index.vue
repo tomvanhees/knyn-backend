@@ -16,9 +16,8 @@
             </div>
 
             <div class="row">
-                <div class="col-12 d-flex flex-wrap">
+
                     <dl-gallery-index-card :gallery="gallery" :key="gallery.id" v-for="gallery in galleries"></dl-gallery-index-card>
-                </div>
             </div>
         </div>
     </div>

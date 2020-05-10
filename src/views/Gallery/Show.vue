@@ -81,27 +81,28 @@
             },
             onImageChange() {
                 this.uploadImages(this.$refs.upload.files);
-
             },
             uploadImages(fileList) {
-
-                const formData = new FormData;
-
-                fileList.forEach((item, index) => {
-                    formData.append(`image[${index}]`, item)
+                const upload = new Promise((resolve) => {
+                    fileList.forEach((item, index) => {
+                        console.log("adding image" + index )
+                        const formData = new FormData;
+                        formData.append(`image`, item)
+                        formData.append("_method", "PATCH");
+                        http.post(`/gallery/${this.$route.params.id}/media`, formData).then(() => {
+                        });
+                    })
+                    resolve();
                 })
-
-                formData.append("gallery", this.id);
-                formData.append("_method", "PATCH");
-
-                http.post(`/gallery/media`, formData).then(response => {
-                   this.gallery.media = response.data
+                upload.then(() => {
+                    console.log("get gallery")
+                    this.getGallery();
                 })
             },
             removeMedia(value) {
                 const index = this.gallery.media.findIndex(mediaItem => mediaItem === value);
 
-                http.post(`/gallery/media/${value.id}`, {
+                http.post(`/gallery/${this.$route.params.id}/media/${value.id}`, {
                     "_method": 'DELETE'
                 }).then(() => {
                     this.gallery.media.splice(index, 1);

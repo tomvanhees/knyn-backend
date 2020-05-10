@@ -20,7 +20,6 @@
                             <div class="form-group"><label for="">Wachtwoord</label> <br>
                                 <input type="password" class="form-control" v-model="data.password">
                             </div>
-
                             <div>
                                 <button class="btn btn-dark" @click="subscribe">Verzenden</button>
                             </div>
@@ -34,7 +33,7 @@
 </template>
 
 <script>
-    import http from "../http/http";
+    import auth from "../http/auth";
     import router from "../router";
 
     export default {
@@ -50,7 +49,7 @@
         },
         methods: {
             subscribe: function () {
-                http.post("/user/store", this.data).then(response => {
+                auth.post("/user/store", this.data).then(response => {
                     this.$store.dispatch('authentication/setToken',response.data);
                     localStorage.setItem("token", response.data)
                     router.push("/")

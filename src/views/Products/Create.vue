@@ -109,7 +109,6 @@
             CategoryMixin,
             BrandMixin
         ],
-
         data() {
             return {
                 product     : {
@@ -126,17 +125,34 @@
                 new_category: ""
             }
         },
-        methods: {
+
+        computed: {
+            ProductHasImages() {
+                return this.images.length > 0
+            }
+        },
+        methods : {
             addProduct() {
+                http.post("/product", this.product)
+                    .then((response) => {
+
+                        if (this.ProductHasImages) {
+                            this.uploadImages(response.data.product.id)
+                        }
+                        this.$router.push("/products");
+                    })
+            },
+            uploadImages(product_id) {
                 const formData = new FormData;
-                formData.append("product", JSON.stringify(this.product));
+
                 this.images.forEach((image, index) => {
                     formData.append(`image[${index}]`, image)
                 })
 
+                formData.append("_method", "PATCH");
 
-                http.post("/product", formData).then(() => {
-                    this.$router.push("/products");
+                http.post(`/product/${product_id}/media`, formData).catch(errors => {
+                    console.log(errors)
                 })
             },
 

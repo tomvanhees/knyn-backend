@@ -1,6 +1,6 @@
 <template>
     <div class="card m-2" style="width: 300px">
-        <img :src="item.path" class="card-img-top" alt="">
+        <img :src="item.path" class="card-img-top" alt="" @error="imageUrlAlt">
 
         <div class="card-body">
             <div class="card-text">
@@ -23,6 +23,9 @@
         methods: {
             removeMedia() {
                this.$emit("remove-media", this.item)
+            },
+            imageUrlAlt(event) {
+                event.target.src = "https://picsum.photos/250/250"
             }
         }
     }

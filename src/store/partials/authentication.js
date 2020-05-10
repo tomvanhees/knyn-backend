@@ -1,3 +1,5 @@
+import http from "../../http/http";
+
 export const authentication = {
     namespaced: true,
     state     : {
@@ -27,6 +29,12 @@ export const authentication = {
             }
 
             commit('setToken', token);
+        },
+        logout      : ({dispatch}) => {
+            http.post("/user/logout").finally(()=>{
+                dispatch('clearToken')
+            })
+
         }
     },
 }

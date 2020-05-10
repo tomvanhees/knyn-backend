@@ -26,11 +26,19 @@
                         <dl-product-index-card :key="product.id" :product="product" v-for="product in FilteredProducts"></dl-product-index-card>
                     </transition-group>
 
+
+
                 </div>
                 <div class="col-4">
                     <div class="card">
                         <div class="card-body">
                             <div class="card-title font-weight-bold">Categorieën</div>
+<!--                            <div class="form-check">-->
+<!--                                <input type="checkbox" :value="0" v-model="selected_categories" :id="`category_0`" class="form-check-input">-->
+<!--                                <label :for="`category_0`" class="form-check-label">Geen categorie</label>-->
+<!--                            </div>-->
+
+
                             <div class="form-check" :key="category.id" v-for="category in categories">
                                 <input type="checkbox" :value="category.id" v-model="selected_categories" :id="`category_${category.id}`" class="form-check-input">
                                 <label :for="`category_${category.id}`" class="form-check-label">{{category.name}}</label>
@@ -39,6 +47,11 @@
 
                         <div class="card-body">
                             <div class="card-title font-weight-bold">Merken</div>
+                            <div class="form-check">
+                                <input type="checkbox" :value="0" v-model="selected_brands" :id="`brand_0`" class="form-check-input">
+                                <label :for="`brand_0`" class="form-check-label">Geen merk</label>
+                            </div>
+
                             <div class="form-check" :key="brand.id" v-for="brand in brands">
                                 <input type="checkbox" :value="brand.id" v-model="selected_brands" :id="`brand_${brand.id}`" class="form-check-input">
                                 <label :for="`brand_${brand.id}`" class="form-check-label">{{brand.name}}</label>
@@ -79,6 +92,7 @@
             FilteredProducts() {
                 if (this.selected_brands.length !== 0 && this.selected_categories.length !== 0) {
                     return this.products.filter(product => {
+
                         if (this.selected_brands.includes(product.brand.id) && product.categories.some(category => this.selected_categories.includes(category.id))) {
                             return product;
                         }

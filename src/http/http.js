@@ -3,7 +3,7 @@ import store from "../store/index";
 import router from "../router";
 
 
-const baseURL = "http://kapsalon-api.test/api/v1/"
+const baseURL = process.env.VUE_APP_PATH
 
 axios.defaults.withCredentials = true;
 
@@ -17,7 +17,6 @@ http.interceptors.request.use(
         if (token) {
             config.headers['Authorization'] = 'Bearer ' + token;
             config.headers.get['Accepts']   = 'application/json'
-
         }
         // config.headers['Content-Type'] = 'application/json';
         return config;
@@ -29,14 +28,16 @@ http.interceptors.request.use(
 
 http.interceptors.response.use((response) => {
     return response;
-}, function (error) {
+},  (error) => {
 
     /** Token is not validated */
     if (error.response.status === 401) {
         store.dispatch("authentication/clearToken")
-        router.push("/login");
+        router.push("/signin");
         return Promise.reject(error);
     }
+
+    return Promise.reject(error);
 })
 
 http.defaults.withCredentials = true;
