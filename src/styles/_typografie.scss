@@ -1,0 +1,12 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+
+
+h1 {
+  font-family: $primary-font-family;
+  font-weight: 600;
+font-size: 35px;
+  position: absolute;
+  left: 50px;
+
+  color: $secondary-font-color;
+}

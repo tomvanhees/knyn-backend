@@ -8,12 +8,10 @@
                             <div class="row">
                                 <div class="col-8">(Voorbeeld van de afbeeldingen WIP)</div>
                                 <div class="col-4">
-                                    <div>
-                                        <label for="" class="d-block bg-info p-5 text-center" @dragover.prevent @drop="onImageDrop">
-                                            <input type="file" ref="images" style="position: absolute; opacity: 0" multiple @change="onImageChange">
-                                            <span class="text-white">Afbeeldingen toevoegen</span>
-                                        </label>
-                                    </div>
+                                    <label for="images" class="d-block bg-info p-5 text-center" @dragover.prevent @drop="onImageDrop">
+                                        <input type="file" id="images" ref="images" style="position: absolute; opacity: 0" multiple @change="onImageChange">
+                                        <span class="text-white">{{ UploadStatusText}}</span>
+                                    </label>
                                 </div>
                             </div>
 
@@ -46,17 +44,19 @@
                 <div class="col-4">
                     <div class="card">
                         <div class="card-body">
-                            <div class="card-title font-weight-bold">
-                                Categorie
-                            </div>
-                            <div class="mb-2">
 
-                                <div class="form-check" :key="category.id" v-for="category in categories">
+                            <div class="d-flex justify-content-between">
+                                <div class="card-title font-weight-bold">
+                                    Categorie
+                                </div>
+                               <edit-brands></edit-brands>
+                            </div>
+
+                            <div class="mb-2">
+                                <div class="form-check" :key="category.id" v-for="category in Categories">
                                     <input type="checkbox" :value="category" v-model="product.categories" :id="`category_${category.id}`" class="form-check-input">
                                     <label :for="`category_${category.id}`" class="form-check-label">{{category.name}}</label>
                                 </div>
-
-
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
@@ -69,24 +69,20 @@
                         </div>
 
                         <div class="card-body">
-                            <div class="card-title font-weight-bold">
-                                Merk
-                            </div>
-                            <div class="mb-2">
 
-                                <div class="form-check" :key="brand.id" v-for="brand in brands">
+                            <div class="d-flex justify-content-between">
+                                <div class="card-title font-weight-bold">
+                                    Merk
+                                </div>
+                                <div class="btn btn-sm btn-dark">Bewerken</div>
+                            </div>
+
+                            <div class="mb-2">
+                                <div class="form-check" :key="brand.id" v-for="brand in Brands">
                                     <input type="radio" :value="brand.id" v-model="product.brand_id" :id="`brand_${brand.id}`" class="form-check-input">
                                     <label :for="`brand_${brand.id}`" class="form-check-label">{{brand.name}}</label>
                                 </div>
 
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" v-model="new_brand">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-dark" @click="addBrand">Toevoegen</button>
-                                    </div>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -102,10 +98,16 @@
     import http from "../../http/http";
     import {CategoryMixin} from "../../mixins/CategoryMixin";
     import {BrandMixin} from "../../mixins/BrandMixin";
+    import EditBrands from "./Brands/EditBrands";
+
 
     export default {
-        name  : "Create",
-        mixins: [
+        name    : "Create",
+
+        components:{
+          EditBrands
+        },
+        mixins  : [
             CategoryMixin,
             BrandMixin
         ],
@@ -122,13 +124,32 @@
                 brands      : [],
                 categories  : [],
                 new_brand   : "",
-                new_category: ""
+                new_category: "",
+                upload      : {
+                    status        : 0,
+                    current_upload: 1
+                }
             }
         },
-
         computed: {
             ProductHasImages() {
                 return this.images.length > 0
+            },
+            AmountOfImages() {
+                if (this.ProductHasImages) {
+                    return this.images.length
+                }
+                return 0
+            },
+            UploadStatusText() {
+                switch (this.upload.status) {
+                    case 0:
+                        return "Afbeeldingen toevoegen"
+                    case 1:
+                        return `Afbeelding ${this.current_upload} van ${this.AmountOfImages}`
+                }
+
+                return "";
             }
         },
         methods : {
@@ -139,23 +160,26 @@
                         if (this.ProductHasImages) {
                             this.uploadImages(response.data.product.id)
                         }
+
                         this.$router.push("/products");
                     })
             },
             uploadImages(product_id) {
-                const formData = new FormData;
+                this.upload.status = 1
 
                 this.images.forEach((image, index) => {
-                    formData.append(`image[${index}]`, image)
+                    this.upload.current_upload = ++index
+
+                    const formData = new FormData;
+                    formData.append("image", image);
+                    formData.append("_method", "PATCH");
+
+                    http.post(`/product/${product_id}/media`, formData);
                 })
 
-                formData.append("_method", "PATCH");
 
-                http.post(`/product/${product_id}/media`, formData).catch(errors => {
-                    console.log(errors)
-                })
+                this.upload.status = 0
             },
-
             addBrand() {
                 http.post("/product/brands", {
                     "name": this.new_brand
@@ -187,10 +211,6 @@
                     this.images.push(image)
                 })
             }
-        },
-        created() {
-            this.getBrands();
-            this.getCategories();
         }
     }
 </script>

@@ -1,24 +1,22 @@
 <template>
     <div>
-        <div class="container-fluid bg-dark mb-3">
-            <div class="container">
-                <div class="row py-3">
+        <div class="container-fluid menu">
+                <div class="row">
                     <div class="col-12 d-flex">
-                        <ul class="nav nav-pills">
-                            <li class="nav-item"><router-link tag="a" class="nav-link text-white" active-class="active bg-light text-dark" to="/gallery">Gallery</router-link></li>
-                            <li class="nav-item"><router-link tag="a" class="nav-link text-white" active-class="active bg-light text-dark" to="/feedback">Feedback (wip)</router-link></li>
-                            <li class="nav-item"><router-link tag="a" class="nav-link text-white" active-class="active bg-light text-dark" to="/products">Products</router-link></li>
-                            <li class="nav-item"><router-link tag="a" class="nav-link text-white" active-class="active bg-light text-dark" to="/information">Information (wip)</router-link></li>
+                        <ul class="nav">
+                            <li class="nav-item"><router-link tag="a" class="nav-link" active-class="active" to="/inspiratie">Inspiratie</router-link></li>
+                            <li class="nav-item"><router-link tag="a" class="nav-link" active-class="active" to="/feedback">Feedback (wip)</router-link></li>
+                            <li class="nav-item"><router-link tag="a" class="nav-link" active-class="active" to="/products">Products</router-link></li>
+                            <li class="nav-item"><router-link tag="a" class="nav-link" active-class="active" to="/information">Information</router-link></li>
                         </ul>
                         <div class="ml-auto">
-                            <router-link tag="a" class="btn btn-dark mr-1" to="/information">Instellingen (wip)</router-link>
-                            <a class="btn btn-danger text-white" @click="logout">Logout</a>
+<!--                            <router-link tag="a" class="btn btn-dark mr-1" to="/information">Instellingen (wip)</router-link>-->
+                            <a class="nav-link" @click="logout">Logout</a>
                         </div>
                     </div>
                 </div>
             </div>
 
-        </div>
     </div>
 </template>
 

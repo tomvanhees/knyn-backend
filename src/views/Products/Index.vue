@@ -12,7 +12,7 @@
                         <div class="input-group">
                             <input type="text" class="form-control">
                             <div class="input-group-append">
-                                <button class="btn btn-primary">Zoeken (wip)</button>
+                                <button class="btn btn-dark">Zoeken (wip)</button>
                             </div>
                         </div>
                     </div>
@@ -26,8 +26,6 @@
                         <dl-product-index-card :key="product.id" :product="product" v-for="product in FilteredProducts"></dl-product-index-card>
                     </transition-group>
 
-
-
                 </div>
                 <div class="col-4">
                     <div class="card">
@@ -39,7 +37,7 @@
 <!--                            </div>-->
 
 
-                            <div class="form-check" :key="category.id" v-for="category in categories">
+                            <div class="form-check" :key="category.id" v-for="category in Categories">
                                 <input type="checkbox" :value="category.id" v-model="selected_categories" :id="`category_${category.id}`" class="form-check-input">
                                 <label :for="`category_${category.id}`" class="form-check-label">{{category.name}}</label>
                             </div>
@@ -52,7 +50,7 @@
                                 <label :for="`brand_0`" class="form-check-label">Geen merk</label>
                             </div>
 
-                            <div class="form-check" :key="brand.id" v-for="brand in brands">
+                            <div class="form-check" :key="brand.id" v-for="brand in Brands">
                                 <input type="checkbox" :value="brand.id" v-model="selected_brands" :id="`brand_${brand.id}`" class="form-check-input">
                                 <label :for="`brand_${brand.id}`" class="form-check-label">{{brand.name}}</label>
                             </div>
@@ -69,7 +67,7 @@
     import http from "../../http/http";
     import ProductIndexCard from "../../components/Products/ProductIndexCard";
     import {CategoryMixin} from "../../mixins/CategoryMixin";
-    import {BrandMixin} from "../../mixins/BrandMixin";
+import {BrandMixin} from "../../mixins/BrandMixin";
 
     export default {
         name      : "Products",
@@ -127,8 +125,6 @@
             }
         },
         created() {
-            this.getBrands();
-            this.getCategories();
             this.getProducts();
 
         }

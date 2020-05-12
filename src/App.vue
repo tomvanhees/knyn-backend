@@ -10,7 +10,7 @@
     </div>
 </template>
 <script>
-    import 'bootstrap/dist/css/bootstrap.min.css'
+   import "../src/styles/app.scss"
 
     export default {
         name: "container",

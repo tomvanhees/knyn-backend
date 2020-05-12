@@ -1,13 +1,13 @@
 <template>
     <div class="col-3 ">
         <div class="mb-4  position-relative">
-            <div class="card border-0">
-                <router-link :to="`/gallery/${gallery.id}/${gallery.slug}`">
-                    <img :src="gallery.cover" class="gallery-image" style="background-position: center center; background-size: cover" alt="" >
-                </router-link>
-            </div>
+            <router-link :to="`/inspiratie/${gallery.id}/${gallery.slug}`">
+                <div class="card border-0">
+                    <img :src="gallery.cover" class="gallery-image" style="background-position: center center; background-size: cover" alt="">
+                </div>
+            </router-link>
             <div class="position-absolute w-100" style="bottom: 50%">
-                <router-link :to="`/gallery/${gallery.id}/${gallery.slug}`">
+                <router-link :to="`/inspiratie/${gallery.id}/${gallery.slug}`">
                     <h5 class="card-title text-center">{{ gallery.name}}</h5>
                 </router-link>
             </div>
@@ -18,16 +18,14 @@
 
 <script>
     export default {
-        name : "GalleryIndexCard",
-        props: {
+        name   : "GalleryIndexCard",
+        props  : {
             gallery: {
                 type    : Object,
                 required: true
             }
         },
-        methods:{
-
-        }
+        methods: {}
     }
 </script>
 
@@ -35,9 +33,14 @@
     .card {
         width: 250px;
         height: 250px;
-        background: rgba(255, 255, 255, .1);
+        background: rgba(52, 58, 64, 1);
         filter: blur(1px) brightness(50%);
         transition: .5s;
+        border-radius: 25px;
+
+        img {
+            border-radius: 25px;
+        }
 
         &:hover {
             filter: blur(0);

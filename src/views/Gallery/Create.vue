@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1 class="page-title position-absolute">
-            {{ gallery.name}}
+            Inspiratie toevoegen
         </h1>
         <div class="container">
             <div class="row mb-5">
@@ -13,17 +13,13 @@
                                 <div class="input-group col-8">
                                     <input type="text" class="form-control" v-model="gallery.name">
                                     <div class="input-group-append">
-                                        <button class="btn btn-dark" @click="updateGallery">aanpassen</button>
+                                        <button class="btn btn-dark" @click="createGallery">aanmaken</button>
                                     </div>
                                 </div>
                             </div>
-                            <div class="form-group">
-                                <button class="btn btn-danger btn-block">Gallerij verwijderen (wip)</button>
-                            </div>
                         </div>
 
-
-                        <div class="card-body">
+                        <div class="card-body" v-if="gallery.id">
                             <div class="d-flex justify-content-center">
                                 <div class="add-item-component">
                                     <label for="image" @dragover.prevent @drop="onImageDrop">
@@ -54,11 +50,11 @@
                         </div>
 
 
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </template>
 
 <script>
@@ -68,7 +64,7 @@
 
 
     export default {
-        name      : "GalleryShow",
+        name      : "GalleryCreate",
         components: {
             "dl-gallery-image": GalleryImage
         },
@@ -79,23 +75,18 @@
             return {
                 id     : this.$route.params.id,
                 gallery: {
+                    id:"",
                     name : "",
                     media: []
                 },
             }
         },
         methods   : {
-            getGallery() {
-                http.get(`/gallery/${this.$route.params.id}`).then(response => {
-                    this.gallery = response.data;
-                })
-            },
-            updateGallery() {
-                http.post(`/gallery/${this.$route.params.id}`, {
-                    "name"   : this.gallery.name,
-                    "_method": "PATCH"
+            createGallery() {
+                http.post(`/gallery`, {
+                    "name": this.gallery.name,
                 }).then(response => {
-                    console.log(response.data)
+                    this.gallery = response.data
                 })
             },
             async uploadImage(image) {
@@ -103,7 +94,7 @@
                 formData.append(`image`, image)
                 formData.append("_method", "PATCH");
 
-                let result = await http.post(`/gallery/${this.$route.params.id}/media`, formData)
+                let result = await http.post(`/gallery/${this.gallery.id}/media`, formData)
                     .then((response) => {
                         this.gallery.media.push(response.data);
                     });
@@ -122,7 +113,6 @@
             }
         },
         created() {
-            this.getGallery();
         }
     }
 </script>

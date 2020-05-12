@@ -1,11 +1,13 @@
 <template>
     <div>
+        <h1>Informatie</h1>
+
         <div class="container">
             <div class="row">
                 <div class="col-8">
                     <div class="card mb-2">
-                        <div class="card-header bg-dark">
-                            <span class="text-white">Openinguren</span>
+                        <div class="card-header">
+                            <span class="card-header-text">Openinguren</span>
                         </div>
                         <div class="card-body">
                             <div class="form-group row">
@@ -51,51 +53,51 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="card mb-2">
-                        <div class="card-header bg-dark">
-                            <span class="text-white">Social media</span>
+                        <div class="card-header">
+                            <span class="card-header-text">Social media</span>
                         </div>
                         <div class="card-body">
-                            <div class="form-group row">
-                                <div class="col-10">
-                                    <label for="">Facebook</label>
-                                    <input type="text" class="form-control" v-model="information.social_media.facebook">
-                                </div>
-                                <div class="col-2">
-                                    <img :src="information.qr_codes.facebook" alt="" class="w-100">
+                            <div class="row mb-3">
+                                <div class="col-6">
+<!--                                    <div class="d-flex justify-content-center">-->
+<!--                                        <img :src="information.qr_codes.facebook" alt="" class="rounded w-50">-->
+<!--                                    </div>-->
+                                    <div>
+                                        <label for="">Facebook</label>
+                                        <input type="text" class="form-control" v-model="information.social_media.facebook">
+                                    </div>
                                 </div>
 
+                                <div class="col-6">
+<!--                                    <div>-->
+<!--                                        <img :src="information.qr_codes.instagram" alt="">-->
+<!--                                    </div>-->
+
+                                    <div>
+                                        <label for="">Instagram</label>
+                                        <input type="text" class="form-control" v-model="information.social_media.instagram">
+                                    </div>
+
+                                </div>
                             </div>
 
-                            <div class="form-group row">
-                                <div class="col-10">
-                                    <label for="">Instagram</label>
-                                    <input type="text" class="form-control" v-model="information.social_media.instagram">
-                                </div>
-                                <div class="col-2">
-                                    <img :src="information.qr_codes.instagram" alt="" class="w-100">
-                                </div>
+                            <div class="form-group">
+                                <button class="btn btn-dark" @click="update">Aanpassen</button>
                             </div>
+
                         </div>
                     </div>
                 </div>
                 <div class="col-4">
                     <div class="card mb-2">
-                        <div class="card-header bg-dark">
-                            <span class="text-white">Applicatiecode</span>
+                        <div class="card-header">
+                            <span class="card-header-text">Applicatiecode</span>
                         </div>
 
                         <div class="card-body">
                             <div class="form-group">
                                 <img :src="information.qr_codes.app" alt="" class="w-100">
                             </div>
-
-                        </div>
-                    </div>
-                    <div class="card">
-                        <div class="card-body">
-                            <button class="btn btn-dark" @click="update">Aanpassen</button>
                         </div>
                     </div>
 

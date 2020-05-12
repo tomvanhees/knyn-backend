@@ -8,7 +8,11 @@
 
 <script>
     export default {
-        name: "Product"
+        name: "Product",
+        created() {
+            this.$store.dispatch("brands/getBrands");
+            this.$store.dispatch("categories/getCategories");
+        }
     }
 </script>
 

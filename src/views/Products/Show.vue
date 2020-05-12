@@ -17,16 +17,25 @@
                                     </div>
                                     <div class="d-flex flex-wrap mw-100">
                                         <div :key="index" v-for="(image,index) in product.media" class="mr-1">
-                                            <div class="p-1 border rounded" :class="{'bg-dark' : index === active_image}">
-                                                <img :src="image.path" alt="" style="max-width: 50px" class="rounded" @click="active_image = index"></div>
+                                            <thumb :key="index" :image="image" :index="index" :active_image="active_image" v-on:set_active="setActiveImage"></thumb>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div>
-                                        <label for="" class="d-block bg-info p-5 text-center" @dragover.prevent @drop="onImageDrop">
-                                            <input type="file" ref="images" style="position: absolute; opacity: 0" multiple @change="onImageChange">
-                                            <span class="text-white">Afbeeldingen toevoegen</span>
+                                        <label for="upload" class="d-block bg-info p-5 text-center" @dragover.prevent @drop="onImageDrop">
+                                            <input id="upload" type="file" style="opacity: 0; position: absolute" multiple @change="onImageChange">
+                                            <div v-if="uploading.is_uploading">
+                                                <div>
+                                                    <span class="text-white">Uploading bestand: {{ uploading.uploading_index}} / {{ uploading.uploading_total}}</span>
+                                                </div>
+                                                <div class="progress">
+                                                    <div class="progress-bar progress-bar-animated" :style="ProgressbarProgression"></div>
+                                                </div>
+                                            </div>
+                                            <div v-else>
+                                                <span class="text-white">Afbeeldingen toevoegen</span>
+                                            </div>
                                         </label>
                                     </div>
                                 </div>
@@ -47,7 +56,6 @@
                                 <label for="">Prijs</label>
                                 <input type="text" class="form-control" v-model="product.price">
                             </div>
-
                             <div class="form-group">
                                 <button class="btn btn-dark" @click="updateProduct">Aanpassen</button>
                             </div>
@@ -58,9 +66,12 @@
                 <div class="col-4">
                     <div class="card">
                         <div class="card-body">
-                            <div class="card-title font-weight-bold">
-                                Categorie
+                            <div class="d-flex justify-content-between">
+                                <div class="card-title font-weight-bold">
+                                    Categorie
+                                </div>
                             </div>
+
                             <div class="mb-2">
                                 <div class="form-check" :key="category.id" v-for="category in categories">
                                     <input type="checkbox" :value="category" v-model="product.categories" :id="`category_${category.id}`" class="form-check-input">
@@ -92,12 +103,19 @@
     import http from "../../http/http";
     import {CategoryMixin} from "../../mixins/CategoryMixin";
     import {BrandMixin} from "../../mixins/BrandMixin";
+    import {UploadStatusMixin} from "../../mixins/UploadStatusMixin";
+
+    import thumb from "../../components/Products/Thumb"
 
     export default {
         name    : "Show",
+        components:{
+          thumb
+        },
         mixins  : [
             CategoryMixin,
-            BrandMixin
+            BrandMixin,
+            UploadStatusMixin
         ],
         data() {
             return {
@@ -116,7 +134,7 @@
                     return "";
                 }
 
-                return this.product.media[this.active_image].path
+                return this.product.media[this.active_image].display
             }
         },
         methods : {
@@ -137,20 +155,21 @@
 
                 })
             },
-            addImage(fileList) {
+            setActiveImage(value){
+                this.active_image = value
+            },
 
+            async uploadImage(image) {
                 const formData = new FormData;
+                formData.append(`image`, image)
+                formData.append("_method", "PATCH");
 
-                fileList.forEach((file, index) => {
-                    formData.append(`image[${index}]`, file);
-                })
+                let result = await http.post(`/product/${this.product.id}/media`, formData)
+                    .then((response) => {
+                        this.product.media.push(response.data);
+                    });
 
-                formData.append("_method", "PATCH")
-                http.post(`/product/${this.product.id}/media`, formData).then(response => {
-                    this.product.media = response.data;
-                })
-
-
+                return result;
             },
             removeImage() {
                 http.post(`/product/${this.product.id}/media/${this.product.media[this.active_image].id}`, {
@@ -165,15 +184,6 @@
                     }
                 })
             },
-            onImageDrop(event) {
-                event.preventDefault();
-                event.stopPropagation();
-
-                this.addImage(event.dataTransfer.files)
-            },
-            onImageChange() {
-                this.addImage(this.$refs.images.files)
-            }
         },
         created() {
             this.getProduct();
@@ -183,6 +193,5 @@
     }
 </script>
 
-<style scoped>
-
+<style lang="scss" scoped>
 </style>
