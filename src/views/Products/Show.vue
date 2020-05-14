@@ -1,42 +1,42 @@
 <template>
     <div>
+        <h1>{{product.name}}</h1>
+
+
         <div class="container">
             <div class="row">
                 <div class="col-8">
                     <div class="card">
                         <div class="card-body">
                             <div class="row">
+                                <div class="col-12 mt-1 mb-4">
+                                    <div class="d-flex justify-content-center" @dragover.prevent @drop="onImageDrop">
+                                        <label for="images" class="add-inspiration">
+                                            <span class="">+</span>
+                                            <input type="file" id="images" ref="images" style="position: absolute; opacity: 0" multiple @change="onImageChange">
+
+
+                                            <div class="loading" :style="ProgressbarProgression"></div>
+                                        </label>
+                                    </div>
+                                </div>
+
                                 <div class="col-8">
                                     <div class="mb-3">
                                         <div class="position-relative">
                                             <img :src="ActiveImage" alt="" class="mw-100 rounded">
                                             <div class="position-absolute" style="top:0; right: 0" v-show="!ProductHasNoMedia">
-                                                <button class="btn btn-sm  btn-danger" @click="removeImage">X</button>
+                                                <button class="btn btn-sm btn-outline-delete" @click="removeImage"><span>x</span></button>
                                             </div>
                                         </div>
                                     </div>
+
+                                </div>
+                                <div class="col-4">
                                     <div class="d-flex flex-wrap mw-100">
                                         <div :key="index" v-for="(image,index) in product.media" class="mr-1">
                                             <thumb :key="index" :image="image" :index="index" :active_image="active_image" v-on:set_active="setActiveImage"></thumb>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="col-4">
-                                    <div>
-                                        <label for="upload" class="d-block bg-info p-5 text-center" @dragover.prevent @drop="onImageDrop">
-                                            <input id="upload" type="file" style="opacity: 0; position: absolute" multiple @change="onImageChange">
-                                            <div v-if="uploading.is_uploading">
-                                                <div>
-                                                    <span class="text-white">Uploading bestand: {{ uploading.uploading_index}} / {{ uploading.uploading_total}}</span>
-                                                </div>
-                                                <div class="progress">
-                                                    <div class="progress-bar progress-bar-animated" :style="ProgressbarProgression"></div>
-                                                </div>
-                                            </div>
-                                            <div v-else>
-                                                <span class="text-white">Afbeeldingen toevoegen</span>
-                                            </div>
-                                        </label>
                                     </div>
                                 </div>
                             </div>
@@ -56,8 +56,9 @@
                                 <label for="">Prijs</label>
                                 <input type="text" class="form-control" v-model="product.price">
                             </div>
-                            <div class="form-group">
-                                <button class="btn btn-dark" @click="updateProduct">Aanpassen</button>
+                            <div class="form-group d-flex justify-content-between">
+                                <button class="btn btn-outline-primary" @click="updateProduct">Aanpassen</button>
+                                <button class="btn btn-outline-danger" @click="deleteProduct">Verwijderen</button>
                             </div>
                         </div>
                     </div>
@@ -73,7 +74,7 @@
                             </div>
 
                             <div class="mb-2">
-                                <div class="form-check" :key="category.id" v-for="category in categories">
+                                <div class="form-check" :key="category.id" v-for="category in Categories">
                                     <input type="checkbox" :value="category" v-model="product.categories" :id="`category_${category.id}`" class="form-check-input">
                                     <label :for="`category_${category.id}`" class="form-check-label">{{category.name}}</label>
                                 </div>
@@ -85,7 +86,7 @@
                                 Merk
                             </div>
                             <div class="mb-2">
-                                <div class="form-check" :key="brand.id" v-for="brand in brands">
+                                <div class="form-check" :key="brand.id" v-for="brand in Brands">
                                     <input type="radio" :value="brand" v-model="product.brand" :id="`brand_${brand.id}`" class="form-check-input">
                                     <label :for="`brand_${brand.id}`" class="form-check-label">{{brand.name}}</label>
                                 </div>
@@ -108,11 +109,11 @@
     import thumb from "../../components/Products/Thumb"
 
     export default {
-        name    : "Show",
-        components:{
-          thumb
+        name      : "Show",
+        components: {
+            thumb
         },
-        mixins  : [
+        mixins    : [
             CategoryMixin,
             BrandMixin,
             UploadStatusMixin
@@ -125,7 +126,7 @@
                 active_image: 0
             }
         },
-        computed: {
+        computed  : {
             ProductHasNoMedia() {
                 return this.product.media.length === 0;
             },
@@ -137,7 +138,7 @@
                 return this.product.media[this.active_image].display
             }
         },
-        methods : {
+        methods   : {
             getProduct() {
                 http.get(`/product/${this.$route.params.id}`).then(response => {
                     this.product = response.data;
@@ -155,7 +156,15 @@
 
                 })
             },
-            setActiveImage(value){
+            deleteProduct() {
+                http.post(`/product/${this.product.id}`, {
+                    "_method": "DELETE"
+                }).then(() => {
+                    this.$router.push("/products")
+                })
+            },
+
+            setActiveImage(value) {
                 this.active_image = value
             },
 

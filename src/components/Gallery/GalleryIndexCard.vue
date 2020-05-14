@@ -6,6 +6,7 @@
                     <img :src="gallery.cover" class="gallery-image" style="background-position: center center; background-size: cover" alt="">
                 </div>
             </router-link>
+
             <div class="position-absolute w-100" style="bottom: 50%">
                 <router-link :to="`/inspiratie/${gallery.id}/${gallery.slug}`">
                     <h5 class="card-title text-center">{{ gallery.name}}</h5>

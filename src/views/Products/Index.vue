@@ -1,50 +1,54 @@
 <template>
     <div>
-        <div class="container">
-            <div class="row my-4">
-                <div class="col-8">
-                    <div>
-                        <router-link tag="a" class="btn btn-dark" to="/products/create">Product toevoegen</router-link>
-                    </div>
-                </div>
-                <div class="col-4">
-                    <div>
-                        <div class="input-group">
-                            <input type="text" class="form-control">
-                            <div class="input-group-append">
-                                <button class="btn btn-dark">Zoeken (wip)</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <h1>Producten</h1>
 
+        <div class="container">
             <div class="row">
-                <div class="col-8 d-flex flex-wrap">
+                <div class="col-9 ">
+
+                  <div class="d-flex justify-content-center mb-5">
+                      <router-link :to="`/products/create`">
+                          <div class="add-inspiration">
+                              <span>+</span>
+                          </div>
+                      </router-link>
+                  </div>
+
+
+
 
                     <transition-group name="component-fade" mode="out-in" class="d-flex flex-wrap">
                         <dl-product-index-card :key="product.id" :product="product" v-for="product in FilteredProducts"></dl-product-index-card>
                     </transition-group>
 
+
                 </div>
-                <div class="col-4">
+                <div class="col-3">
+                    <!--                    <div class="input-group">-->
+                    <!--                        <input type="text" class="form-control">-->
+                    <!--                        <div class="input-group-append">-->
+                    <!--                            <button class="btn btn-outline-primary">Zoeken (wip)</button>-->
+                    <!--                        </div>-->
+                    <!--                    </div>-->
+
+
                     <div class="card">
+                        <div class="card-header">
+                            <span class="card-header-text">Categorieën</span>
+                        </div>
                         <div class="card-body">
-                            <div class="card-title font-weight-bold">Categorieën</div>
-<!--                            <div class="form-check">-->
-<!--                                <input type="checkbox" :value="0" v-model="selected_categories" :id="`category_0`" class="form-check-input">-->
-<!--                                <label :for="`category_0`" class="form-check-label">Geen categorie</label>-->
-<!--                            </div>-->
-
-
                             <div class="form-check" :key="category.id" v-for="category in Categories">
                                 <input type="checkbox" :value="category.id" v-model="selected_categories" :id="`category_${category.id}`" class="form-check-input">
                                 <label :for="`category_${category.id}`" class="form-check-label">{{category.name}}</label>
                             </div>
                         </div>
 
+                        <div class="card-header">
+                            <div class="card-header-text">
+                                Merken
+                            </div>
+                        </div>
                         <div class="card-body">
-                            <div class="card-title font-weight-bold">Merken</div>
                             <div class="form-check">
                                 <input type="checkbox" :value="0" v-model="selected_brands" :id="`brand_0`" class="form-check-input">
                                 <label :for="`brand_0`" class="form-check-label">Geen merk</label>
@@ -58,6 +62,8 @@
                     </div>
 
                 </div>
+
+
             </div>
         </div>
     </div>
@@ -67,7 +73,7 @@
     import http from "../../http/http";
     import ProductIndexCard from "../../components/Products/ProductIndexCard";
     import {CategoryMixin} from "../../mixins/CategoryMixin";
-import {BrandMixin} from "../../mixins/BrandMixin";
+    import {BrandMixin} from "../../mixins/BrandMixin";
 
     export default {
         name      : "Products",
@@ -80,7 +86,7 @@ import {BrandMixin} from "../../mixins/BrandMixin";
         ],
         data() {
             return {
-                products: [],
+                products           : [],
                 selected_brands    : [],
                 selected_categories: [],
             }

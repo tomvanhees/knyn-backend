@@ -4,14 +4,14 @@ export const UploadStatusMixin = {
             uploading: {
                 is_uploading   : false,
                 uploading_index: 0,
-                uploading_total: 0,
+                uploading_total: 1,
             }
         }
     },
     computed: {
         ProgressbarProgression() {
             return {
-                width: Math.ceil((this.uploading.uploading_index / this.uploading.uploading_total) * 100) + "%",
+                top:  100 - (Math.ceil((this.uploading.uploading_index / this.uploading.uploading_total) * 100))  + "%",
             }
         }
     },
@@ -43,7 +43,7 @@ export const UploadStatusMixin = {
             }
 
             this.setUploadingIndex(0);
-            this.setUploadingTotal(0)
+            this.setUploadingTotal(1)
             this.setUploadingStatus(false)
         },
     }

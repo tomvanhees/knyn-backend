@@ -1,6 +1,6 @@
 <template>
     <div>
-        <h1 class="page-title position-absolute">
+        <h1>
             {{ gallery.name}}
         </h1>
         <div class="container">
@@ -8,41 +8,27 @@
                 <div class="col-12">
                     <div class="card">
                         <div class="card-body d-flex justify-content-between">
-                            <div class="form-group row">
-                                <label for="" class="d-inline-block col-4">Inspiratie naam</label>
-                                <div class="input-group col-8">
+                            <div class="form-group">
+                                <div class="input-group">
                                     <input type="text" class="form-control" v-model="gallery.name">
                                     <div class="input-group-append">
-                                        <button class="btn btn-dark" @click="updateGallery">aanpassen</button>
+                                        <button class="btn btn-outline-primary" @click="updateGallery">aanpassen</button>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
-                                <button class="btn btn-danger btn-block">Gallerij verwijderen (wip)</button>
+                                <button class="btn btn-outline-danger btn-block" @click="deleteGallery">Gallerij verwijderen</button>
                             </div>
                         </div>
 
 
                         <div class="card-body">
                             <div class="d-flex justify-content-center">
-                                <div class="add-item-component">
-                                    <label for="image" @dragover.prevent @drop="onImageDrop">
-                                        <input id="image" ref="upload" type="file" style="opacity: 0; position: absolute" multiple @change="onImageChange">
-
-                                        <div v-if="uploading.is_uploading">
-
-                                            <span>{{ uploading.uploading_index}} / {{ uploading.uploading_total}}</span>
-
-                                            <!--                                                <div class="progress">-->
-                                            <!--                                                    <div class="progress-bar progress-bar-animated" :style="ProgressbarProgression"></div>-->
-                                            <!--                                                </div>-->
-                                        </div>
-
-                                        <div v-else>
-                                            <span>+</span>
-                                        </div>
-                                    </label>
-                                </div>
+                                <label class="add-inspiration" for="image" @dragover.prevent @drop="onImageDrop">
+                                    <span>+</span>
+                                    <input id="image" ref="upload" type="file" style="opacity: 0; position: absolute" multiple @change="onImageChange">
+                                    <div class="loading" :style="ProgressbarProgression"></div>
+                                </label>
                             </div>
                         </div>
 
@@ -54,11 +40,11 @@
                         </div>
 
 
-                        </div>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
 </template>
 
 <script>
@@ -91,11 +77,18 @@
                 })
             },
             updateGallery() {
-                http.post(`/gallery/${this.$route.params.id}`, {
+                http.post(`/gallery/${this.gallery.id}`, {
                     "name"   : this.gallery.name,
                     "_method": "PATCH"
                 }).then(response => {
                     console.log(response.data)
+                })
+            },
+            deleteGallery() {
+                http.post(`/gallery/${this.gallery.id}`, {
+                    "_method": "DELETE"
+                }).then(() => {
+                    this.$router.push("/inspiratie");
                 })
             },
             async uploadImage(image) {

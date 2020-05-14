@@ -3,6 +3,17 @@
   background-color: #f6f6f6;
 }
 
+.card-floating {
+  min-width: 500px;
+  width: 50%;
+  max-width: 600px;
+
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%);
+}
+
 
 .card-header {
   background-color: #eeeff0;
@@ -16,6 +27,7 @@
 
   .card-header-text {
     color: $black;
+    font-size: 18px;
   }
 
 

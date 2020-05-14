@@ -1,0 +1,49 @@
+.btn{
+  border-radius: $border-radius;
+}
+
+.form-control{
+  border-radius: $border-radius;
+  border-color: $secondary-font-color;
+}
+
+.btn-outline-primary{
+  color: $primary-font-color;
+  border-color: $secondary-font-color;
+
+  &:hover{
+    color: $primary-font-color;
+    border-color: $secondary-font-color;
+    background-color: rgba(238, 239, 240, 1);
+  }
+}
+
+
+.btn-outline-delete{
+  position: relative;
+
+ color: $primary-font-color;
+  border-color: rgba(238, 239, 240, .75);
+  background-color: rgba(238, 239, 240, .75);
+
+  padding: 10px;
+
+  span{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    color: $primary-font-color;
+  }
+
+
+  &:hover{
+    background-color: #dc3545;
+    border-color: #dc3545;
+
+    span{
+      color: #fff;
+    }
+  }
+}

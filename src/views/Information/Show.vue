@@ -53,57 +53,51 @@
                                 </div>
                             </div>
                         </div>
+
                         <div class="card-header">
                             <span class="card-header-text">Social media</span>
                         </div>
                         <div class="card-body">
-                            <div class="row mb-3">
-                                <div class="col-6">
-<!--                                    <div class="d-flex justify-content-center">-->
-<!--                                        <img :src="information.qr_codes.facebook" alt="" class="rounded w-50">-->
-<!--                                    </div>-->
-                                    <div>
-                                        <label for="">Facebook</label>
-                                        <input type="text" class="form-control" v-model="information.social_media.facebook">
-                                    </div>
+                            <div class="form-group row">
+                                <label for="" class="col-3">Facebook</label>
+                                <div class="col-9">
+                                    <input type="text" class="form-control" v-model="information.social_media.facebook">
                                 </div>
-
-                                <div class="col-6">
-<!--                                    <div>-->
-<!--                                        <img :src="information.qr_codes.instagram" alt="">-->
-<!--                                    </div>-->
-
-                                    <div>
-                                        <label for="">Instagram</label>
-                                        <input type="text" class="form-control" v-model="information.social_media.instagram">
-                                    </div>
-
+                            </div>
+                            <div class="form-group row">
+                                <label for="" class="col-3">Instagram</label>
+                                <div class="col-9">
+                                    <input type="text" class="form-control" v-model="information.social_media.instagram">
                                 </div>
                             </div>
 
+
                             <div class="form-group">
-                                <button class="btn btn-dark" @click="update">Aanpassen</button>
+                                <button class="btn btn-outline-primary" @click="update">Aanpassen</button>
                             </div>
 
                         </div>
                     </div>
+
+
+
                 </div>
-                <div class="col-4">
-                    <div class="card mb-2">
-                        <div class="card-header">
-                            <span class="card-header-text">Applicatiecode</span>
-                        </div>
 
-                        <div class="card-body">
-                            <div class="form-group">
-                                <img :src="information.qr_codes.app" alt="" class="w-100">
-                            </div>
-                        </div>
+        <div class="col-4">
+            <div class="card mb-2">
+                <div class="card-header">
+                    <span class="card-header-text">Applicatiecode</span>
+                </div>
+
+                <div class="card-body">
+                    <div class="form-group">
+                        <img :src="information.qr_codes.app" alt="" class="w-100">
                     </div>
-
                 </div>
             </div>
         </div>
+        </div>
+    </div>
     </div>
 </template>
 

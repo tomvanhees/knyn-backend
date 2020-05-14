@@ -4,7 +4,7 @@
 
         <router-view name="menu"/>
         <transition name="component-fade" mode="out-in">
-            <router-view :key="$router.fullPath"/>
+            <router-view :key="$router.fullPath" class="main-container"/>
         </transition>
 
     </div>

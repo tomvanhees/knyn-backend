@@ -1,33 +1,20 @@
 <template>
     <div>
         <h1>Inspiratie</h1>
-
         <div class="container">
-<!--            <div class="row">-->
-<!--                <div class="col-12">-->
-<!--                    <div class="form-group">-->
-<!--                        <div class="input-group">-->
-<!--                            <input type="text" class="form-control" v-model="gallery.name">-->
-<!--                            <div class="input-group-append">-->
-<!--                                <button class="btn btn-dark" @click="createGallery">gallerij aanmaken</button>-->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    </div>-->
-
-<!--                </div>-->
-<!--            </div>-->
-
-            <div class="row">
-                <div class="col-3">
-
+            <div class="row mb-5">
+                <div class="col-12 d-flex justify-content-center">
                     <router-link :to="`/inspiratie/create`">
-                    <div class="add-inspiration">
+                        <div class="add-inspiration">
                             <span>+</span>
-                    </div>
+                        </div>
                     </router-link>
                 </div>
-                <dl-gallery-index-card :gallery="gallery" :key="gallery.id" v-for="gallery in galleries"></dl-gallery-index-card>
+            </div>
 
+
+            <div class="row">
+                <dl-gallery-index-card :gallery="gallery" :key="gallery.id" v-for="gallery in galleries"></dl-gallery-index-card>
 
             </div>
         </div>
