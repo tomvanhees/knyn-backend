@@ -2,21 +2,33 @@
     <div>
         <h1>Inspiratie</h1>
         <div class="container">
-            <div class="row mb-5">
-                <div class="col-12 d-flex justify-content-center">
-                    <router-link :to="`/inspiratie/create`">
-                        <div class="add-inspiration">
-                            <span>+</span>
+            <div class="row ">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-12 d-flex justify-content-center my-3">
+                                    <router-link :to="`/inspiratie/create`">
+                                        <div class="large-add-button">
+                                            <span>+</span>
+                                        </div>
+                                    </router-link>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <dl-gallery-index-card :gallery="gallery" :key="gallery.id" v-for="gallery in galleries"></dl-gallery-index-card>
+                            </div>
+
                         </div>
-                    </router-link>
+                    </div>
                 </div>
+
+
             </div>
 
 
-            <div class="row">
-                <dl-gallery-index-card :gallery="gallery" :key="gallery.id" v-for="gallery in galleries"></dl-gallery-index-card>
 
-            </div>
         </div>
     </div>
 </template>

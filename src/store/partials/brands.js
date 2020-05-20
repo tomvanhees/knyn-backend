@@ -24,7 +24,12 @@ export const brands = {
             })
         },
         addBrand   : ({commit}, value) => {
-            commit("addBrand", value)
+            http.post("/product/brands", {
+                "name": value
+            }).then(response => {
+              commit("addBrand", response.data)
+
+            })
         },
         deleteBrand: ({commit}, brand) => {
             http.post(`product/brands/${brand.id}`, {

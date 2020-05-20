@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="d-flex justify-content-center" @click="setShow(true)">
-            <div class="add-category">
+            <div class="small-add-button">
                 <span>+</span>
             </div>
         </div>
@@ -56,7 +56,6 @@
 </template>
 
 <script>
-    import http from "../../../http/http";
     import {CategoryMixin} from "../../../mixins/CategoryMixin";
 
     export default {
@@ -73,12 +72,7 @@
                 this.show = value
             },
             addCategory() {
-                http.post("/product/categories", {
-                    "name": this.new_category
-                }).then(response => {
-                    this.$store.dispatch("categories/addCategory", response.data)
-
-                })
+               this.$store.dispatch("categories/addCategory", this.new_category)
 
                 this.new_category = "";
             }

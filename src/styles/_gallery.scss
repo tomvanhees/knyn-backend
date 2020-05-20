@@ -1,38 +1,4 @@
-.add-inspiration {
-  border-radius: 50%;
-  background-color: rgba(238, 239, 240, 1);
-  width: 150px;
-  height: 150px;
-  position: relative;
-  cursor: pointer;
-  overflow: hidden;
-  z-index: 50;
 
-  .loading{
-    width: 150px;
-    height: 150px;
-    background-color: rgba(192,192,192,.5);
-    position: absolute;
-    top: 0%;
-  }
-
-
-  &:hover {
-    background-color: rgba(238, 239, 240, .5);
-  }
-
-  span {
-    display: block;
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    font-size: 80px;
-    text-decoration: none;
-    color: $secondary-font-color;
-    z-index: 50;
-  }
-}
 
 .add-item-component {
   border-radius: 50%;

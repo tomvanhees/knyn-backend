@@ -10,7 +10,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="d-flex justify-content-center" @dragover.prevent @drop="onImageDrop">
-                                        <label for="images" class="add-inspiration">
+                                        <label for="images" class="large-add-button">
                                             <span class="">+</span>
                                             <input type="file" id="images" ref="images" style="position: absolute; opacity: 0" multiple @change="onImageChange">
 

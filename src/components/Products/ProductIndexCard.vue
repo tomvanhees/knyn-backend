@@ -1,5 +1,5 @@
 <template>
-    <div class="card m-2" style="width: 380px;">
+    <div class="product-index-card m-2">
         <router-link :to="`/products/${product.id}/${product.slug}`" style="text-decoration: none">
             <div class="d-flex">
                 <div>

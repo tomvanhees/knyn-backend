@@ -24,7 +24,7 @@
 
                         <div class="card-body">
                             <div class="d-flex justify-content-center">
-                                <label class="add-inspiration" for="image" @dragover.prevent @drop="onImageDrop">
+                                <label class="large-add-button" for="image" @dragover.prevent @drop="onImageDrop">
                                     <span>+</span>
                                     <input id="image" ref="upload" type="file" style="opacity: 0; position: absolute" multiple @change="onImageChange">
                                     <div class="loading" :style="ProgressbarProgression"></div>
@@ -122,6 +122,7 @@
 
 <style lang="scss" scoped>
     .image-container {
-        columns: 4 250px;
+        column-count: 3;
+        column-width: 250px;
     }
 </style>

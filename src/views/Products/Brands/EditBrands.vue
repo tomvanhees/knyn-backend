@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="d-flex justify-content-center">
-            <div class="add-category" @click="setShow(true)">
+            <div class="small-add-button" @click="setShow(true)">
                 <span>+</span>
             </div>
         </div>
@@ -9,7 +9,7 @@
 
         <transition name="component-fade" mode="out-in">
 
-        <div class="cover" v-if="show">
+        <div class="cover" v-if="show">git p
             <div class="card card-floating">
                 <div class="card-header">
                     <div class="card-header-text">
@@ -59,7 +59,6 @@
 
 <script>
     import {BrandMixin} from "../../../mixins/BrandMixin";
-    import http from "../../../http/http";
 
     export default {
         name  : "EditBrands",
@@ -78,13 +77,7 @@
                 this.show = value
             },
             addBrand(){
-                http.post("/product/brands", {
-                    "name": this.new_brand
-                }).then(response => {
-                    this.$store.dispatch("brands/addBrand", response.data)
-
-                })
-
+                this.$store.dispatch("brands/addBrand", this.new_brand)
                 this.new_brand = "";
             }
         }

@@ -1,6 +1,6 @@
 <template>
     <div class="col-3 ">
-        <div class="mb-4  position-relative">
+        <div class="mb-4 position-relative">
             <router-link :to="`/inspiratie/${gallery.id}/${gallery.slug}`">
                 <div class="card border-0">
                     <img :src="gallery.cover" class="gallery-image" style="background-position: center center; background-size: cover" alt="">

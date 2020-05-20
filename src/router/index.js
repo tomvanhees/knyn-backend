@@ -7,12 +7,14 @@ import store from "../store/index";
 import Menu from "../components/Menu";
 import {products} from "./components/products"
 import {gallery} from "./components/gallery"
+import {feedback} from "./components/feedback";
 
 Vue.use(VueRouter)
 
 const routes = [
     products,
     gallery,
+    feedback,
     {
         path     : '/signin',
         name     : 'SignIn',
@@ -39,10 +41,10 @@ const routes = [
         }
     },
     {
-        path      : '/feedback',
-        name      : 'Feedback',
+        path      : '/information',
+        name      : 'Information',
         components: {
-            default: () => import('../views/Feedback/Feedback'),
+            default: () => import('../views/Information/Show'),
             menu   : Menu
         },
         beforeEnter(to, from, next) {
@@ -53,12 +55,11 @@ const routes = [
             }
         }
     },
-
     {
-        path      : '/information',
-        name      : 'Information',
+        path      : '/statistics',
+        name      : 'Statistics',
         components: {
-            default: () => import('../views/Information/Show'),
+            default: () => import('../views/Statistics/Index'),
             menu   : Menu
         },
         beforeEnter(to, from, next) {

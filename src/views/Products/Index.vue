@@ -6,21 +6,24 @@
             <div class="row">
                 <div class="col-9 ">
 
-                  <div class="d-flex justify-content-center mb-5">
-                      <router-link :to="`/products/create`">
-                          <div class="add-inspiration">
-                              <span>+</span>
-                          </div>
-                      </router-link>
-                  </div>
+                    <div class="card">
+                        <div class="card-body">
+
+                            <div class="d-flex justify-content-center my-3">
+                                <router-link :to="`/products/create`">
+                                    <div class="large-add-button">
+                                        <span>+</span>
+                                    </div>
+                                </router-link>
+                            </div>
+
+                            <transition-group name="component-fade" mode="out-in" class="d-flex flex-wrap">
+                                <dl-product-index-card :key="product.id" :product="product" v-for="product in FilteredProducts"></dl-product-index-card>
+                            </transition-group>
 
 
-
-
-                    <transition-group name="component-fade" mode="out-in" class="d-flex flex-wrap">
-                        <dl-product-index-card :key="product.id" :product="product" v-for="product in FilteredProducts"></dl-product-index-card>
-                    </transition-group>
-
+                        </div>
+                    </div>
 
                 </div>
                 <div class="col-3">

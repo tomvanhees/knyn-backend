@@ -1,6 +1,13 @@
 .card {
   border-radius: $border-radius;
   background-color: #f6f6f6;
+  position: relative;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  border: 1px solid rgba(0, 0, 0, 0.125);
+  display: inline-block;
+  width: 100%;
 }
 
 .card-floating {
@@ -31,4 +38,18 @@
   }
 
 
+}
+
+
+.product-index-card {
+  @extend .card;
+
+  width: 375px;
+  background-color: #fefefe;
+
+  transition: .2s ease-in-out;
+
+  &:hover{
+    background-color: $lightblue;
+  }
 }
