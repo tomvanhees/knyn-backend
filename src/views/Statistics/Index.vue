@@ -2,7 +2,7 @@
     <div>
         <div class="container">
             <div class="row">
-                <div class="col-6" :key="statistic.id" v-for="statistic in this.statistics">
+                <div class="col-4 mb-3" :key="statistic.id" v-for="statistic in this.statistics">
                     <div class="card">
                         <div class="card-header">
                             <div class="card-header-text">{{ statistic.question}}</div>
@@ -36,8 +36,9 @@
                 statistics: [],
                 options:{
                     legend:{
-                        position: 'right',
-                        align: 'start'
+                        display:true,
+                        position: 'bottom',
+                        align: 'center'
                     }
                 }
             }

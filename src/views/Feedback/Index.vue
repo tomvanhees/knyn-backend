@@ -28,7 +28,9 @@
 
                         <div class="row pt-3 my-3">
                             <div class="col-6 d-flex justify-content-center">
-                                <button class="btn  btn-outline-primary">Bekijk antwoorden</button>
+
+                                <router-link tag="button" to="/feedback/answers" class="btn btn-outline-primary">Bekijk antwoorden</router-link>
+
                             </div>
                             <div class="col-6 d-flex justify-content-center">
                                 <router-link tag="button" to="/statistics" class="btn btn-outline-primary">Bekijk statistieken</router-link>

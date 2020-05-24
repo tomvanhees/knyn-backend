@@ -20,10 +20,19 @@ export const feedback = {
             component: () => import('../../views/Feedback/Create')
         },
         {
+            path      : 'answers',
+            name      : 'Answers',
+            components: {
+                default: () => import('../../views/Feedback/Answers/Index'),
+                menu   : Menu
+            }
+        },
+        {
             path     : ':id',
             name     : "FeedbackShow",
             component: () => import('../../views/Feedback/Show')
-        }
+        },
+
 
     ],
     beforeEnter(to, from, next) {
