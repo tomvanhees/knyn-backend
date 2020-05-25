@@ -4,20 +4,21 @@
 
         <router-view name="menu"/>
         <transition name="component-fade" mode="out-in">
-            <router-view :key="$router.fullPath" class="main-container"/>
+            <router-view :key="$router.fullPath"/>
         </transition>
 
     </div>
 </template>
-<script>
-   import "../src/styles/app.scss"
+<script lang="ts">
+    import Vue from 'vue';
+    import "../src/styles/app.scss"
 
-    export default {
-        name: "container",
-        created() {
+    export default Vue.extend({
+                                  name: "App",
+                                  created() {
             this.$store.dispatch("authentication/tryAutologin")
         }
-    }
+                              });
 </script>
 <style lang="scss">
     .component-fade-enter-active, .component-fade-leave-active {
@@ -30,5 +31,3 @@
         opacity: 0;
     }
 </style>
-
-

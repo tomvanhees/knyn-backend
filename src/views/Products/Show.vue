@@ -10,13 +10,11 @@
                         <div class="card-body">
                             <div class="row">
                                 <div class="col-12 mt-1 mb-4">
-                                    <div class="d-flex justify-content-center" @dragover.prevent @drop="onImageDrop">
-                                        <label for="images" class="large-add-button">
+                                    <div @dragover.prevent @drop="onImageDrop" class="d-flex justify-content-center">
+                                        <label class="large-add-button" for="images">
                                             <span class="">+</span>
-                                            <input type="file" id="images" ref="images" style="position: absolute; opacity: 0" multiple @change="onImageChange">
-
-
-                                            <div class="loading" :style="ProgressbarProgression"></div>
+                                            <input @change="onImageChange" id="images" multiple ref="images" style="position: absolute; opacity: 0" type="file">
+                                            <div :style="ProgressbarProgression" class="loading"></div>
                                         </label>
                                     </div>
                                 </div>
@@ -26,7 +24,7 @@
                                         <div class="position-relative">
                                             <img :src="ActiveImage" alt="" class="mw-100 rounded">
                                             <div class="position-absolute" style="top:0; right: 0" v-show="!ProductHasNoMedia">
-                                                <button class="btn btn-sm btn-outline-delete" @click="removeImage"><span>x</span></button>
+                                                <button @click="removeImage" class="btn btn-sm btn-outline-delete"><span>x</span></button>
                                             </div>
                                         </div>
                                     </div>
@@ -34,8 +32,8 @@
                                 </div>
                                 <div class="col-4">
                                     <div class="d-flex flex-wrap mw-100">
-                                        <div :key="index" v-for="(image,index) in product.media" class="mr-1">
-                                            <thumb :key="index" :image="image" :index="index" :active_image="active_image" v-on:set_active="setActiveImage"></thumb>
+                                        <div :key="index" class="mr-1" v-for="(image,index) in product.media">
+                                            <thumb :active_image="active_image" :image="image" :index="index" :key="index" v-on:set_active="setActiveImage"></thumb>
                                         </div>
                                     </div>
                                 </div>
@@ -45,20 +43,20 @@
                         <div class="card-body">
                             <div class="form-group">
                                 <label for="">Naam</label>
-                                <input type="text" class="form-control" v-model="product.name">
+                                <input class="form-control" type="text" v-model="product.name">
                             </div>
                             <div class="form-group">
                                 <label for="">Omschrijving</label>
-                                <textarea name="" id="" class="form-control" v-model="product.description"></textarea>
+                                <textarea class="form-control" id="" name="" v-model="product.description"></textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="">Prijs</label>
-                                <input type="text" class="form-control" v-model="product.price">
+                                <input class="form-control" type="text" v-model="product.price">
                             </div>
                             <div class="form-group d-flex justify-content-between">
-                                <button class="btn btn-outline-primary" @click="updateProduct">Aanpassen</button>
-                                <button class="btn btn-outline-danger" @click="deleteProduct">Verwijderen</button>
+                                <button @click="updateProduct" class="btn btn-outline-primary">Aanpassen</button>
+                                <button @click="deleteProduct" class="btn btn-outline-danger">Verwijderen</button>
                             </div>
                         </div>
                     </div>
@@ -74,8 +72,8 @@
                             </div>
 
                             <div class="mb-2">
-                                <div class="form-check" :key="category.id" v-for="category in Categories">
-                                    <input type="checkbox" :value="category" v-model="product.categories" :id="`category_${category.id}`" class="form-check-input">
+                                <div :key="category.id" class="form-check" v-for="category in Categories">
+                                    <input :id="`category_${category.id}`" :value="category" class="form-check-input" type="checkbox" v-model="product.categories">
                                     <label :for="`category_${category.id}`" class="form-check-label">{{category.name}}</label>
                                 </div>
                             </div>
@@ -86,8 +84,8 @@
                                 Merk
                             </div>
                             <div class="mb-2">
-                                <div class="form-check" :key="brand.id" v-for="brand in Brands">
-                                    <input type="radio" :value="brand" v-model="product.brand" :id="`brand_${brand.id}`" class="form-check-input">
+                                <div :key="brand.id" class="form-check" v-for="brand in Brands">
+                                    <input :id="`brand_${brand.id}`" :value="brand" class="form-check-input" type="radio" v-model="product.brand">
                                     <label :for="`brand_${brand.id}`" class="form-check-label">{{brand.name}}</label>
                                 </div>
                             </div>
@@ -100,87 +98,63 @@
     </div>
 </template>
 
-<script>
-    import http from "../../http/http";
-    import {CategoryMixin} from "../../mixins/CategoryMixin";
-    import {BrandMixin} from "../../mixins/BrandMixin";
-    import {UploadStatusMixin} from "../../mixins/UploadStatusMixin";
+<script lang="ts">
+    import Vue from "vue";
 
-    import thumb from "../../components/Products/Thumb"
+    import http from "@/http/http";
+    import {CategoryMixin} from "@/mixins/CategoryMixin";
+    import {BrandMixin} from "@/mixins/BrandMixin";
+    import {UploadStatusMixin} from "@/mixins/UploadStatusMixin";
+    import thumb from "@/components/Products/Thumb.vue"
+    import {ProductInterface} from "@/interfaces/ProductInterface";
 
-    export default {
-        name      : "Show",
-        components: {
+    export default Vue.extend({
+                                  name: "Show", components: {
             thumb
-        },
-        mixins    : [
-            CategoryMixin,
-            BrandMixin,
-            UploadStatusMixin
-        ],
-        data() {
+        }, mixins                     : [CategoryMixin, BrandMixin, UploadStatusMixin], data() {
             return {
-                product     : {
-                    media: []
-                },
-                active_image: 0
+                product: {} as ProductInterface, active_image: 0
             }
-        },
-        computed  : {
-            ProductHasNoMedia() {
+        }, computed                   : {
+            ProductHasNoMedia(): boolean {
                 return this.product.media.length === 0;
-            },
-            ActiveImage() {
+            }, ActiveImage(): string {
                 if (this.ProductHasNoMedia) {
                     return "";
                 }
 
                 return this.product.media[this.active_image].display
             }
-        },
-        methods   : {
+        }, methods                    : {
             getProduct() {
                 http.get(`/product/${this.$route.params.id}`).then(response => {
                     this.product = response.data;
                 })
-            },
-            updateProduct() {
+            }, updateProduct() {
                 http.post(`/product/${this.product.id}`, {
-                    "name"       : this.product.name,
-                    "description": this.product.description,
-                    "price"      : this.product.price,
-                    "brand_id"   : this.product.brand.id,
-                    "categories" : this.product.categories,
-                    "_method"    : "PATCH"
+                    "name": this.product.name, "description": this.product.description, "price": this.product.price, "brand_id": this.product.brand.id, "categories": this.product.categories, "_method": "PATCH"
                 }).then(() => {
 
                 })
-            },
-            deleteProduct() {
+            }, deleteProduct() {
                 http.post(`/product/${this.product.id}`, {
                     "_method": "DELETE"
                 }).then(() => {
                     this.$router.push("/products")
                 })
-            },
-
-            setActiveImage(value) {
+            }, setActiveImage(value: number) {
                 this.active_image = value
-            },
-
-            async uploadImage(image) {
+            }, async uploadImage(image: any) {
                 const formData = new FormData;
                 formData.append(`image`, image)
                 formData.append("_method", "PATCH");
 
-                let result = await http.post(`/product/${this.product.id}/media`, formData)
-                    .then((response) => {
-                        this.product.media.push(response.data);
-                    });
+                return await http.post(`/product/${this.product.id}/media`, formData)
+                                 .then((response) => {
+                                     this.product.media.push(response.data);
+                                 });
 
-                return result;
-            },
-            removeImage() {
+            }, removeImage() {
                 http.post(`/product/${this.product.id}/media/${this.product.media[this.active_image].id}`, {
                     "_method": "DELETE"
                 }).then(() => {
@@ -193,11 +167,10 @@
                     }
                 })
             },
-        },
-        created() {
+        }, created() {
             this.getProduct();
         }
-    }
+                              })
 </script>
 
 <style lang="scss" scoped>

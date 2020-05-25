@@ -1,10 +1,12 @@
 import Vue from 'vue'
-import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
-import SignIn from "../views/SignIn";
-import SignUp from "../views/SignUp";
-import store from "../store/index";
-import Menu from "../components/Menu";
+import VueRouter from 'vue-router';
+import { Route } from 'vue-router';
+
+import Home from '@/views/Home.vue'
+import SignIn from "@/views/SignIn.vue";
+import SignUp from "@/views/SignUp.vue";
+import store from "@/store/index";
+import Menu from "@/components/Menu.vue";
 import {products} from "./components/products"
 import {gallery} from "./components/gallery"
 import {feedback} from "./components/feedback";
@@ -31,7 +33,7 @@ const routes = [
             default: Home,
             menu   : Menu
         },
-        beforeEnter(to, from, next) {
+        beforeEnter(to: Route, from: Route, next: Function) {
             if (store.state.authentication.token) {
                 next()
             } else {
@@ -44,10 +46,10 @@ const routes = [
         path      : '/information',
         name      : 'Information',
         components: {
-            default: () => import('../views/Information/Show'),
+            default: () => import('@/views/Information/Show.vue'),
             menu   : Menu
         },
-        beforeEnter(to, from, next) {
+        beforeEnter(to: Route, from: Route, next: Function) {
             if (store.state.authentication.token) {
                 next()
             } else {
@@ -59,10 +61,10 @@ const routes = [
         path      : '/statistics',
         name      : 'Statistics',
         components: {
-            default: () => import('../views/Statistics/Index'),
+            default: () => import('@/views/Statistics/Index.vue'),
             menu   : Menu
         },
-        beforeEnter(to, from, next) {
+        beforeEnter(to: Route, from: Route, next: Function) {
             if (store.state.authentication.token) {
                 next()
             } else {
@@ -76,7 +78,7 @@ const router = new VueRouter({
     routes
 })
 
-router.beforeEach((to,from,next) =>{
+router.beforeEach((to: Route,from: Route,next) =>{
     if (!store.state.authentication.token){
         store.dispatch("authentication/tryAutologin")
     }

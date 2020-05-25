@@ -92,17 +92,23 @@
     </div>
 </template>
 
-<script>
-    import http from "../../http/http";
-    import {CategoryMixin} from "../../mixins/CategoryMixin";
-    import {BrandMixin} from "../../mixins/BrandMixin";
-    import EditBrands from "./Brands/EditBrands";
-    import EditCategories from "./Categories/EditCategories";
+<script lang="ts">
 
-    import {UploadStatusMixin} from "../../mixins/UploadStatusMixin";
+    import Vue from "vue";
 
+    import http from "@/http/http";
+    import {CategoryMixin} from "@/mixins/CategoryMixin";
+    import {BrandMixin} from "@/mixins/BrandMixin";
+    import {UploadStatusMixin} from "@/mixins/UploadStatusMixin";
 
-    export default {
+    import EditBrands from "@/views/Products/Brands/EditBrands.vue";
+    import EditCategories from "@/views/Products/Categories/EditCategories.vue";
+
+    import {BrandInterface} from "@/interfaces/BrandInterface";
+    import {CategoryInterface} from "@/interfaces/CategoryInterface";
+    import {ProductInterface} from "@/interfaces/ProductInterface";
+
+    export default Vue.extend({
         name: "Create",
 
         components: {
@@ -116,40 +122,34 @@
         ],
         data() {
             return {
-                product     : {
-                    name       : "",
-                    description: "",
-                    price      : "",
-                    brand_id   : "",
-                    categories : [],
-                },
-                images      : [],
-                brands      : [],
-                categories  : [],
-                new_brand   : "",
-                new_category: "",
+                product     : {} as ProductInterface,
+                images      : [] as Array<Object>,
+                brands      : [] as Array<BrandInterface>,
+                categories  : [] as Array<CategoryInterface>,
+                new_brand   : "" as string,
+                new_category: "" as string,
                 upload      : {
                     status        : 0,
-                    current_upload: 1
+                    current_upload: 1 as number
                 }
             }
         },
         computed  : {
-            ProductHasImages() {
+            ProductHasImages(): boolean {
                 return this.images.length > 0
             },
-            AmountOfImages() {
+            AmountOfImages(): number {
                 if (this.ProductHasImages) {
                     return this.images.length
                 }
                 return 0
             },
-            UploadStatusText() {
+            UploadStatusText(): string {
                 switch (this.upload.status) {
                     case 0:
                         return "Afbeeldingen toevoegen"
                     case 1:
-                        return `Afbeelding ${this.current_upload} van ${this.AmountOfImages}`
+                        return `Afbeelding ${this.upload.current_upload} van ${this.AmountOfImages}`
                 }
 
                 return "";
@@ -167,10 +167,10 @@
                         this.$router.push("/products");
                     })
             },
-            uploadImages(product_id) {
+            uploadImages(product_id: number) {
                 this.upload.status = 1
 
-                this.images.forEach((image, index) => {
+                this.images.forEach((image: any, index: number) => {
                     this.upload.current_upload = ++index
 
                     const formData = new FormData;
@@ -192,21 +192,22 @@
 
                 this.new_category = "";
             },
-            onImageDrop(event) {
+            onImageDrop(event: any) {
                 event.preventDefault();
                 event.stopPropagation();
 
-                event.dataTransfer.files.forEach(image => {
+                event.dataTransfer.files.forEach((image: any) => {
                     this.images.push(image)
                 })
             },
             onImageChange() {
+
                 this.$refs.images.files.forEach(image => {
                     this.images.push(image)
                 })
             }
         }
-    }
+    })
 </script>
 
 <style scoped>

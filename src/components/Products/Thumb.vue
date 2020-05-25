@@ -1,23 +1,25 @@
 <template>
-    <div class="thumb" :class="{'active' : index === active_image}">
+    <div class="thumb" :class="{'active' : index === activeImage}">
         <img :src="image.thumb" alt="" style="max-width: 50px" class="rounded" @click="setActive">
     </div>
 </template>
 
-<script>
-    export default {
+<script lang="ts">
+    import Vue from "vue";
+
+    export default Vue.extend({
         name   : "Thumb",
         props  : {
             image       : {},
             index       : {},
-            active_image: {}
+            activeImage: {}
         },
         methods: {
             setActive() {
                 this.$emit("set_active", this.index);
             }
         }
-    }
+    })
 </script>
 
 <style lang="scss" scoped>
@@ -31,7 +33,7 @@
             filter: brightness(100%);
         }
 
-        &.active{
+        &.active {
             background-color: #343a40;
             filter: brightness(100%);
         }

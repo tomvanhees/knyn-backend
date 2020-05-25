@@ -21,8 +21,10 @@
 
 </template>
 
-<script>
-    export default {
+<script lang="ts">
+    import Vue from "vue";
+
+    export default Vue.extend({
         name : "ProductIndexCard",
         props: {
             product: {
@@ -30,7 +32,7 @@
                 required: true
             }
         }
-    }
+    });
 </script>
 
 <style scoped>

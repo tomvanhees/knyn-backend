@@ -1,88 +1,83 @@
 <template>
     <div>
         <div class="d-flex justify-content-center">
-            <div class="small-add-button" @click="setShow(true)">
+            <div @click="setShow(true)" class="small-add-button">
                 <span>+</span>
             </div>
         </div>
 
+        <transition mode="out-in" name="component-fade">
 
-        <transition name="component-fade" mode="out-in">
-
-        <div class="cover" v-if="show">git p
-            <div class="card card-floating">
-                <div class="card-header">
-                    <div class="card-header-text">
-                        Merken
+            <div class="cover" v-if="show">git p
+                <div class="card card-floating">
+                    <div class="card-header">
+                        <div class="card-header-text">
+                            Merken
+                        </div>
                     </div>
-                </div>
-                <div class="card-body">
-                    <div class="form-group">
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item" :key="brand.id" v-for="brand in Brands">
-                                <div class="d-flex justify-content-between">
-                                    <div>{{ brand.name}}</div>
-                                    <div>
-                                        <button class="btn btn-outline-delete btn-sm" @click="$store.dispatch('brands/deleteBrand', brand)">
-                                            <span>x</span>
-                                        </button>
+                    <div class="card-body">
+                        <div class="form-group">
+                            <ul class="list-group list-group-flush">
+                                <li :key="brand.id" class="list-group-item" v-for="brand in Brands">
+                                    <div class="d-flex justify-content-between">
+                                        <div>{{ brand.name}}</div>
+                                        <div>
+                                            <button @click="$store.dispatch('brands/deleteBrand', brand)" class="btn btn-outline-delete btn-sm">
+                                                <span>x</span>
+                                            </button>
+                                        </div>
+                                    </div>
+
+
+                                </li>
+                            </ul>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-9">
+                                <div class="input-group">
+                                    <input class="form-control" type="text" v-model="newBrand">
+                                    <div class="input-group-append">
+                                        <button @click="addBrand" class="btn btn-outline-primary">Toevoegen</button>
                                     </div>
                                 </div>
-
-
-                            </li>
-                        </ul>
-                    </div>
-
-                    <div class="row">
-                        <div class="col-9">
-                            <div class="input-group">
-                                <input type="text" class="form-control" v-model="new_brand">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-primary" @click="addBrand">Toevoegen</button>
-                                </div>
                             </div>
-                        </div>
-                        <div class="col-3 d-flex justify-content-end">
-                            <button class="btn btn-outline-primary" @click="setShow(false)">Sluiten</button>
-                        </div>
+                            <div class="col-3 d-flex justify-content-end">
+                                <button @click="setShow(false)" class="btn btn-outline-primary">Sluiten</button>
+                            </div>
 
+                        </div>
                     </div>
+
+
                 </div>
-
-
             </div>
-        </div>
         </transition>
     </div>
 </template>
 
-<script>
-    import {BrandMixin} from "../../../mixins/BrandMixin";
+<script lang="ts">
 
-    export default {
-        name  : "EditBrands",
-        mixins: [
-            BrandMixin
-        ],
+    import Vue from "vue";
+    import {BrandMixin} from "@/mixins/BrandMixin";
 
-        data() {
-            return {
-                show: false,
-                new_brand: ""
-            }
-        },
-        methods: {
-            setShow(value){
+    export default Vue.extend({
+                                  name: "EditBrands", mixins: [BrandMixin],
+
+                                  data() {
+                                      return {
+                                          show: false, newBrand: ""
+                                      }
+                                  }, methods: {
+            setShow(value: boolean) {
                 this.show = value
-            },
-            addBrand(){
-                this.$store.dispatch("brands/addBrand", this.new_brand)
-                this.new_brand = "";
+            }, addBrand() {
+                this.$store.dispatch("brands/addBrand", this.newBrand)
+                this.newBrand = "";
             }
         }
 
-    }
+                              })
 </script>
 
 <style lang="scss" scoped>

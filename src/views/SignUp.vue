@@ -33,10 +33,11 @@
 </template>
 
 <script>
+    import Vue from "vue";
     import auth from "../http/auth";
     import router from "../router";
 
-    export default {
+    export default Vue.extend({
         name   : "SignUp",
         data() {
             return {
@@ -56,7 +57,7 @@
                     })
             }
         }
-    }
+    });
 </script>
 
 <style scoped>

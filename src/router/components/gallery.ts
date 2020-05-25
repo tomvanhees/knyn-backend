@@ -1,29 +1,29 @@
-import Menu from "../../components/Menu";
-import store from "../../store";
+import Menu from "@/components/Menu.vue";
+import store from "@/store";
+import {Route} from "vue-router";
 
-export const products =  {
-    path      : '/products',
-    name      : 'Products',
-    components: {
-        default: () => import('../../views/Products/Product'),
+export const gallery = {
+    path       : '/inspiratie',
+    name       : 'Gallery',
+    components : {
+        default: () => import('@/views/Gallery/Gallery.vue'),
         menu   : Menu
     },
-    beforeEnter(to, from, next) {
+    beforeEnter(to: Route, from: Route, next: Function) {
         if (store.state.authentication.token) {
             next()
         } else {
             next("/signin")
         }
-    },
-    children:[
+    }, children: [
         {
             path      : '',
-            name      : 'Index',
+            name      : 'GalleryIndex',
             components: {
-                default: () => import('../../views/Products/Index'),
+                default: () => import('@/views/Gallery/Index.vue'),
                 menu   : Menu
             },
-            beforeEnter(to, from, next) {
+            beforeEnter(to: Route, from: Route, next: Function) {
                 if (store.state.authentication.token) {
                     next()
                 } else {
@@ -33,12 +33,12 @@ export const products =  {
         },
         {
             path      : 'create',
-            name      : 'Create',
+            name      : 'GalleryCreate',
             components: {
-                default: () => import('../../views/Products/Create'),
+                default: () => import('@/views/Gallery/Create.vue'),
                 menu   : Menu
             },
-            beforeEnter(to, from, next) {
+            beforeEnter(to: Route, from: Route, next: Function) {
                 if (store.state.authentication.token) {
                     next()
                 } else {
@@ -48,18 +48,20 @@ export const products =  {
         },
         {
             path      : ':id/*',
-            name      : 'Show',
+            name      : 'GalleryShow',
             components: {
-                default: () => import('../../views/Products/Show'),
+                default:
+                    () => import('@/views/Gallery/Show.vue'),
                 menu   : Menu
-            },
-            beforeEnter(to, from, next) {
+            }
+            ,
+            beforeEnter(to: Route, from: Route, next: Function) {
                 if (store.state.authentication.token) {
                     next()
                 } else {
                     next("/signin")
                 }
-            },
-        },
+            }
+        }
     ]
 }

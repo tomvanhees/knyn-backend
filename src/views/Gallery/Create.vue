@@ -82,14 +82,11 @@
                 formData.append(`image`, image)
                 formData.append("_method", "PATCH");
 
-                let result = await http.post(`/gallery/${this.gallery.id}/media`, formData)
+               return await http.post(`/gallery/${this.gallery.id}/media`, formData)
                     .then((response) => {
                         this.gallery.media.push(response.data);
                     });
-
-                return result;
             },
-
             removeMedia(value) {
                 const index = this.gallery.media.findIndex(mediaItem => mediaItem === value);
 
@@ -99,8 +96,6 @@
                     this.gallery.media.splice(index, 1);
                 })
             }
-        },
-        created() {
         }
     }
 </script>

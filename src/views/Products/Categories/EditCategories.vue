@@ -35,7 +35,7 @@
                         <div class="row">
                             <div class="col-9">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" v-model="new_category">
+                                    <input type="text" class="form-control" v-model="newCategory">
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-primary" @click="addCategory">Toevoegen</button>
                                     </div>
@@ -55,29 +55,30 @@
     </div>
 </template>
 
-<script>
-    import {CategoryMixin} from "../../../mixins/CategoryMixin";
+<script lang="ts">
+    import Vue from "vue";
+    import {CategoryMixin} from "@/mixins/CategoryMixin";
 
-    export default {
+    export default Vue.extend({
         name   : "EditCategories",
         mixins : [CategoryMixin],
         data() {
             return {
                 show        : false,
-                new_category: ""
+                newCategory: ""
             }
         },
         methods: {
-            setShow(value) {
+            setShow(value: boolean) {
                 this.show = value
             },
             addCategory() {
-               this.$store.dispatch("categories/addCategory", this.new_category)
+               this.$store.dispatch("categories/addCategory", this.newCategory)
 
-                this.new_category = "";
+                this.newCategory = "";
             }
         }
-    }
+    })
 </script>
 
 <style scoped>

@@ -1,123 +1,126 @@
 <template>
-    <div>
-        <h1>
-            {{ gallery.name}}
-        </h1>
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body d-flex justify-content-between">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input type="text" class="form-control" v-model="gallery.name">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-outline-primary" @click="updateGallery">aanpassen</button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <button class="btn btn-outline-danger btn-block" @click="deleteGallery">Gallerij verwijderen</button>
-                            </div>
-                        </div>
-
-
-                        <div class="card-body">
-                            <div class="d-flex justify-content-center">
-                                <label class="large-add-button" for="image" @dragover.prevent @drop="onImageDrop">
-                                    <span>+</span>
-                                    <input id="image" ref="upload" type="file" style="opacity: 0; position: absolute" multiple @change="onImageChange">
-                                    <div class="loading" :style="ProgressbarProgression"></div>
-                                </label>
-                            </div>
-                        </div>
-
-
-                        <div class="card-body">
-                            <div class="image-container">
-                                <dl-gallery-image :key="item.id" v-bind:item="item" v-for="(item) in gallery.media" v-on:remove-media="removeMedia"></dl-gallery-image>
-                            </div>
-                        </div>
-
-
-                    </div>
+  <div>
+    <h1>
+      {{ GalleryName }}
+    </h1>
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body d-flex justify-content-between">
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    v-model="GalleryName"
+                    class="form-control"
+                    type="text"
+                  >
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-primary"
+                      @click="updateGallery"
+                    >
+                      aanpassen
+                    </button>
+                  </div>
                 </div>
+              </div>
+              <div class="form-group">
+                <button
+                  class="btn btn-outline-danger btn-block"
+                  @click="deleteGallery"
+                >
+                  Gallerij verwijderen
+                </button>
+              </div>
             </div>
+
+
+            <div class="card-body">
+              <div class="d-flex justify-content-center">
+                <label
+                  class="large-add-button"
+                  for="image"
+                  @dragover.prevent
+                  @drop="onImageDrop"
+                >
+                  <span>+</span>
+                  <input
+                    id="image"
+                    ref="upload"
+                    multiple
+                    style="opacity: 0; position: absolute"
+                    type="file"
+                    @change="onImageChange"
+                  >
+                  <div
+                    :style="ProgressbarProgression"
+                    class="loading"
+                  />
+                </label>
+              </div>
+            </div>
+
+
+            <div class="card-body">
+              <div class="image-container">
+                <dl-gallery-image
+                  v-for="(item) in GalleryMedia"
+                  :key="item.id"
+                  :item="item"
+                  @remove-media="removeMedia"
+                />
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
-<script>
-    import http from "../../http/http";
-    import GalleryImage from "../../components/Gallery/GalleryImage";
-    import {UploadStatusMixin} from "../../mixins/UploadStatusMixin";
+<script lang="ts">
+    import Vue from "vue";
+    import GalleryImage from "@/components/Gallery/GalleryImage.vue";
+    import {UploadStatusMixin} from "@/mixins/UploadStatusMixin";
+    import {MediaInterface} from "@/interfaces/MediaInterface";
 
-
-    export default {
-        name      : "GalleryShow",
-        components: {
+    export default Vue.extend({
+                                  name: "GalleryShow", components: {
             "dl-gallery-image": GalleryImage
-        },
-        mixins    : [
-            UploadStatusMixin
-        ],
-        data() {
+        }, mixins                     : [UploadStatusMixin], data() {
             return {
-                id     : this.$route.params.id,
-                gallery: {
-                    name : "",
-                    media: []
-                },
+                id: this.$route.params.id
             }
-        },
-        methods   : {
-            getGallery() {
-                http.get(`/gallery/${this.$route.params.id}`).then(response => {
-                    this.gallery = response.data;
-                })
-            },
-            updateGallery() {
-                http.post(`/gallery/${this.gallery.id}`, {
-                    "name"   : this.gallery.name,
-                    "_method": "PATCH"
-                }).then(response => {
-                    console.log(response.data)
-                })
-            },
-            deleteGallery() {
-                http.post(`/gallery/${this.gallery.id}`, {
-                    "_method": "DELETE"
-                }).then(() => {
-                    this.$router.push("/inspiratie");
-                })
-            },
-            async uploadImage(image) {
-                const formData = new FormData;
-                formData.append(`image`, image)
-                formData.append("_method", "PATCH");
-
-                let result = await http.post(`/gallery/${this.$route.params.id}/media`, formData)
-                    .then((response) => {
-                        this.gallery.media.push(response.data);
-                    });
-
-                return result;
-            },
-
-            removeMedia(value) {
-                const index = this.gallery.media.findIndex(mediaItem => mediaItem === value);
-
-                http.post(`/gallery/${this.$route.params.id}/media/${value.id}`, {
-                    "_method": 'DELETE'
-                }).then(() => {
-                    this.gallery.media.splice(index, 1);
-                })
+        }, computed                   : {
+            GalleryName: {
+                get(): string {
+                    return this.$store.state.gallery.gallery.name;
+                }, set(name) {
+                    this.$store.state.gallery.gallery.name = name;
+                }
+            }, GalleryMedia(): Array<MediaInterface> {
+                return this.$store.state.gallery.gallery.media;
             }
-        },
-        created() {
+        }, created() {
             this.getGallery();
+        }, methods                    : {
+            getGallery() {
+                this.$store.dispatch("gallery/fetchGallery", this.$route.params.id)
+            }, updateGallery() {
+                this.$store.dispatch("gallery/updateGallery")
+            }, deleteGallery() {
+                this.$store.dispatch("gallery/deleteGallery")
+                    .then(() => {
+                        this.$router.push("/inspiratie");
+                    })
+            }, uploadImage(media: any) {
+                 this.$store.dispatch("gallery/uploadMedia", media);
+            }, removeMedia(media: MediaInterface) {
+                this.$store.dispatch("gallery/removeMedia", media);
+            }
         }
-    }
+ })
 </script>
 
 <style lang="scss" scoped>

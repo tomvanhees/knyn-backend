@@ -1,36 +1,35 @@
-import http from "../../http/http";
+import http from "@/http/http";
 
 export const authentication = {
     namespaced: true,
     state     : {
-        token: ""
+        token: "" as string
     },
     mutations : {
-        setToken(state, value) {
-            state.token = value;
+        setToken(state: any, token: string) {
+            state.token = token;
         },
-        clearToken(state) {
+        clearToken(state: any) {
             state.token = "";
         }
     },
     actions   : {
-        clearToken  : ({commit}) => {
+        clearToken  : ({commit}: any) => {
             localStorage.removeItem("token");
             commit('clearToken');
         },
-        setToken    : ({commit}, value) => {
-            commit('setToken', value);
+        setToken    : ({commit}: any, token: string) => {
+            commit('setToken', token);
         },
-        tryAutologin: ({commit}) => {
+        tryAutologin: ({commit}: any) => {
             const token = localStorage.getItem("token");
 
             if (!token) {
                 return;
             }
-
             commit('setToken', token);
         },
-        logout      : ({dispatch}) => {
+        logout      : ({dispatch}: any) => {
             http.post("/user/logout").finally(()=>{
                 dispatch('clearToken')
             })

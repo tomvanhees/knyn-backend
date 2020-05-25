@@ -1,19 +1,24 @@
 <template>
-    <div>
-        <transition name="component-fade" mode="out-in">
-            <router-view></router-view>
-        </transition>
-    </div>
+  <div>
+    <transition
+      mode="out-in"
+      name="component-fade"
+    >
+      <router-view />
+    </transition>
+  </div>
 </template>
 
-<script>
-    export default {
-        name: "Product",
-        created() {
+<script lang="ts">
+    import Vue from "vue";
+
+    export default Vue.extend({
+                                  name: "Product",
+                                  created() {
             this.$store.dispatch("brands/getBrands");
             this.$store.dispatch("categories/getCategories");
         }
-    }
+                              })
 </script>
 
 <style scoped>
