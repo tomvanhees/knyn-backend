@@ -22,7 +22,8 @@
                                     <div class="d-flex justify-content-between">
                                         <div>{{ brand.name}}</div>
                                         <div>
-                                            <button @click="$store.dispatch('brands/deleteBrand', brand)" class="btn btn-outline-delete btn-sm">
+                                            <button @click="$store.dispatch('brands/deleteBrand', brand)"
+                                                    class="btn btn-outline-delete btn-sm">
                                                 <span>x</span>
                                             </button>
                                         </div>
@@ -57,18 +58,17 @@
 </template>
 
 <script lang="ts">
-
     import Vue from "vue";
     import {BrandMixin} from "@/mixins/BrandMixin";
 
     export default Vue.extend({
-                                  name: "EditBrands", mixins: [BrandMixin],
+        name: "EditBrands", mixins: [BrandMixin],
 
-                                  data() {
-                                      return {
-                                          show: false, newBrand: ""
-                                      }
-                                  }, methods: {
+        data() {
+            return {
+                show: false, newBrand: ""
+            }
+        }, methods: {
             setShow(value: boolean) {
                 this.show = value
             }, addBrand() {
@@ -77,7 +77,7 @@
             }
         }
 
-                              })
+    })
 </script>
 
 <style lang="scss" scoped>

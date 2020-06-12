@@ -6,20 +6,18 @@
 
 <script lang="ts">
     import Vue from "vue";
+    import Component from "vue-class-component";
 
-    export default Vue.extend({
-        name   : "Thumb",
-        props  : {
-            image       : {},
-            index       : {},
-            activeImage: {}
-        },
-        methods: {
-            setActive() {
-                this.$emit("set_active", this.index);
-            }
+    @Component
+    export default class Thumb extends Vue {
+        image = {}
+        index = {}
+        activeImage = {}
+
+        setActive(): void {
+            this.$emit("set_active", this.index);
         }
-    })
+    }
 </script>
 
 <style lang="scss" scoped>

@@ -12,23 +12,29 @@
 
 </template>
 
-<script>
-    export default {
-        name   : "GalleryImage",
-        props  : {
+<script lang="ts">
+    import Vue from "vue";
+    import Component, {mixins} from "vue-class-component";
+
+    const GalleryImageProps = Vue.extend({
+        props: {
             item: {
-                type    : Object,
+                type: Object,
                 required: true
             }
         },
-        methods: {
-            removeMedia() {
-                this.$emit("remove-media", this.item)
-            },
-            imageUrlAlt(event) {
-                event.target.src = "https://picsum.photos/250/250"
-            }
+    })
+
+    @Component
+    export default class GalleryImage extends mixins(GalleryImageProps) {
+        removeMedia(): void {
+            this.$emit("remove-media", this.item)
         }
+
+        imageUrlAlt(event: any): void {
+            event.target.src = "https://picsum.photos/250/250"
+        }
+
     }
 </script>
 

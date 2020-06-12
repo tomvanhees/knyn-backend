@@ -3,7 +3,8 @@
         <div class="mb-4 position-relative">
             <router-link :to="`/inspiratie/${gallery.id}/${gallery.slug}`">
                 <div class="card border-0">
-                    <img :src="gallery.cover" class="gallery-image" style="background-position: center center; background-size: cover" alt="">
+                    <img :src="gallery.cover" class="gallery-image"
+                         style="background-position: center center; background-size: cover" alt="">
                 </div>
             </router-link>
 
@@ -14,19 +15,23 @@
             </div>
         </div>
     </div>
-
 </template>
 
-<script>
-    export default {
-        name   : "GalleryIndexCard",
-        props  : {
+<script lang="ts">
+    import Vue from "vue";
+    import Component, {mixins} from "vue-class-component"
+
+    const GalleryIndexCardProps = Vue.extend({
+        props: {
             gallery: {
-                type    : Object,
+                type: Object,
                 required: true
             }
         },
-        methods: {}
+    })
+
+    @Component
+    export default class GalleryIndexCard extends mixins(GalleryIndexCardProps) {
     }
 </script>
 

@@ -3,7 +3,8 @@
         <router-link :to="`/products/${product.id}/${product.slug}`" style="text-decoration: none">
             <div class="d-flex">
                 <div>
-                    <img :src="product.cover" class="m-3" alt="" style="border-radius: 50%; width: 100px; height: 100px">
+                    <img :src="product.cover" class="m-3" alt=""
+                         style="border-radius: 50%; width: 100px; height: 100px">
                 </div>
 
 
@@ -23,16 +24,20 @@
 
 <script lang="ts">
     import Vue from "vue";
+    import Component, {mixins} from "vue-class-component";
 
-    export default Vue.extend({
-        name : "ProductIndexCard",
+    const ProductIndexCardProps = Vue.extend({
         props: {
             product: {
-                type    : Object,
+                type: Object,
                 required: true
             }
         }
-    });
+    })
+
+    @Component
+    export default class ProductIndexCard extends mixins(ProductIndexCardProps) {
+    }
 </script>
 
 <style scoped>
