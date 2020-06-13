@@ -22,7 +22,8 @@
                                 </div>
 
                                 <div class="col-1">
-                                    <button class="btn btn-outline-delete btn-sm" @click="removeAnswer(index)"><span>x</span></button>
+                                    <button class="btn btn-outline-delete btn-sm" @click="removeAnswer(index)">
+                                        <span>x</span></button>
                                 </div>
                             </div>
 
@@ -35,7 +36,8 @@
 
                             <div class="form-group d-flex justify-content-between">
                                 <button class="btn btn-outline-primary" @click="createQuestion">Aanmaken</button>
-                                <router-link tag="button" class="btn btn-outline-primary" to="/feedback">Annuleren</router-link>
+                                <router-link tag="button" class="btn btn-outline-primary" to="/feedback">Annuleren
+                                </router-link>
                             </div>
                         </div>
                     </div>
@@ -47,38 +49,36 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import Vue from "vue";
+    import Component from "vue-class-component";
     import http from "../../http/http";
 
-    export default {
-        name   : "Create",
-        data() {
-            return {
-                feedback: {
-                    question: "",
-                    answers : [],
-                }
-            }
-        },
-        methods: {
-            addAnswer() {
-                this.feedback.answers.push({
-                    id    : Date.now(),
-                    answer: ""
-                });
-            },
-            removeAnswer(index) {
-                this.feedback.answers.splice(index, 1)
-            },
-            createQuestion() {
-                http.post("/feedback/questions", {
-                    question: this.feedback.question,
-                    answers : this.feedback.answers
-                }).then(() => {
-                    this.$router.push("/feedback");
-                })
-            }
+    @Component
+    export default class Create extends Vue {
+        feedback = {
+            question: "",
+            answers: [],
+        }
 
+        addAnswer(): void {
+            this.feedback.answers.push({
+                id: Date.now(),
+                answer: ""
+            });
+        }
+
+        removeAnswer(index): void {
+            this.feedback.answers.splice(index, 1)
+        }
+
+        createQuestion(): void {
+            http.post("/feedback/questions", {
+                question: this.feedback.question,
+                answers: this.feedback.answers
+            }).then(() => {
+                this.$router.push("/feedback");
+            })
         }
     }
 </script>

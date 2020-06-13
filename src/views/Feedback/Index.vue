@@ -11,7 +11,9 @@
                         </div>
 
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item" :key="question.question" v-for="question in questions">{{ question.question}}</li>
+                            <li class="list-group-item" :key="question.question" v-for="question in questions">{{
+                                question.question}}
+                            </li>
 
 
                             <li class="list-group-item">
@@ -29,11 +31,15 @@
                         <div class="row pt-3 my-3">
                             <div class="col-6 d-flex justify-content-center">
 
-                                <router-link tag="button" to="/feedback/answers" class="btn btn-outline-primary">Bekijk antwoorden</router-link>
+                                <router-link tag="button" to="/feedback/answers" class="btn btn-outline-primary">Bekijk
+                                    antwoorden
+                                </router-link>
 
                             </div>
                             <div class="col-6 d-flex justify-content-center">
-                                <router-link tag="button" to="/statistics" class="btn btn-outline-primary">Bekijk statistieken</router-link>
+                                <router-link tag="button" to="/statistics" class="btn btn-outline-primary">Bekijk
+                                    statistieken
+                                </router-link>
                             </div>
                         </div>
                     </div>
@@ -44,26 +50,23 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import Vue from "vue/types/vue";
+    import Component from "vue-class-component";
     import http from "../../http/http";
 
-    export default {
-        name   : "Index",
-        data() {
-            return {
-                questions: []
-            }
-        },
-        methods: {
-            getQuestions() {
-                http.get("/feedback/questions").then(response => {
-                    this.questions = response.data;
-                })
-            }
-        },
 
+    @Component
+    export default class Index extends Vue {
+        questions: []
 
-        created() {
+        getQuestions(): void {
+            http.get("/feedback/questions").then(response => {
+                this.questions = response.data;
+            })
+        }
+
+        created(): void {
             this.getQuestions();
         }
     }

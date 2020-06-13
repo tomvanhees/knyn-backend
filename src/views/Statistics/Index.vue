@@ -21,36 +21,34 @@
     </div>
 </template>
 
-<script>
+<script lang="ts">
+    import Vue from "vue";
+    import Component from "vue-class-component";
     import http from "../../http/http";
     import DoughnutChart from "../../components/Statistics/DoughnutChart";
 
-    export default {
-        name: "StatisticsIndex",
-
+    @Component({
         components: {
             DoughnutChart
-        },
-        data() {
-            return {
-                statistics: [],
-                options:{
-                    legend:{
-                        display:true,
-                        position: 'bottom',
-                        align: 'center'
-                    }
-                }
+        }
+    })
+    export default class StatisticsIndex extends Vue {
+        statistics: [];
+        options = {
+            legend: {
+                display: true,
+                position: 'bottom',
+                align: 'center'
             }
-        },
-        methods   : {
-            getStatistics() {
-                http.get("/statistics").then(response => {
-                    this.statistics = response.data;
-                })
-            },
-        },
-        created() {
+        };
+
+        getStatistics(): void {
+            http.get("/statistics").then(response => {
+                this.statistics = response.data;
+            })
+        }
+
+        created(): void {
             this.getStatistics();
         }
     }

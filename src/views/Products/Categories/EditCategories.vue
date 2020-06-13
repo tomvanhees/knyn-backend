@@ -1,12 +1,21 @@
 <template>
     <div>
-        <div class="d-flex justify-content-center" @click="setShow(true)">
+        <div
+                class="d-flex justify-content-center"
+                @click="setShow(true)"
+        >
             <div class="small-add-button">
                 <span>+</span>
             </div>
         </div>
-        <transition name="component-fade" mode="out-in">
-            <div class="cover" v-if="show">
+        <transition
+                name="component-fade"
+                mode="out-in"
+        >
+            <div
+                    v-if="show"
+                    class="cover"
+            >
                 <div class="card card-floating">
                     <div class="card-header">
                         <div class="card-header-text">
@@ -16,17 +25,22 @@
                     <div class="card-body">
                         <div class="form-group">
                             <ul class="list-group list-group-flush">
-                                <li class="list-group-item" :key="category.id" v-for="category in Categories">
+                                <li
+                                        v-for="category in Categories"
+                                        :key="category.id"
+                                        class="list-group-item"
+                                >
                                     <div class="d-flex justify-content-between">
-                                        <div>{{ category.name}}</div>
+                                        <div>{{ category.name }}</div>
                                         <div>
-                                            <button class="btn btn-outline-delete btn-sm" @click="$store.dispatch('categories/deleteCategory', category)">
+                                            <button
+                                                    class="btn btn-outline-delete btn-sm"
+                                                    @click="$store.dispatch('categories/deleteCategory', category)"
+                                            >
                                                 <span>x</span>
                                             </button>
                                         </div>
                                     </div>
-
-
                                 </li>
                             </ul>
                         </div>
@@ -35,20 +49,31 @@
                         <div class="row">
                             <div class="col-9">
                                 <div class="input-group">
-                                    <input type="text" class="form-control" v-model="newCategory">
+                                    <input
+                                            v-model="newCategory"
+                                            type="text"
+                                            class="form-control"
+                                    >
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-primary" @click="addCategory">Toevoegen</button>
+                                        <button
+                                                class="btn btn-outline-primary"
+                                                @click="addCategory"
+                                        >
+                                            Toevoegen
+                                        </button>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-3 d-flex justify-content-end">
-                                <button class="btn btn-outline-primary" @click="setShow(false)">Sluiten</button>
+                                <button
+                                        class="btn btn-outline-primary"
+                                        @click="setShow(false)"
+                                >
+                                    Sluiten
+                                </button>
                             </div>
-
                         </div>
                     </div>
-
-
                 </div>
             </div>
         </transition>
@@ -56,29 +81,24 @@
 </template>
 
 <script lang="ts">
-    import Vue from "vue";
+    import Component, {mixins} from "vue-class-component";
     import {CategoryMixin} from "@/mixins/CategoryMixin";
 
-    export default Vue.extend({
-        name   : "EditCategories",
-        mixins : [CategoryMixin],
-        data() {
-            return {
-                show        : false,
-                newCategory: ""
-            }
-        },
-        methods: {
-            setShow(value: boolean) {
-                this.show = value
-            },
-            addCategory() {
-               this.$store.dispatch("categories/addCategory", this.newCategory)
+    @Component
+    export default class EditCategories extends mixins(CategoryMixin) {
 
-                this.newCategory = "";
-            }
+        show = false;
+        newCategory = "";
+
+        setShow(value: boolean): void {
+            this.show = value
         }
-    })
+
+        addCategory(): void {
+            this.$store.dispatch("categories/addCategory", this.newCategory)
+            this.newCategory = "";
+        }
+    }
 </script>
 
 <style scoped>

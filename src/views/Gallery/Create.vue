@@ -79,58 +79,60 @@
 </template>
 
 <script lang="ts">
-    import Vue                                 from "vue";
-    import GalleryImage                        from "@/components/Gallery/GalleryImage.vue";
-    import {MediaInterface}                    from "@/interfaces/MediaInterface";
-    import {GalleryInterface}                  from "@/interfaces/GalleryInterface";
+    import Vue from "vue";
+    import Component from "vue-class-component";
+    import GalleryImage from "@/components/Gallery/GalleryImage.vue";
+    import {MediaInterface} from "@/interfaces/MediaInterface";
+    import {GalleryInterface} from "@/interfaces/GalleryInterface";
     import {UploadMedia, UploadMediaInterface} from "@/classes/UploadMedia";
 
-    export default Vue.extend({
-                                  name      : "GalleryCreate",
-                                  components: {
-                                      "dl-gallery-image": GalleryImage
-                                  },
-                                  data() {
-                                      return {
-                                          gallery    : {} as GalleryInterface,
-                                          uploadMedia: {} as UploadMediaInterface
-                                      }
-                                  },
-                                  computed  : {
-                                      hasGallery(): boolean {
-                                          const gallery = this.$store.getters["gallery/getGallery"];
-                                          return typeof gallery.id !== 'undefined';
-                                      },
-                                      GalleryMedia(): Array<MediaInterface> {
-                                          return this.$store.state.gallery.gallery.media;
-                                      },
-                                  },
-                                  methods   : {
-                                      createGallery(): void {
-                                          this.$store.dispatch("gallery/createGallery", this.gallery).then(() => {
-                                              console.log("gallery created")
-                                          });
-                                      },
-                                      onMediaChange(event: any): void{
-                                          this.uploadMedia.onChangeEvent(event);
-                                          this.uploadImage();
-                                      },
-                                      onMediaDrop(event: any): void{
-                                          this.uploadMedia.onDroppedEvent(event);
-                                          this.uploadImage();
-                                      },
-                                      uploadImage(): void {
-                                          this.$store.dispatch("gallery/uploadMedia", this.uploadMedia);
-                                      },
-                                      removeMedia(media: MediaInterface): void {
-                                          this.$store.dispatch("gallery/removeMedia", media);
-                                      }
-                                  },
-                                  created() {
-                                      this.$store.dispatch("gallery/clearGallery");
-                                      this.uploadMedia = new UploadMedia();
-                                  }
-                              })
+    @Component({
+        components: {
+            "dl-gallery-image": GalleryImage
+        }
+    })
+    export default class GalleryCreate extends Vue {
+        gallery = {} as GalleryInterface;
+        uploadMedia = {} as UploadMediaInterface;
+
+        get hasGallery(): boolean {
+            const gallery = this.$store.getters["gallery/getGallery"];
+            return typeof gallery.id !== 'undefined';
+        }
+
+        get GalleryMedia(): Array<MediaInterface> {
+            return this.$store.state.gallery.gallery.media;
+        }
+
+        createGallery(): void {
+            this.$store.dispatch("gallery/createGallery", this.gallery).then(() => {
+                console.log("gallery created")
+            });
+        }
+
+        onMediaChange(event: any): void {
+            this.uploadMedia.onChangeEvent(event);
+            this.uploadImage();
+        }
+
+        onMediaDrop(event: any): void {
+            this.uploadMedia.onDroppedEvent(event);
+            this.uploadImage();
+        }
+
+        uploadImage(): void {
+            this.$store.dispatch("gallery/uploadMedia", this.uploadMedia);
+        }
+
+        removeMedia(media: MediaInterface): void {
+            this.$store.dispatch("gallery/removeMedia", media);
+        }
+
+        created(): void {
+            this.$store.dispatch("gallery/clearGallery");
+            this.uploadMedia = new UploadMedia();
+        }
+    }
 </script>
 
 <style lang="scss" scoped>
