@@ -4,7 +4,6 @@ import Vuex from 'vuex'
 import {authentication} from "@/store/partials/authentication"
 import {brands}         from "@/store/partials/brands";
 import {categories}     from "@/store/partials/categories";
-import {gallery}        from "@/store/partials/gallery";
 import {product}        from "@/store/partials/product";
 
 Vue.use(Vuex)
@@ -20,7 +19,6 @@ export default new Vuex.Store({
     authentication,
     brands,
     categories,
-    gallery,
     product
   }
 })

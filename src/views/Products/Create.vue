@@ -109,7 +109,7 @@
 
     import {BrandInterface} from "@/interfaces/Brand.interface";
     import {CategoryInterface} from "@/interfaces/Category.interface";
-    import ProductClass from "@/classes/product.class";
+    import ProductModel from "@/classes/product/product.model";
     import {UploadMediaClass, UploadMediaInterface} from "@/classes/UploadMedia.class";
 
     @Component({
@@ -119,7 +119,7 @@
         },
     })
     export default class Create extends mixins(CategoryMixin, BrandMixin) {
-        product: ProductClass = new ProductClass();
+        product: ProductModel = new ProductModel();
         images: Array<string> = []
         brands: Array<BrandInterface> = []
         categories: Array<CategoryInterface> = []

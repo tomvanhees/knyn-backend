@@ -39,13 +39,13 @@
                             <div class="d-flex justify-content-center">
                                 <label
                                         @dragover.prevent
-                                        @drop="onMediaDrop"
+                                        @drop="gallery.onDroppedEvent($event)"
                                         class="large-add-button"
                                         for="image"
                                 >
                                     <span>+</span>
                                     <input
-                                            @change="onMediaChange"
+                                            @change="gallery.onChangeEvent($event)"
                                             id="image"
                                             multiple
                                             ref="upload"
@@ -66,8 +66,8 @@
                                 <dl-gallery-image
                                         :item="item"
                                         :key="item.id"
-                                        @remove-media="removeMedia"
-                                        v-for="(item) in GalleryMedia"
+                                        @remove-media="gallery.deleteMedia(item)"
+                                        v-for="(item) in gallery.media"
                                 />
                             </div>
                         </div>
@@ -82,9 +82,6 @@
     import Vue from "vue";
     import Component from "vue-class-component";
     import GalleryImage from "@/components/Gallery/GalleryImage.vue";
-    import {MediaInterface} from "@/interfaces/MediaInterface";
-    import {GalleryInterface} from "@/interfaces/Gallery.interface";
-    import {UploadMediaClass, UploadMediaInterface} from "@/classes/UploadMedia.class";
     import GalleryService from "@/classes/gallery/gallery.service";
     import {GalleryModel} from "@/classes/gallery/gallery.model";
 
@@ -94,46 +91,18 @@
         }
     })
     export default class GalleryCreate extends Vue {
-        gallery: GalleryInterface = new GalleryModel();
-        uploadMedia = {} as UploadMediaInterface;
+        gallery: GalleryModel = new GalleryModel();
 
         get hasGallery(): boolean {
-            const gallery = this.$store.getters["gallery/getGallery"];
-            return typeof gallery.id !== 'undefined';
-        }
-
-        get GalleryMedia(): Array<MediaInterface> {
-            return this.$store.state.gallery.gallery.media;
+            return this.gallery.id !== 0;
         }
 
         createGallery(): void {
-            GalleryService.create(this.gallery).then(()=>{
-                console.log('Gallery created')
+            GalleryService.create(this.gallery)
+                .then((response) => {
+                this.gallery = new GalleryModel()
+                    .deserialize(response.data);
             })
-
-        }
-
-        onMediaChange(event: any): void {
-            this.uploadMedia.onChangeEvent(event);
-            this.uploadImage();
-        }
-
-        onMediaDrop(event: any): void {
-            this.uploadMedia.onDroppedEvent(event);
-            this.uploadImage();
-        }
-
-        uploadImage(): void {
-            this.$store.dispatch("gallery/uploadMedia", this.uploadMedia);
-        }
-
-        removeMedia(media: MediaInterface): void {
-            this.$store.dispatch("gallery/removeMedia", media);
-        }
-
-        created(): void {
-            this.$store.dispatch("gallery/clearGallery");
-            this.uploadMedia = new UploadMediaClass();
         }
     }
 </script>

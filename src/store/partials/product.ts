@@ -2,27 +2,27 @@ import {MediaInterface} from "@/interfaces/MediaInterface";
 import http from "@/http/http";
 import {UploadMediaInterface} from "@/classes/UploadMedia.class";
 import {ProductInterface} from "@/interfaces/Product.interface";
-import ProductClass from "@/classes/product.class";
+import ProductModel from "@/classes/product/product.model";
 
 export const product = {
     namespaced: true,
     state: {
-        products: [] as Array<ProductClass>,
-        product: {} as ProductClass
+        products: [] as Array<ProductModel>,
+        product: {} as ProductModel
     },
     getters: {
-        getProduct(state: any): ProductClass {
+        getProduct(state: any): ProductModel {
             return state.product;
         },
-        getProducts(state: any): Array<ProductClass> {
+        getProducts(state: any): Array<ProductModel> {
             return state.products;
         }
     },
     mutations: {
-        setProducts(state: any, products: Array<ProductClass>): void {
+        setProducts(state: any, products: Array<ProductModel>): void {
             state.products = products;
         },
-        setProduct(state: any, product: ProductClass): void {
+        setProduct(state: any, product: ProductModel): void {
             state.product = product
         },
         addMedia(state: any, media: MediaInterface): void {
@@ -45,7 +45,7 @@ export const product = {
         }, // async createProduct({commit}: any, data: { name: string }): Promise<any> {
         //
         // },
-        async updateProduct({state}: any, data: ProductClass): Promise<any> {
+        async updateProduct({state}: any, data: ProductModel): Promise<any> {
             return http.post(`/product/${state.product.id}`, {
                 data: data.serialize(),
                 _method: 'PATCH'

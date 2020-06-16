@@ -6,14 +6,18 @@
 
 <script lang="ts">
     import Vue from "vue";
-    import Component from "vue-class-component";
+    import Component,{mixins} from "vue-class-component";
+
+    const ThumbProps = Vue.extend({
+        props:{
+            image: {},
+            index: {},
+            activeImage : {}
+        }
+    })
 
     @Component
-    export default class Thumb extends Vue {
-        image = {}
-        index = {}
-        activeImage = {}
-
+    export default class Thumb extends mixins(ThumbProps) {
         setActive(): void {
             this.$emit("set_active", this.index);
         }

@@ -113,7 +113,7 @@
     import {CategoryMixin} from "@/mixins/CategoryMixin";
     import {BrandMixin} from "@/mixins/BrandMixin";
     import {ProductInterface} from "@/interfaces/Product.interface";
-    import ProductClass from "@/classes/product.class";
+    import ProductModel from "@/classes/product/product.model";
 
     @Component({
         components: {
@@ -127,7 +127,7 @@
 
         get Products(): Array<ProductInterface> {
             return this.$store.getters["product/getProducts"]
-                .map((product: any) => new ProductClass().deserialize(product));
+                .map((product: any) => new ProductModel().deserialize(product));
         }
 
         get ABrandIsSelected(): boolean {

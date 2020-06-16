@@ -30,7 +30,6 @@ export class GalleryModel implements GalleryInterface {
         }
     }
 
-
     onChangeEvent(event: Event): void {
         this.uploadMedia.onChangeEvent(event)
         this.storeMedia();
