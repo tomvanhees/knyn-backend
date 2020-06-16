@@ -4,17 +4,18 @@ export interface UploadMediaInterface {
     onChangeEvent(event: any): void;
 
     getMedia(): Array<File>;
+    clearMedia(): void;
 }
 
 
-export class UploadMedia implements UploadMediaInterface {
-    private _media: Array<File> = [];
+export class UploadMediaClass implements UploadMediaInterface {
+    private media: Array<File> = [];
 
-    public onChangeEvent(event: any): void {
+     onChangeEvent(event: any): void {
         this.setMedia(event.target.files);
     }
 
-    public onDroppedEvent(event: any): void {
+     onDroppedEvent(event: any): void {
         event.stopPropagation();
         event.preventDefault();
         this.setMedia(event.dataTransfer.files)
@@ -22,12 +23,17 @@ export class UploadMedia implements UploadMediaInterface {
 
     private setMedia(files: Array<File>): void {
         files.forEach((file: File) => {
-            this._media.push(file)
+            this.media.push(file)
         })
     }
 
     public getMedia(): Array<File> {
-        return this._media;
+        return this.media;
     }
+
+    public clearMedia(): void {
+         this.media = [];
+    }
+
 
 }

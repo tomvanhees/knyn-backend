@@ -1,4 +1,4 @@
-export interface BrandInterface {
+export interface CategoryInterface{
     id: number;
     name: string;
 }

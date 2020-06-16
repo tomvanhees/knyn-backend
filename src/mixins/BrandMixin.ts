@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Component from "vue-class-component";
-import {BrandInterface} from "@/interfaces/BrandInterface";
+import {BrandInterface} from "@/interfaces/Brand.interface";
 
 @Component
 export class BrandMixin extends Vue {

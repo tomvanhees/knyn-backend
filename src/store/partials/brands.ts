@@ -1,14 +1,15 @@
-
 import http from "@/http/http";
-import {BrandInterface} from "@/interfaces/BrandInterface";
-
+import {BrandInterface} from "@/interfaces/Brand.interface";
+import BrandService from "@/classes/brand/brand.service";
+import {AxiosResponse} from "axios";
+import {BrandModel} from "@/classes/brand/brand.model";
 
 export const brands = {
     namespaced: true,
-    state     : {
+    state: {
         brands: Array<BrandInterface>()
     },
-    mutations : {
+    mutations: {
         setBrands(state: any, value: Array<BrandInterface>) {
             state.brands = value
         },
@@ -20,26 +21,25 @@ export const brands = {
             state.brands.splice(index, 1);
         }
     },
-    actions   : {
-        getBrands  : ({commit}: any) => {
-            http.get("product/brands").then(response => {
-                commit("setBrands", response.data)
-            })
+    actions: {
+        getBrands: ({commit}: any) => {
+            BrandService.fetch()
+                .then((response: AxiosResponse) => {
+                    commit("setBrands", response.data)
+                })
+
         },
-        addBrand   : ({commit}: any, name: string) => {
-            http.post("/product/brands", {
-                "name": name
-            }).then(response => {
-              commit("addBrand", response.data)
+        addBrand: ({commit}: any, brand: BrandModel) => {
+            BrandService.post(brand).then(response => {
+                commit("addBrand", response.data)
 
             })
         },
-        deleteBrand: ({commit}: any, brand: BrandInterface) => {
-            http.post(`product/brands/${brand.id}`, {
-                "_method": "DELETE"
-            }).then(() => {
-                commit("deleteBrand", brand)
-            })
+        deleteBrand: ({commit}: any, brand: BrandModel) => {
+            BrandService.delete(brand)
+                .then(() => {
+                        commit("deleteBrand", brand)
+                    })
         }
     }
 }

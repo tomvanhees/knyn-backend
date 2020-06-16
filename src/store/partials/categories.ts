@@ -1,5 +1,5 @@
 import http from "@/http/http";
-import {CategoryInterface} from "@/interfaces/CategoryInterface";
+import {CategoryInterface} from "@/interfaces/Category.interface";
 
 export const categories = {
     namespaced  : true, state: {

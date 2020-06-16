@@ -2,8 +2,8 @@
     import {Doughnut} from 'vue-chartjs'
 
     export default {
-        extends: Doughnut,
         name   : "DoughnutChart",
+        extends: Doughnut,
         props  : {
             chartdata: {
                 type   : Object,

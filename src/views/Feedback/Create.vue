@@ -58,7 +58,7 @@
     export default class Create extends Vue {
         feedback = {
             question: "",
-            answers: [],
+            answers: [] as Array<any>,
         }
 
         addAnswer(): void {
@@ -68,7 +68,7 @@
             });
         }
 
-        removeAnswer(index): void {
+        removeAnswer(index: number): void {
             this.feedback.answers.splice(index, 1)
         }
 

@@ -83,8 +83,10 @@
     import Component from "vue-class-component";
     import GalleryImage from "@/components/Gallery/GalleryImage.vue";
     import {MediaInterface} from "@/interfaces/MediaInterface";
-    import {GalleryInterface} from "@/interfaces/GalleryInterface";
-    import {UploadMedia, UploadMediaInterface} from "@/classes/UploadMedia";
+    import {GalleryInterface} from "@/interfaces/Gallery.interface";
+    import {UploadMediaClass, UploadMediaInterface} from "@/classes/UploadMedia.class";
+    import GalleryService from "@/classes/gallery/gallery.service";
+    import {GalleryModel} from "@/classes/gallery/gallery.model";
 
     @Component({
         components: {
@@ -92,7 +94,7 @@
         }
     })
     export default class GalleryCreate extends Vue {
-        gallery = {} as GalleryInterface;
+        gallery: GalleryInterface = new GalleryModel();
         uploadMedia = {} as UploadMediaInterface;
 
         get hasGallery(): boolean {
@@ -105,9 +107,10 @@
         }
 
         createGallery(): void {
-            this.$store.dispatch("gallery/createGallery", this.gallery).then(() => {
-                console.log("gallery created")
-            });
+            GalleryService.create(this.gallery).then(()=>{
+                console.log('Gallery created')
+            })
+
         }
 
         onMediaChange(event: any): void {
@@ -130,7 +133,7 @@
 
         created(): void {
             this.$store.dispatch("gallery/clearGallery");
-            this.uploadMedia = new UploadMedia();
+            this.uploadMedia = new UploadMediaClass();
         }
     }
 </script>

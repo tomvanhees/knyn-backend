@@ -18,7 +18,7 @@
 
                             <div class="row">
                                 <dl-gallery-index-card
-                                        v-for="gallery in $store.getters['gallery/getGalleries']"
+                                        v-for="gallery in galleries"
                                         :key="gallery.id"
                                         :gallery="gallery"
                                 />
@@ -35,7 +35,8 @@
     import Vue from "vue";
     import Component from "vue-class-component";
     import GalleryIndexCard from "@/components/Gallery/GalleryIndexCard.vue";
-
+    import GalleryService from "@/classes/gallery/gallery.service";
+    import {GalleryInterface} from "@/interfaces/Gallery.interface";
 
     @Component({
         components: {
@@ -43,12 +44,17 @@
         },
     })
     export default class GalleyIndex extends Vue {
+       galleries: Array<GalleryInterface> = []
+
         created(): void {
             this.getGalleries();
         }
 
         getGalleries(): void {
-            this.$store.dispatch("gallery/fetchGalleries");
+        GalleryService.fetch().then(response => {
+            this.galleries = response.data
+        });
+
         }
     }
 </script>

@@ -25,7 +25,7 @@
     import Vue from "vue";
     import Component from "vue-class-component";
     import http from "../../http/http";
-    import DoughnutChart from "../../components/Statistics/DoughnutChart";
+    import DoughnutChart from "@/components/Statistics/DoughnutChart.vue";
 
     @Component({
         components: {
@@ -33,7 +33,7 @@
         }
     })
     export default class StatisticsIndex extends Vue {
-        statistics: [];
+        statistics: Array<any> = [];
         options = {
             legend: {
                 display: true,

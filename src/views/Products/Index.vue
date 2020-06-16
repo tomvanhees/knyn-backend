@@ -112,7 +112,7 @@
     import ProductIndexCard from "@/components/Products/ProductIndexCard.vue";
     import {CategoryMixin} from "@/mixins/CategoryMixin";
     import {BrandMixin} from "@/mixins/BrandMixin";
-    import {ProductInterface} from "@/interfaces/ProductInterface";
+    import {ProductInterface} from "@/interfaces/Product.interface";
     import ProductClass from "@/classes/product.class";
 
     @Component({

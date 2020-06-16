@@ -51,14 +51,14 @@
 </template>
 
 <script lang="ts">
-    import Vue from "vue/types/vue";
+    import Vue from "vue";
     import Component from "vue-class-component";
     import http from "../../http/http";
 
 
     @Component
     export default class Index extends Vue {
-        questions: []
+        questions: Array<any> = []
 
         getQuestions(): void {
             http.get("/feedback/questions").then(response => {

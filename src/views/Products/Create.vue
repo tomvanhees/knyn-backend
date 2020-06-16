@@ -107,10 +107,10 @@
     import EditBrands from "@/views/Products/Brands/EditBrands.vue";
     import EditCategories from "@/views/Products/Categories/EditCategories.vue";
 
-    import {BrandInterface} from "@/interfaces/BrandInterface";
-    import {CategoryInterface} from "@/interfaces/CategoryInterface";
+    import {BrandInterface} from "@/interfaces/Brand.interface";
+    import {CategoryInterface} from "@/interfaces/Category.interface";
     import ProductClass from "@/classes/product.class";
-    import {UploadMedia, UploadMediaInterface} from "@/classes/UploadMedia";
+    import {UploadMediaClass, UploadMediaInterface} from "@/classes/UploadMedia.class";
 
     @Component({
         components: {
@@ -127,7 +127,7 @@
             status: 0,
             currentUpload: 1 as number
         }
-        uploadMedia: UploadMediaInterface = new UploadMedia()
+        uploadMedia: UploadMediaInterface = new UploadMediaClass()
 
         get ProductHasImages(): boolean {
             return this.images.length > 0

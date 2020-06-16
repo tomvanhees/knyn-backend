@@ -1,37 +1,38 @@
-import {MediaInterface}       from "@/interfaces/MediaInterface";
-import http                   from "@/http/http";
-import {UploadMediaInterface} from "@/classes/UploadMedia";
-import {ProductInterface}     from "@/interfaces/ProductInterface";
+import {MediaInterface} from "@/interfaces/MediaInterface";
+import http from "@/http/http";
+import {UploadMediaInterface} from "@/classes/UploadMedia.class";
+import {ProductInterface} from "@/interfaces/Product.interface";
+import ProductClass from "@/classes/product.class";
 
 export const product = {
     namespaced: true,
-    state     : {
-        products: [] as Array<ProductInterface>,
-        product : {} as ProductInterface
+    state: {
+        products: [] as Array<ProductClass>,
+        product: {} as ProductClass
     },
-    getters   : {
-        getProduct(state: any) {
+    getters: {
+        getProduct(state: any): ProductClass {
             return state.product;
         },
-        getProducts(state: any) {
+        getProducts(state: any): Array<ProductClass> {
             return state.products;
         }
     },
-    mutations : {
-        setProducts(state: any, products: Array<ProductInterface>) {
+    mutations: {
+        setProducts(state: any, products: Array<ProductClass>): void {
             state.products = products;
         },
-        setProduct(state: any, product: ProductInterface) {
+        setProduct(state: any, product: ProductClass): void {
             state.product = product
         },
-        addMedia(state: any, media: MediaInterface) {
+        addMedia(state: any, media: MediaInterface): void {
             state.product.media.push(media);
         },
-        removeMedia(state: any, index: number) {
+        removeMedia(state: any, index: number): void {
             state.product.media.splice(index, 1);
         }
     },
-    actions   : {
+    actions: {
         async fetchProducts({commit}: any): Promise<any> {
             http.get("/product").then(response => {
                 commit("setProducts", response.data);
@@ -44,8 +45,11 @@ export const product = {
         }, // async createProduct({commit}: any, data: { name: string }): Promise<any> {
         //
         // },
-        async updateProduct({state}: any, data: { "name": string; "description": string; "price": string; "brand_id": number; "categories": Array<number>; "_method": string }): Promise<any> {
-            return http.post(`/product/${state.product.id}`, data)
+        async updateProduct({state}: any, data: ProductClass): Promise<any> {
+            return http.post(`/product/${state.product.id}`, {
+                data: data.serialize(),
+                _method: 'PATCH'
+            })
         },
         async deleteProduct({state}: any): Promise<any> {
             return http.post(`/product/${state.product.id}`, {

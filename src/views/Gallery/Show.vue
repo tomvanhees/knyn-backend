@@ -1,7 +1,7 @@
 <template>
     <div>
         <h1>
-            {{ GalleryName }}
+            {{ gallery.name }}
         </h1>
         <div class="container">
             <div class="row mb-5">
@@ -13,7 +13,7 @@
                                     <input
                                             class="form-control"
                                             type="text"
-                                            v-model="GalleryName"
+                                            v-model="gallery.name"
                                     >
                                     <div class="input-group-append">
                                         <button
@@ -40,13 +40,13 @@
                             <div class="d-flex justify-content-center">
                                 <label
                                         @dragover.prevent
-                                        @drop="onMediaDrop"
+                                        @drop="gallery.onDroppedEdvent($event)"
                                         class="large-add-button"
                                         for="image"
                                 >
                                     <span>+</span>
                                     <input
-                                            @change="onMediaChange"
+                                            @change="gallery.onChangeEvent($event)"
                                             id="image"
                                             multiple
                                             ref="upload"
@@ -66,8 +66,8 @@
                                 <dl-gallery-image
                                         :item="item"
                                         :key="item.id"
-                                        @remove-media="removeMedia"
-                                        v-for="(item) in GalleryMedia"
+                                        @remove-media="gallery.deleteMedia(item)"
+                                        v-for="(item) in gallery.media"
                                 />
                             </div>
                         </div>
@@ -83,8 +83,11 @@
     import Component from "vue-class-component";
     import GalleryImage from "@/components/Gallery/GalleryImage.vue";
     import {MediaInterface} from "@/interfaces/MediaInterface";
-    import {UploadMedia, UploadMediaInterface} from "@/classes/UploadMedia";
-
+    import {UploadMediaClass, UploadMediaInterface} from "@/classes/UploadMedia.class";
+    import {GalleryModel} from "@/classes/gallery/gallery.model";
+    import {GalleryInterface} from "@/interfaces/Gallery.interface";
+    import GalleryService from "@/classes/gallery/gallery.service";
+    import {AxiosResponse} from "axios";
 
     @Component({
         components: {
@@ -92,60 +95,23 @@
         },
     })
     export default class GalleryShow extends Vue {
-        uploadMedia = {} as UploadMediaInterface
-
-
-        get GalleryName(): string {
-            return this.$store.state.gallery.gallery.name;
-        }
-
-        set GalleyName(name: string) {
-            this.$store.state.gallery.gallery.name = name;
-        }
-
-
-        get GalleryMedia(): Array<MediaInterface> {
-            return this.$store.state.gallery.gallery.media;
-        }
-
+        gallery: GalleryModel = new GalleryModel();
 
         created(): void {
-            this.$store.dispatch("gallery/fetchGallery", this.$route.params.id);
-            this.uploadMedia = new UploadMedia();
-
-        }
-
-        beforeDestroy(): void {
-            this.$store.dispatch("gallery/clearGallery");
+            GalleryService.find(this.$route.params.id)
+                .then((response: AxiosResponse) => {
+                    this.gallery = new GalleryModel().deserialize(response.data);
+                });
         }
 
         updateGallery(): void {
-            this.$store.dispatch("gallery/updateGallery")
+            GalleryService.update(this.gallery)
         }
 
         deleteGallery(): void {
-            this.$store.dispatch("gallery/deleteGallery")
-                .then(() => {
-                    this.$router.push("/inspiratie");
-                })
-        }
-
-        onMediaChange(event: any): void {
-            this.uploadMedia.onChangeEvent(event);
-            this.uploadImage();
-        }
-
-        onMediaDrop(event: any): void {
-            this.uploadMedia.onDroppedEvent(event);
-            this.uploadImage();
-        }
-
-        uploadImage(): void {
-            this.$store.dispatch("gallery/uploadMedia", this.uploadMedia);
-        }
-
-        removeMedia(media: MediaInterface): void {
-            this.$store.dispatch("gallery/removeMedia", media);
+            GalleryService.delete(this.gallery).then(() => {
+                this.$router.push("/inspiratie");
+            })
         }
     }
 </script>

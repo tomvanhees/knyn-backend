@@ -51,7 +51,7 @@
               <div class="col-9">
                 <div class="input-group">
                   <input
-                    v-model="newBrand"
+                    v-model="newBrand.name"
                     class="form-control"
                     type="text"
                   >
@@ -84,11 +84,13 @@
 <script lang="ts">
     import Component, {mixins} from "vue-class-component";
     import {BrandMixin} from "@/mixins/BrandMixin";
+    import {BrandInterface} from "@/interfaces/Brand.interface";
+    import {BrandModel} from "@/classes/brand/brand.model";
 
     @Component
     export default class EditBrands extends mixins(BrandMixin) {
         show = false
-        newBrand = ""
+        newBrand: BrandInterface = new BrandModel();
         
         setShow(value: boolean): void {
             this.show = value
@@ -96,7 +98,7 @@
         
         addBrand(): void {
             this.$store.dispatch("brands/addBrand", this.newBrand)
-            this.newBrand = "";
+            this.newBrand = new BrandModel();
         }
     }
 </script>

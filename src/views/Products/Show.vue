@@ -188,15 +188,14 @@
     import {CategoryMixin} from "@/mixins/CategoryMixin";
     import {BrandMixin} from "@/mixins/BrandMixin";
     import thumb from "@/components/Products/Thumb.vue"
-    import {ProductInterface} from "@/interfaces/ProductInterface";
-    import {UploadMedia, UploadMediaInterface} from "@/classes/UploadMedia";
+    import {UploadMediaClass, UploadMediaInterface} from "@/classes/UploadMedia.class";
     import ProductClass from "@/classes/product.class";
 
     @Component
     export default class Show extends mixins(CategoryMixin, BrandMixin, thumb) {
-        product: ProductInterface = new ProductClass()
+        product: ProductClass = new ProductClass()
         activeImage = 0
-        uploadMedia: UploadMediaInterface = new UploadMedia();
+        uploadMedia: UploadMediaInterface = new UploadMediaClass();
 
         get ProductHasNoMedia(): boolean {
             return this.product.media.length === 0;
@@ -222,6 +221,7 @@
         }
 
         updateProduct(): void {
+          console.log(this.product)
             this.$store.dispatch("product/updateProduct", this.product);
         }
 
