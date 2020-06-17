@@ -1,7 +1,6 @@
 <template>
     <div>
         <h1>Informatie</h1>
-
         <div class="container">
             <div class="row">
                 <div class="col-8">
@@ -172,51 +171,27 @@
 <script lang="ts">
     import Vue from "vue";
     import Component from "vue-class-component";
-    import http from "../../http/http";
 
+import InformationService from "@/classes/information/information.service";
+    import {InformationModel} from "@/classes/information/information.model";
     @Component
     export default class Information extends Vue {
-        information = {
-            qrCodes: {
-                app: "" as string,
-                facebook: "" as string,
-                instagram: "" as string
-            },
-            hours: {
-                monday: "" as string,
-                tuesday: "" as string,
-                wednesday: "" as string,
-                thursday: "" as string,
-                friday: "" as string,
-                saturday: "" as string,
-                sunday: "" as string
-            },
-            socialMedia: {
-                facebook: "" as string,
-                instagram: "" as string
-            }
-        }
+        information = new InformationModel();
 
         created(): void {
             this.getInformation();
         }
 
-
         update(): void {
-            http.post("/information", {
-                    "hours": this.information.hours,
-                    "social_media": this.information.socialMedia
-                }
-            ).then(response => {
-                    this
-                        .information = response.data
+            InformationService.post(this.information).then(response => {
+                    this.information = new InformationModel().deserialize(response.data)
                 }
             )
         }
 
         getInformation(): void {
-            http.get("/information").then(response => {
-                this.information = response.data
+        InformationService.fetch().then(response => {
+                this.information = new InformationModel().deserialize(response.data)
             })
         }
 
