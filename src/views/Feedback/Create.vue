@@ -52,20 +52,16 @@
 <script lang="ts">
     import Vue from "vue";
     import Component from "vue-class-component";
-    import http from "../../http/http";
+    import {AnswerModel} from "@/classes/feedback/answer/answer.model";
+    import {FeedbackModel} from "@/classes/feedback/feedback.model";
+    import FeedbackService from "@/classes/feedback/feedback.service";
 
     @Component
     export default class Create extends Vue {
-        feedback = {
-            question: "",
-            answers: [] as Array<any>,
-        }
+        feedback: FeedbackModel = new FeedbackModel()
 
         addAnswer(): void {
-            this.feedback.answers.push({
-                id: Date.now(),
-                answer: ""
-            });
+            this.feedback.answers.push(new AnswerModel());
         }
 
         removeAnswer(index: number): void {
@@ -73,12 +69,10 @@
         }
 
         createQuestion(): void {
-            http.post("/feedback/questions", {
-                question: this.feedback.question,
-                answers: this.feedback.answers
-            }).then(() => {
-                this.$router.push("/feedback");
-            })
+            FeedbackService.store(this.feedback)
+                .then(() => {
+                    this.$router.push("/feedback");
+                })
         }
     }
 </script>

@@ -1,18 +1,7 @@
 import {BrandInterface} from "@/classes/brand/Brand.interface";
+import {Model} from "@/classes/Model";
 
-export class BrandModel implements BrandInterface{
+export class BrandModel extends Model implements BrandInterface{
     id = 0;
     name = "";
-
-    deserialize(input: any): this {
-        Object.assign(this, input)
-        return this;
-    }
-
-    serialize(): any {
-        return {
-            id: this.id,
-            name: this.name
-        };
-    }
 }

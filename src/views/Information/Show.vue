@@ -172,8 +172,9 @@
     import Vue from "vue";
     import Component from "vue-class-component";
 
-import InformationService from "@/classes/information/information.service";
+    import InformationService from "@/classes/information/information.service";
     import {InformationModel} from "@/classes/information/information.model";
+
     @Component
     export default class Information extends Vue {
         information = new InformationModel();
@@ -190,7 +191,7 @@ import InformationService from "@/classes/information/information.service";
         }
 
         getInformation(): void {
-        InformationService.fetch().then(response => {
+            InformationService.fetch().then(response => {
                 this.information = new InformationModel().deserialize(response.data)
             })
         }

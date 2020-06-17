@@ -2,8 +2,9 @@ import {GalleryInterface} from "@/classes/gallery/gallery.interface";
 import {MediaInterface} from "@/interfaces/MediaInterface";
 import {UploadMediaClass} from "@/classes/UploadMedia.class";
 import http from "@/http/http";
+import {Model} from "@/classes/Model";
 
-export class GalleryModel implements GalleryInterface {
+export class GalleryModel extends Model implements GalleryInterface {
     name = ""
     cover = "";
     id = 0;
@@ -12,24 +13,9 @@ export class GalleryModel implements GalleryInterface {
     uploadMedia: UploadMediaClass
 
     constructor() {
+        super();
         this.uploadMedia = new UploadMediaClass();
     }
-
-    deserialize(input: any): this {
-        Object.assign(this, input);
-        return this;
-    }
-
-    serialize(): any {
-        return {
-            id: this.id,
-            name: this.name,
-            cover: this.cover,
-            slug: this.slug,
-            media: this.media
-        }
-    }
-
     onChangeEvent(event: Event): void {
         this.uploadMedia.onChangeEvent(event)
         this.storeMedia();

@@ -5,8 +5,9 @@ import {BrandModel} from "@/classes/brand/brand.model";
 import {BrandInterface} from "@/classes/brand/brand.interface";
 import {UploadMediaClass} from "@/classes/UploadMedia.class";
 import http from "@/http/http";
+import {Model} from "@/classes/Model";
 
-export default class ProductModel implements ProductInterface {
+export default class ProductModel extends Model implements ProductInterface {
     id?: number;
     name = "";
     price = "";
@@ -17,6 +18,7 @@ export default class ProductModel implements ProductInterface {
     uploadMedia: UploadMediaClass;
 
     constructor() {
+        super();
         this.brand = new BrandModel();
         this.uploadMedia = new UploadMediaClass();
     }

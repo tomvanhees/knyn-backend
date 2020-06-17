@@ -44,6 +44,8 @@
     import Component from "vue-class-component";
     import http from "../../../http/http";
     import {AnswerInterface} from "@/interfaces/AnswerInterface";
+    import {FeedbackResponseModel} from "@/classes/feedback/response/feedback-response.model";
+    import {AxiosResponse} from "axios";
 
     @Component
     export default class AnswersIndex extends Vue {
@@ -55,7 +57,7 @@
 
         getAnswers(): void {
             http.get("/feedback/answers").then(response => {
-                this.answersCollection = response.data
+                this.answersCollection = response.data.map((feedbackResponse: AxiosResponse) => new FeedbackResponseModel().deserialize(feedbackResponse))
             })
         }
     }

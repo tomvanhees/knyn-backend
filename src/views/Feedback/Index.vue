@@ -53,7 +53,8 @@
 <script lang="ts">
     import Vue from "vue";
     import Component from "vue-class-component";
-    import http from "../../http/http";
+    import FeedbackService from "@/classes/feedback/feedback.service";
+    import {FeedbackModel} from "@/classes/feedback/feedback.model";
 
 
     @Component
@@ -61,8 +62,9 @@
         questions: Array<any> = []
 
         getQuestions(): void {
-            http.get("/feedback/questions").then(response => {
-                this.questions = response.data;
+            FeedbackService.fetch().
+            then(response => {
+                this.questions = response.data.map((feedback: any) => new FeedbackModel().deserialize(feedback));
             })
         }
 
