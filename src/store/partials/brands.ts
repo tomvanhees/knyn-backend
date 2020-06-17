@@ -1,5 +1,4 @@
-import http from "@/http/http";
-import {BrandInterface} from "@/interfaces/Brand.interface";
+import {BrandInterface} from "@/classes/brand/brand.interface";
 import BrandService from "@/classes/brand/brand.service";
 import {AxiosResponse} from "axios";
 import {BrandModel} from "@/classes/brand/brand.model";
@@ -10,11 +9,11 @@ export const brands = {
         brands: Array<BrandInterface>()
     },
     mutations: {
-        setBrands(state: any, value: Array<BrandInterface>) {
-            state.brands = value
+        setBrands(state: any, brands: Array<BrandInterface>) {
+          brands.forEach(brand => state.brands. push(new BrandModel().deserialize(brand)))
         },
-        addBrand(state: any, value: BrandInterface) {
-            state.brands.push(value)
+        addBrand(state: any, brand: BrandInterface) {
+            state.brands.push(new BrandModel().deserialize(brand))
         },
         deleteBrand(state: any, value: BrandInterface) {
             const index = state.brands.indexOf(value);
@@ -32,7 +31,6 @@ export const brands = {
         addBrand: ({commit}: any, brand: BrandModel) => {
             BrandService.post(brand).then(response => {
                 commit("addBrand", response.data)
-
             })
         },
         deleteBrand: ({commit}: any, brand: BrandModel) => {

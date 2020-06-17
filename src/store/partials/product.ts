@@ -1,7 +1,7 @@
 import {MediaInterface} from "@/interfaces/MediaInterface";
 import http from "@/http/http";
 import {UploadMediaInterface} from "@/classes/UploadMedia.class";
-import {ProductInterface} from "@/interfaces/Product.interface";
+import {ProductInterface} from "@/classes/product/product.interface";
 import ProductModel from "@/classes/product/product.model";
 
 export const product = {

@@ -112,7 +112,7 @@
     import ProductIndexCard from "@/components/Products/ProductIndexCard.vue";
     import {CategoryMixin} from "@/mixins/CategoryMixin";
     import {BrandMixin} from "@/mixins/BrandMixin";
-    import {ProductInterface} from "@/interfaces/Product.interface";
+    import {ProductInterface} from "@/classes/product/product.interface";
     import ProductModel from "@/classes/product/product.model";
 
     @Component({
@@ -177,7 +177,6 @@
 
         created(): void {
             this.$store.dispatch("product/fetchProducts");
-
         }
     }
 </script>

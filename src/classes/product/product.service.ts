@@ -11,12 +11,16 @@ export default class ProductService {
     }
 
     static async create(product: ProductModel): Promise<any> {
+
+
         return http.post(`/product`, {
             content: product.serialize()
         })
     }
 
     static async update(product: ProductModel): Promise<any> {
+
+        console.log("in class")
         return http.post(`/product/${product.id}`, {
             content: product.serialize(),
             "_method": "PATCH"

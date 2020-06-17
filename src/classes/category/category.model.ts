@@ -1,11 +1,11 @@
-import {BrandInterface} from "@/classes/brand/Brand.interface";
+import {CategoryInterface} from "@/classes/category/category.interface";
 
-export class BrandModel implements BrandInterface{
+export class CategoryModel implements CategoryInterface {
     id = 0;
     name = "";
 
     deserialize(input: any): this {
-        Object.assign(this, input)
+        Object.assign(this, input);
         return this;
     }
 
@@ -13,6 +13,7 @@ export class BrandModel implements BrandInterface{
         return {
             id: this.id,
             name: this.name
-        };
+        }
     }
+
 }

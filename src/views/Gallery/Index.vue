@@ -36,7 +36,7 @@
     import Component from "vue-class-component";
     import GalleryIndexCard from "@/components/Gallery/GalleryIndexCard.vue";
     import GalleryService from "@/classes/gallery/gallery.service";
-    import {GalleryInterface} from "@/interfaces/Gallery.interface";
+    import {GalleryInterface} from "@/classes/gallery/gallery.interface";
 
     @Component({
         components: {

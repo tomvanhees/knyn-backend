@@ -84,7 +84,7 @@
 <script lang="ts">
     import Component, {mixins} from "vue-class-component";
     import {BrandMixin} from "@/mixins/BrandMixin";
-    import {BrandInterface} from "@/interfaces/Brand.interface";
+    import {BrandInterface} from "@/classes/brand/brand.interface";
     import {BrandModel} from "@/classes/brand/brand.model";
 
     @Component

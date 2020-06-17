@@ -1,4 +1,4 @@
-import {GalleryInterface} from "@/interfaces/Gallery.interface";
+import {GalleryInterface} from "@/classes/gallery/gallery.interface";
 import {MediaInterface} from "@/interfaces/MediaInterface";
 import {UploadMediaClass} from "@/classes/UploadMedia.class";
 import http from "@/http/http";

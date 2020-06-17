@@ -45,12 +45,11 @@
                             </ul>
                         </div>
 
-
                         <div class="row">
                             <div class="col-9">
                                 <div class="input-group">
                                     <input
-                                            v-model="newCategory"
+                                            v-model="newCategory.name"
                                             type="text"
                                             class="form-control"
                                     >
@@ -83,12 +82,12 @@
 <script lang="ts">
     import Component, {mixins} from "vue-class-component";
     import {CategoryMixin} from "@/mixins/CategoryMixin";
+    import {CategoryModel} from "@/classes/category/category.model";
 
     @Component
     export default class EditCategories extends mixins(CategoryMixin) {
-
         show = false;
-        newCategory = "";
+        newCategory = new CategoryModel();
 
         setShow(value: boolean): void {
             this.show = value
@@ -96,7 +95,7 @@
 
         addCategory(): void {
             this.$store.dispatch("categories/addCategory", this.newCategory)
-            this.newCategory = "";
+            this.newCategory = new CategoryModel();
         }
     }
 </script>

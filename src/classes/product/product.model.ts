@@ -1,8 +1,8 @@
-import {ProductInterface} from "@/interfaces/Product.interface";
+import {ProductInterface} from "@/classes/product/product.interface";
 import {CategoryInterface} from "@/interfaces/Category.interface";
 import {MediaInterface} from "@/interfaces/MediaInterface";
 import {BrandModel} from "@/classes/brand/brand.model";
-import {BrandInterface} from "@/interfaces/Brand.interface";
+import {BrandInterface} from "@/classes/brand/brand.interface";
 import {UploadMediaClass} from "@/classes/UploadMedia.class";
 import http from "@/http/http";
 

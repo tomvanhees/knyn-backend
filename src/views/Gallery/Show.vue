@@ -85,7 +85,7 @@
     import {MediaInterface} from "@/interfaces/MediaInterface";
     import {UploadMediaClass, UploadMediaInterface} from "@/classes/UploadMedia.class";
     import {GalleryModel} from "@/classes/gallery/gallery.model";
-    import {GalleryInterface} from "@/interfaces/Gallery.interface";
+    import {GalleryInterface} from "@/classes/gallery/gallery.interface";
     import GalleryService from "@/classes/gallery/gallery.service";
     import {AxiosResponse} from "axios";
 

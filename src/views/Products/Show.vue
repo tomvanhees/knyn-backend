@@ -211,6 +211,7 @@
         }
 
         updateProduct(): void {
+            console.log("update")
             ProductService.update(this.product)
         }
 
@@ -225,14 +226,13 @@
         }
 
         removeImage(): void {
-            this.$store.dispatch("product/removeMedia", this.product.media[this.activeImage])
-                .then(() => {
-                    if (this.ProductHasNoMedia || this.activeImage === 0) {
-                        this.activeImage = 0
-                    } else {
-                        this.activeImage--;
-                    }
-                })
+            this.product.deleteMedia(this.product.media[this.activeImage])
+
+            if (this.ProductHasNoMedia || this.activeImage === 0) {
+                this.activeImage = 0
+            } else {
+                this.activeImage--;
+            }
         }
     }
 </script>
