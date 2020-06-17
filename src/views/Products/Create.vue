@@ -108,7 +108,7 @@
     import EditCategories from "@/views/Products/Categories/EditCategories.vue";
 
     import {BrandInterface} from "@/classes/brand/brand.interface";
-    import {CategoryInterface} from "@/interfaces/Category.interface";
+    import {CategoryInterface} from "@/classes/category/category.interface";
     import ProductModel from "@/classes/product/product.model";
     import {UploadMediaClass, UploadMediaInterface} from "@/classes/UploadMedia.class";
 

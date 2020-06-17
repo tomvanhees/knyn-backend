@@ -34,7 +34,7 @@ const routes = [
             menu   : Menu
         },
         beforeEnter(to: Route, from: Route, next: Function) {
-            if (store.state.authentication.token) {
+            if (store.getters["authentication/isAuthenticated"]) {
                 next()
             } else {
                 next("/signin")
@@ -50,7 +50,7 @@ const routes = [
             menu   : Menu
         },
         beforeEnter(to: Route, from: Route, next: Function) {
-            if (store.state.authentication.token) {
+            if (store.getters["authentication/isAuthenticated"]) {
                 next()
             } else {
                 next("/signin")
@@ -65,7 +65,7 @@ const routes = [
             menu   : Menu
         },
         beforeEnter(to: Route, from: Route, next: Function) {
-            if (store.state.authentication.token) {
+            if (store.getters["authentication/isAuthenticated"]) {
                 next()
             } else {
                 next("/signin")
@@ -79,7 +79,7 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to: Route,from: Route,next) =>{
-    if (!store.state.authentication.token){
+    if (!store.getters["authentication/isAuthenticated"]){
         store.dispatch("authentication/tryAutologin")
     }
     next()

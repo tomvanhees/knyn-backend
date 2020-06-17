@@ -10,7 +10,7 @@ export const gallery = {
         menu   : Menu
     },
     beforeEnter(to: Route, from: Route, next: Function) {
-        if (store.state.authentication.token) {
+        if (store.getters["authentication/isAuthenticated"]) {
             next()
         } else {
             next("/signin")
@@ -24,7 +24,7 @@ export const gallery = {
                 menu   : Menu
             },
             beforeEnter(to: Route, from: Route, next: Function) {
-                if (store.state.authentication.token) {
+                if (store.getters["authentication/isAuthenticated"]) {
                     next()
                 } else {
                     next("/signin")
@@ -39,7 +39,7 @@ export const gallery = {
                 menu   : Menu
             },
             beforeEnter(to: Route, from: Route, next: Function) {
-                if (store.state.authentication.token) {
+                if (store.getters["authentication/isAuthenticated"]) {
                     next()
                 } else {
                     next("/signin")
@@ -56,7 +56,7 @@ export const gallery = {
             }
             ,
             beforeEnter(to: Route, from: Route, next: Function) {
-                if (store.state.authentication.token) {
+                if (store.getters["authentication/isAuthenticated"]) {
                     next()
                 } else {
                     next("/signin")

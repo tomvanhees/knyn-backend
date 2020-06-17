@@ -1,6 +1,6 @@
 import Vue from "vue";
 import Component from "vue-class-component";
-import {CategoryInterface} from "@/interfaces/Category.interface";
+import {CategoryInterface} from "@/classes/category/category.interface";
 
 @Component
 export class CategoryMixin extends Vue {

@@ -17,11 +17,13 @@ export const categories = {
             state.categories.splice(index, 1);
         }
     }, actions: {
-        getCategories: ({commit}: any) => {
-            CategoryService.fetch()
-                .then(response => {
-                    commit("setCategories", response.data)
-                })
+        getCategories: ({state,commit}: any) => {
+            if (state.categories.length === 0){
+                CategoryService.fetch()
+                    .then(response => {
+                        commit("setCategories", response.data)
+                    })
+            }
         }, addCategory: ({commit}: any, category: CategoryModel) => {
             CategoryService.post(category)
                 .then(response => {

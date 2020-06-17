@@ -5,16 +5,25 @@ export const authentication = {
     state     : {
         token: "" as string
     },
-    mutations : {
-        setToken(state: any, token: string) {
-            state.token = token;
+    getters: {
+        isAuthenticated(state: any): boolean{
+            return state.token !== ""
         },
-        clearToken(state: any) {
-            state.token = "";
+        getToken(state: any): string {
+            return state.token;
         }
     },
+    mutations : {
+        setToken(state: any, token: string): void {
+            state.token = token;
+        },
+        clearToken(state: any): void {
+            state.token = "";
+        },
+
+    },
     actions   : {
-        clearToken  : ({commit}: any) => {
+        clearToken: ({commit}: any) => {
             localStorage.removeItem("token");
             commit('clearToken');
         },

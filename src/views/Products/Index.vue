@@ -114,7 +114,7 @@
     import {BrandMixin} from "@/mixins/BrandMixin";
     import {ProductInterface} from "@/classes/product/product.interface";
     import ProductModel from "@/classes/product/product.model";
-
+import ProductService from "@/classes/product/product.service";
     @Component({
         components: {
             "dl-product-index-card": ProductIndexCard
@@ -124,10 +124,11 @@
     export default class Products extends mixins(CategoryMixin, BrandMixin) {
         selectedBrands: Array<number> = [];
         selectedCategories: Array<number> = []
+        products: Array<ProductModel> = [];
+
 
         get Products(): Array<ProductInterface> {
-            return this.$store.getters["product/getProducts"]
-                .map((product: any) => new ProductModel().deserialize(product));
+            return this.products
         }
 
         get ABrandIsSelected(): boolean {
@@ -155,7 +156,6 @@
                 })
 
             }
-
             if (this.ABrandIsSelected) {
                 return this.Products.filter(product => {
                     if (this.selectedBrands.includes(product.brand.id)) {
@@ -176,7 +176,9 @@
         }
 
         created(): void {
-            this.$store.dispatch("product/fetchProducts");
+           ProductService.fetch().then(response => {
+               response.data.forEach((product: any) => this.products.push(new ProductModel().deserialize(product)))
+           })
         }
     }
 </script>

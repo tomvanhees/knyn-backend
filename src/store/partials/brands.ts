@@ -21,12 +21,13 @@ export const brands = {
         }
     },
     actions: {
-        getBrands: ({commit}: any) => {
-            BrandService.fetch()
-                .then((response: AxiosResponse) => {
-                    commit("setBrands", response.data)
-                })
-
+        getBrands: ({state,commit}: any) => {
+            if (state.brands.length === 0){
+                BrandService.fetch()
+                    .then((response: AxiosResponse) => {
+                        commit("setBrands", response.data)
+                    })
+            }
         },
         addBrand: ({commit}: any, brand: BrandModel) => {
             BrandService.post(brand).then(response => {

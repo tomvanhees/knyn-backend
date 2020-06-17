@@ -13,7 +13,7 @@ const http = axios.create({
 
 http.interceptors.request.use(
     config => {
-        const token = store.state.authentication.token;
+        const token = store.getters["authentication/getToken"];
         if (token) {
             config.headers['Authorization'] = 'Bearer ' + token;
             config.headers.get['Accepts']   = 'application/json'

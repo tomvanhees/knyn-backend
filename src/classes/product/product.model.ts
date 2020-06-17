@@ -1,5 +1,5 @@
 import {ProductInterface} from "@/classes/product/product.interface";
-import {CategoryInterface} from "@/interfaces/Category.interface";
+import {CategoryInterface} from "@/classes/category/category.interface";
 import {MediaInterface} from "@/interfaces/MediaInterface";
 import {BrandModel} from "@/classes/brand/brand.model";
 import {BrandInterface} from "@/classes/brand/brand.interface";

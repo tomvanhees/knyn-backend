@@ -37,7 +37,7 @@ export const feedback = {
 
     ],
     beforeEnter(to: Route, from: Route, next: Function) {
-        if (store.state.authentication.token) {
+        if (store.getters["authentication/isAuthenticated"]) {
             next()
         } else {
             next("/signin")
