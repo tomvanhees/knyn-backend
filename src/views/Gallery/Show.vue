@@ -1,81 +1,81 @@
 <template>
-    <div>
-        <h1>
-            {{ gallery.name }}
-        </h1>
-        <div class="container">
-            <div class="row mb-5">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-body d-flex justify-content-between">
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <input
-                                            class="form-control"
-                                            type="text"
-                                            v-model="gallery.name"
-                                    >
-                                    <div class="input-group-append">
-                                        <button
-                                                @click="updateGallery"
-                                                class="btn btn-outline-primary"
-                                        >
-                                            aanpassen
-                                        </button>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <button
-                                        @click="deleteGallery"
-                                        class="btn btn-outline-danger btn-block"
-                                >
-                                    Gallerij verwijderen
-                                </button>
-                            </div>
-                        </div>
-
-
-                        <div class="card-body">
-                            <div class="d-flex justify-content-center">
-                                <label
-                                        @dragover.prevent
-                                        @drop="gallery.onDroppedEdvent($event)"
-                                        class="large-add-button"
-                                        for="image"
-                                >
-                                    <span>+</span>
-                                    <input
-                                            @change="gallery.onChangeEvent($event)"
-                                            id="image"
-                                            multiple
-                                            ref="upload"
-                                            style="opacity: 0; position: absolute"
-                                            type="file"
-                                    >
-                                    <div
-                                            class="loading"
-                                    />
-                                </label>
-                            </div>
-                        </div>
-
-
-                        <div class="card-body">
-                            <div class="image-container">
-                                <dl-gallery-image
-                                        :item="item"
-                                        :key="item.id"
-                                        @remove-media="gallery.deleteMedia(item)"
-                                        v-for="(item) in gallery.media"
-                                />
-                            </div>
-                        </div>
-                    </div>
+  <div>
+    <h1>
+      {{ gallery.name }}
+    </h1>
+    <div class="container">
+      <div class="row mb-5">
+        <div class="col-12">
+          <div class="card">
+            <div class="card-body d-flex justify-content-between">
+              <div class="form-group">
+                <div class="input-group">
+                  <input
+                    v-model="gallery.name"
+                    class="form-control"
+                    type="text"
+                  >
+                  <div class="input-group-append">
+                    <button
+                      class="btn btn-outline-primary"
+                      @click="updateGallery"
+                    >
+                      aanpassen
+                    </button>
+                  </div>
                 </div>
+              </div>
+              <div class="form-group">
+                <button
+                  class="btn btn-outline-danger btn-block"
+                  @click="deleteGallery"
+                >
+                  Gallerij verwijderen
+                </button>
+              </div>
             </div>
+
+
+            <div class="card-body">
+              <div class="d-flex justify-content-center">
+                <label
+                  class="large-add-button"
+                  for="image"
+                  @dragover.prevent
+                  @drop="gallery.onDroppedEdvent($event)"
+                >
+                  <span>+</span>
+                  <input
+                    id="image"
+                    ref="upload"
+                    multiple
+                    style="opacity: 0; position: absolute"
+                    type="file"
+                    @change="gallery.onChangeEvent($event)"
+                  >
+                  <div
+                    class="loading"
+                  />
+                </label>
+              </div>
+            </div>
+
+
+            <div class="card-body">
+              <div class="image-container">
+                <dl-gallery-image
+                  v-for="(item) in gallery.media"
+                  :key="item.id"
+                  :item="item"
+                  @remove-media="gallery.deleteMedia(item)"
+                />
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script lang="ts">

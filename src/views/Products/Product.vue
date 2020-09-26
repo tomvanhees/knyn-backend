@@ -1,12 +1,12 @@
 <template>
-    <div>
-        <transition
-                mode="out-in"
-                name="component-fade"
-        >
-            <router-view/>
-        </transition>
-    </div>
+  <div>
+    <transition
+      mode="out-in"
+      name="component-fade"
+    >
+      <router-view />
+    </transition>
+  </div>
 </template>
 
 <script lang="ts">

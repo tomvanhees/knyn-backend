@@ -1,110 +1,110 @@
 <template>
-    <div>
-        <h1>Producten</h1>
+  <div>
+    <h1>Producten</h1>
 
-        <div class="container">
-            <div class="row">
-                <div class="col-9 ">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="d-flex justify-content-center my-3">
-                                <router-link :to="`/products/create`">
-                                    <div class="large-add-button">
-                                        <span>+</span>
-                                    </div>
-                                </router-link>
-                            </div>
+    <div class="container">
+      <div class="row">
+        <div class="col-9 ">
+          <div class="card">
+            <div class="card-body">
+              <div class="d-flex justify-content-center my-3">
+                <router-link :to="`/products/create`">
+                  <div class="large-add-button">
+                    <span>+</span>
+                  </div>
+                </router-link>
+              </div>
 
-                            <transition-group
-                                    class="d-flex flex-wrap"
-                                    mode="out-in"
-                                    name="component-fade"
-                            >
-                                <dl-product-index-card
-                                        v-for="product in FilteredProducts"
-                                        :key="product.id"
-                                        :product="product"
-                                />
-                            </transition-group>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-3">
-                    <!--                    <div class="input-group">-->
-                    <!--                        <input type="text" class="form-control">-->
-                    <!--                        <div class="input-group-append">-->
-                    <!--                            <button class="btn btn-outline-primary">Zoeken (wip)</button>-->
-                    <!--                        </div>-->
-                    <!--                    </div>-->
-
-
-                    <div class="card">
-                        <div class="card-header">
-                            <span class="card-header-text">Categorieën</span>
-                        </div>
-                        <div class="card-body">
-                            <div
-                                    v-for="category in Categories"
-                                    :key="category.id"
-                                    class="form-check"
-                            >
-                                <input
-                                        :id="`category_${category.id}`"
-                                        v-model="selectedCategories"
-                                        :value="category.id"
-                                        class="form-check-input"
-                                        type="checkbox"
-                                >
-                                <label
-                                        :for="`category_${category.id}`"
-                                        class="form-check-label"
-                                >{{ category.name }}</label>
-                            </div>
-                        </div>
-
-                        <div class="card-header">
-                            <div class="card-header-text">
-                                Merken
-                            </div>
-                        </div>
-                        <div class="card-body">
-                            <div class="form-check">
-                                <input
-                                        :id="`brand_0`"
-                                        v-model="selectedBrands"
-                                        :value="0"
-                                        class="form-check-input"
-                                        type="checkbox"
-                                >
-                                <label
-                                        :for="`brand_0`"
-                                        class="form-check-label"
-                                >Geen merk</label>
-                            </div>
-
-                            <div
-                                    v-for="brand in Brands"
-                                    :key="brand.id"
-                                    class="form-check"
-                            >
-                                <input
-                                        :id="`brand_${brand.id}`"
-                                        v-model="selectedBrands"
-                                        :value="brand.id"
-                                        class="form-check-input"
-                                        type="checkbox"
-                                >
-                                <label
-                                        :for="`brand_${brand.id}`"
-                                        class="form-check-label"
-                                >{{ brand.name }}</label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+              <transition-group
+                class="d-flex flex-wrap"
+                mode="out-in"
+                name="component-fade"
+              >
+                <dl-product-index-card
+                  v-for="product in FilteredProducts"
+                  :key="product.id"
+                  :product="product"
+                />
+              </transition-group>
             </div>
+          </div>
         </div>
+        <div class="col-3">
+          <!--                    <div class="input-group">-->
+          <!--                        <input type="text" class="form-control">-->
+          <!--                        <div class="input-group-append">-->
+          <!--                            <button class="btn btn-outline-primary">Zoeken (wip)</button>-->
+          <!--                        </div>-->
+          <!--                    </div>-->
+
+
+          <div class="card">
+            <div class="card-header">
+              <span class="card-header-text">Categorieën</span>
+            </div>
+            <div class="card-body">
+              <div
+                v-for="category in Categories"
+                :key="category.id"
+                class="form-check"
+              >
+                <input
+                  :id="`category_${category.id}`"
+                  v-model="selectedCategories"
+                  :value="category.id"
+                  class="form-check-input"
+                  type="checkbox"
+                >
+                <label
+                  :for="`category_${category.id}`"
+                  class="form-check-label"
+                >{{ category.name }}</label>
+              </div>
+            </div>
+
+            <div class="card-header">
+              <div class="card-header-text">
+                Merken
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="form-check">
+                <input
+                  :id="`brand_0`"
+                  v-model="selectedBrands"
+                  :value="0"
+                  class="form-check-input"
+                  type="checkbox"
+                >
+                <label
+                  :for="`brand_0`"
+                  class="form-check-label"
+                >Geen merk</label>
+              </div>
+
+              <div
+                v-for="brand in Brands"
+                :key="brand.id"
+                class="form-check"
+              >
+                <input
+                  :id="`brand_${brand.id}`"
+                  v-model="selectedBrands"
+                  :value="brand.id"
+                  class="form-check-input"
+                  type="checkbox"
+                >
+                <label
+                  :for="`brand_${brand.id}`"
+                  class="form-check-label"
+                >{{ brand.name }}</label>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 
 <script lang="ts">

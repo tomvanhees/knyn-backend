@@ -1,20 +1,29 @@
 <template>
-    <div class="col-3 ">
-        <div class="mb-4 position-relative">
-            <router-link :to="`/inspiratie/${gallery.id}/${gallery.slug}`">
-                <div class="card border-0">
-                    <img :src="gallery.cover" class="gallery-image"
-                         style="background-position: center center; background-size: cover" alt="">
-                </div>
-            </router-link>
-
-            <div class="position-absolute w-100" style="bottom: 50%">
-                <router-link :to="`/inspiratie/${gallery.id}/${gallery.slug}`">
-                    <h5 class="card-title text-center">{{ gallery.name}}</h5>
-                </router-link>
-            </div>
+  <div class="col-3 ">
+    <div class="mb-4 position-relative">
+      <router-link :to="`/inspiratie/${gallery.id}/${gallery.slug}`">
+        <div class="card border-0">
+          <img
+            :src="gallery.cover"
+            class="gallery-image"
+            style="background-position: center center; background-size: cover"
+            alt=""
+          >
         </div>
+      </router-link>
+
+      <div
+        class="position-absolute w-100"
+        style="bottom: 50%"
+      >
+        <router-link :to="`/inspiratie/${gallery.id}/${gallery.slug}`">
+          <h5 class="card-title text-center">
+            {{ gallery.name }}
+          </h5>
+        </router-link>
+      </div>
     </div>
+  </div>
 </template>
 
 <script lang="ts">

@@ -1,7 +1,19 @@
 import axios from "axios";
 
-const baseURL = process.env.VUE_APP_PATH
 
+
+
+const documentURL = document.URL;
+const subdomainEnd = documentURL.indexOf(".");
+
+console.log(subdomainEnd);
+
+const subdomain = documentURL.slice(0,subdomainEnd);
+
+console.log(subdomain)
+const baseURL = `${subdomain}.${process.env.VUE_APP_PATH}`
+
+console.log(baseURL)
 axios.defaults.withCredentials = true;
 
 const auth = axios.create({

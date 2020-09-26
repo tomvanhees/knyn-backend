@@ -1,7 +1,16 @@
 <template>
-    <div class="thumb" :class="{'active' : index === activeImage}">
-        <img :src="image.thumb" alt="" style="max-width: 50px" class="rounded" @click="setActive">
-    </div>
+  <div
+    class="thumb"
+    :class="{'active' : index === activeImage}"
+  >
+    <img
+      :src="image.thumb"
+      alt=""
+      style="max-width: 50px"
+      class="rounded"
+      @click="setActive"
+    >
+  </div>
 </template>
 
 <script lang="ts">

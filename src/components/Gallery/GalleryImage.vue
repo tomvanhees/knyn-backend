@@ -1,15 +1,27 @@
 <template>
-    <div class="card m-2" style="width: 250px">
+  <div
+    class="card m-2"
+    style="width: 250px"
+  >
+    <img
+      :src="item.path"
+      class="card-img-top"
+      alt=""
+      @error="imageUrlAlt"
+    >
 
-        <img :src="item.path" class="card-img-top" alt="" @error="imageUrlAlt">
-
-        <div class="position-absolute" style="top:0; right: 0;">
-            <button class="btn btn-outline-delete btn-sm" @click="removeMedia">
-                <span>x</span>
-            </button>
-        </div>
+    <div
+      class="position-absolute"
+      style="top:0; right: 0;"
+    >
+      <button
+        class="btn btn-outline-delete btn-sm"
+        @click="removeMedia"
+      >
+        <span>x</span>
+      </button>
     </div>
-
+  </div>
 </template>
 
 <script lang="ts">

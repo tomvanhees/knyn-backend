@@ -1,13 +1,15 @@
 <template>
-    <div id="app">
-        <notifications/>
+  <div id="app">
+    <notifications />
 
-        <router-view name="menu"/>
-        <transition name="component-fade" mode="out-in">
-            <router-view :key="$router.fullPath"/>
-        </transition>
-
-    </div>
+    <router-view name="menu" />
+    <transition
+      name="component-fade"
+      mode="out-in"
+    >
+      <router-view :key="$router.fullPath" />
+    </transition>
+  </div>
 </template>
 <script lang="ts">
     import Vue from 'vue';

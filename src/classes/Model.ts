@@ -12,7 +12,8 @@ export abstract class Model implements DeserializableInterface, SerializeInterfa
        return  Object.getOwnPropertyNames(this)
             .reduce((object: any, propertyName: string) => {
                 if (propertyName != "__ob__"){
-                   object[propertyName] = this[propertyName];
+                    object[propertyName] = this[propertyName];
+
                }
                 return object;
             }, {})
