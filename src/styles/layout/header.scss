@@ -1,0 +1,45 @@
+
+header {
+  background-color: $header-background;
+  height: 70px;
+
+  #yippo-main-menu {
+    display: flex;
+
+    .logo {
+      padding-top: 20px;
+      letter-spacing: 5px;
+      width: 80px;
+      color: rgba(255,255,255,1);
+      font-size: 20px;
+    }
+
+    .menu-container {
+      display: flex;
+      list-style: none;
+      padding-top: 25px;
+
+      .menu-item {
+        padding: 0 15px;
+        a {
+          color: rgba(255,255,255,.5);
+
+          &.active{
+            color: rgba(255,255,255,1);
+          }
+        }
+
+      }
+    }
+
+
+    .logout{
+      display: inline-block;
+      padding-top: 25px;
+      color: white;
+    }
+
+  }
+}
+
+

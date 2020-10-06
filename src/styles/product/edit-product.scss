@@ -1,0 +1,23 @@
+.show-categories-container{
+  position: relative;
+  width: 100%;
+
+}
+
+.badge{
+  position: relative;
+  background-color: $dark-blue;
+  margin-right: 5px;
+  display: flex;
+  color: white;
+  padding: 5px 7px;
+  border-radius: 5px;
+  font-size: 12px;
+  text-align: center;
+  line-height: 13px;
+
+  .close{
+    font-size: 11px;
+    position: absolute;top: 0; right: 5px;
+  }
+}

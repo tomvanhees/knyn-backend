@@ -27,37 +27,37 @@
   </div>
 </template>
 
-<script lang="ts">
-    import Vue from "vue";
-    import Component from "vue-class-component";
-    import http from "../../http/http";
-    import DoughnutChart from "@/components/Statistics/DoughnutChart.vue";
-
-    @Component({
-        components: {
-            DoughnutChart
-        }
-    })
-    export default class StatisticsIndex extends Vue {
-        statistics: Array<any> = [];
-        options = {
-            legend: {
-                display: true,
-                position: 'bottom',
-                align: 'center'
-            }
-        };
-
-        getStatistics(): void {
-            http.get("/statistics").then(response => {
-                this.statistics = response.data;
-            })
-        }
-
-        created(): void {
-            this.getStatistics();
-        }
-    }
+<script>
+    // import Vue from "vue";
+    // import Component from "vue-class-component";
+    // import http from "../../http/http";
+    // import DoughnutChart from "@/components/Statistics/DoughnutChart.vue";
+    //
+    // @Component({
+    //     components: {
+    //         DoughnutChart
+    //     }
+    // })
+    // export default class StatisticsIndex extends Vue {
+    //     statistics: Array<any> = [];
+    //     options = {
+    //         legend: {
+    //             display: true,
+    //             position: 'bottom',
+    //             align: 'center'
+    //         }
+    //     };
+    //
+    //     getStatistics(): void {
+    //         http.get("/statistics").then(response => {
+    //             this.statistics = response.data;
+    //         })
+    //     }
+    //
+    //     created(): void {
+    //         this.getStatistics();
+    //     }
+    // }
 </script>
 
 <style scoped>

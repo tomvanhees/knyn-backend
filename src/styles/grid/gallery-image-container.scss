@@ -1,0 +1,29 @@
+#image-gallery{
+  .image-container {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 15px;
+    position: relative;
+
+  }
+}
+
+
+
+
+@media all and (min-width: 1024px) {
+  #image-gallery {
+    .image-container {
+      grid-template-columns: 1fr 1fr 1fr;
+    }
+  }
+}
+
+@media all and (min-width: 1366px) {
+  #image-gallery {
+    .image-container {
+      grid-template-columns: 1fr 1fr 1fr 1fr;
+    }
+  }
+}
+

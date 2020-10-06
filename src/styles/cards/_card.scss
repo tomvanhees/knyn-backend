@@ -1,0 +1,51 @@
+.card {
+  border-radius: 2px;
+  background-color: $white;
+  min-width: 0;
+  word-wrap: break-word;
+  background-clip: border-box;
+  border: 0 solid rgba(0, 0, 0, 0.125);
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.03);
+
+
+  .card-title{
+    padding-left: 16px ;
+    padding-top: 24px;
+    margin-bottom: 24px;
+    font-weight: 600;
+    letter-spacing: .7px;
+  }
+
+  .card-body{
+    padding: 16px;
+  }
+}
+
+.floating-card {
+  min-width: 500px;
+  width: 50%;
+  max-width: 600px;
+
+  position: fixed;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%);
+  z-index: 27;
+}
+
+
+.product-index-card {
+  @extend .card;
+
+  width: 375px;
+  background-color: #fefefe;
+
+  transition: .2s ease-in-out;
+
+  &:hover{
+    background-color: $lightblue;
+  }
+}

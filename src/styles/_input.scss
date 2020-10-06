@@ -1,0 +1,85 @@
+.form-group {
+  margin-bottom: 15px;
+  box-sizing: border-box;
+
+  label {
+    display: inline-block;
+    margin-bottom: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    letter-spacing: 1.1px;
+  }
+
+  input {
+
+  }
+
+  .categories-main{
+    height: 22px;
+  }
+
+  .select-wrapper {
+    width: 100%;
+    position: relative;
+    display: block;
+    &:before{
+      content: '';
+      width: 43px;
+      height: 43px;
+      background-color: rgba(85, 110, 230, 1);
+      position: absolute;
+      right: 0;
+      top: 0;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      pointer-events: none;
+    }
+
+    &:after {
+      content:'>';
+      font:25px "Consolas", monospace;
+      transform:rotate(90deg);
+      color: white;
+      position: absolute;
+      padding: 10px;
+      right: 0;
+      top: 0;
+      pointer-events: none;
+    }
+
+    select {
+      appearance: none;
+    }
+  }
+
+
+  .form-control {
+    display: block;
+    width: 100%;
+    border-radius: 5px;
+    background-color: $body-background;
+    padding: 10px 10px;
+    border: 1px solid #ced4da;
+    box-sizing: border-box;
+  }
+
+  .input-group {
+    display: flex;
+
+    .form-control {
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+
+    .input-group-append {
+      .input-group-button {
+        height: 100%;
+        border-top-left-radius: 0;
+        border-bottom-left-radius: 0;
+      }
+    }
+  }
+
+}
+
+

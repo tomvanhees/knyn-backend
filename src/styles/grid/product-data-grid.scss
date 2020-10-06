@@ -1,0 +1,11 @@
+.product-data-grid{
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-gap: 15px;
+}
+
+@media screen and (min-width: 1024px){
+  .product-data-grid{
+    grid-template-columns: 1fr 1fr;
+  }
+}

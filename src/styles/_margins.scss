@@ -1,0 +1,32 @@
+$max: 50;
+$offset: 5;
+$unit: 'px'; // Feel free to change the unit.@mixin list-loop($className, $styleName) {
+$i: 0;
+
+
+@mixin spacers($className, $styleName) {
+  @while $i <= $max {
+    #{$className + $i} {
+      #{$styleName}: #{$i + $unit};
+    }
+    $i: $i + $offset;
+  }
+}
+
+@include spacers('.mt-', 'margin-top');
+@include spacers('.mb-', 'margin-bottom');
+@include spacers('.ml-', 'margin-left');
+@include spacers('.mr-', 'margin-right');
+
+@include spacers('.pt-', 'padding-top');
+@include spacers('.pb-', 'padding-bottom');
+@include spacers('.pl-', 'padding-left');
+@include spacers('.pr-', 'padding-right');
+
+.ml-auto {
+  margin-left: auto;
+}
+
+.mr-auto {
+  margin-right: auto;
+}

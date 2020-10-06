@@ -1,0 +1,67 @@
+@import "header";
+@import "main";
+@import "footer";
+@import "login-form";
+
+
+body {
+  background-color: $body-background !important;
+}
+
+.yippo-container {
+  margin-left: 15px;
+  margin-right: 15px;
+  margin-bottom: 25px;
+}
+
+
+@media all and (min-width: 1024px) {
+  .yippo-container {
+    width: calc(1024px - 30px);
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+
+@media all and (min-width: 1366px) {
+  .yippo-container {
+    width: calc(1366px - 30px);
+  }
+}
+
+
+.paginator-container {
+  display: flex;
+  justify-content: center;
+  margin-top: 25px;
+
+  .paginator {
+    display: flex;
+
+    .paginator-item {
+      margin: 5px;
+      border-radius: 50%;
+      padding: 20px;
+      background-color: rgba(85, 110, 230, 0.25);
+      position: relative;
+
+      .paginator-text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+      }
+
+      &:hover{
+        background-color: rgba(85, 110, 230, 0.75);
+        cursor: pointer;
+      }
+      &.active{
+        background-color: $dark-blue;
+      }
+    }
+  }
+}
+

@@ -1,7 +1,7 @@
 module.exports = {
     devServer: {
-        // port: 9090,
-        host: "kapsalon-backend.test"
+        port: 9090,
+        host: "tomvanhees.kapsalon-api.test",
     },
     publicPath: "/admin"
 }

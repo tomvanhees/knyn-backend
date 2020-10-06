@@ -4,15 +4,17 @@
       name="component-fade"
       mode="out-in"
     >
-      <router-view />
+      <div class="yippo-container">
+        <router-view />
+      </div>
     </transition>
   </div>
 </template>
 
 <script>
-    export default {
-        name: "Gallery"
-    }
+export default {
+  name: 'Gallery',
+}
 </script>
 
 <style scoped>

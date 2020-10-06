@@ -1,0 +1,29 @@
+.gallery-index-card {
+  flex-direction: row;
+  min-height: 200px;
+
+  .card-body{
+    width: 100%;
+  }
+
+  .image {
+
+  }
+
+  .title {
+    color: #343a40;
+    font-size: 18px;
+    text-align: center;
+    margin-top: 45px;
+  }
+
+
+  &:hover {
+    text-decoration: none;
+    box-shadow: 0 0.75rem 1.5rem rgba(18,38,63,.07);
+
+  }
+
+
+
+}

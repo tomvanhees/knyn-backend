@@ -1,55 +1,78 @@
-@import '~bootstrap';
+//@import '~bootstrap';
+@import "layout/reset";
 
 @import "variables";
 @import "typografie";
 @import "input";
 @import "buttons";
+@import "margins";
 
-@import "card";
+@import "cards/cards";
 @import "gallery";
 @import "product";
 
+@import "layout/layout";
+@import "grid/grids";
+
+@import "product/product";
+
 body {
   font-family: $primary-font-family;
+  overflow: hidden;
+}
 
-  background: rgb(221, 221, 221);
-  background: linear-gradient(0deg, rgba(221, 221, 221, 1) 50%, rgba(200, 203, 206, 1) 100%);
-  background-repeat: no-repeat;
-  background-size: cover;
-  width: 100%;
-  height: 100vh;
-  background-attachment: fixed;
+.app-content-container {
+  height: calc(100vh - 70px);
+  overflow: auto;
 }
 
 
-.menu {
-  background: rgba(238, 239, 240, .3);
-  padding-top: 15px;
-  padding-bottom: 15px;
-  margin-bottom: 20px;
-
-  .nav-link{
-    font-size: 20px;
-    color: $secondary-font-color;
-
-    &.active{
-      color: $primary-font-color;
-    }
-  }
+.view-title-container {
+  display: flex;
+  justify-content: space-between;
 }
 
-.main-container{
-  max-width: 1920px;
-  margin-left: auto;
-  margin-right: auto;
+.text-center {
+  text-align: center;
 }
 
-.cover {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, .7);
-  z-index: 100;
+.list-group {
+  list-style: none;
+  padding-left: 0;
+}
+
+.d-flex {
+  display: flex;
+}
+
+.justify-space-between {
+  justify-content: space-between;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .3s;
+}
+
+.fade-enter, .fade-leave-to
+  /* .component-fade-leave-active below version 2.1.8 */
+{
+  opacity: 0;
+}
+
+.component-fade-enter-active, .component-fade-leave-active {
+  transition: opacity .3s;
+}
+
+.component-fade-enter, .component-fade-leave-to
+  /* .component-fade-leave-active below version 2.1.8 */
+{
+  opacity: 0;
+}
+
+
+.list-container {
+  padding: 10px;
+  max-height: 300px;
+  min-height: 150px;
+  overflow: auto;
 }

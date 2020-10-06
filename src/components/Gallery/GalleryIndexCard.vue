@@ -1,71 +1,34 @@
 <template>
-  <div class="col-3 ">
-    <div class="mb-4 position-relative">
-      <router-link :to="`/inspiratie/${gallery.id}/${gallery.slug}`">
-        <div class="card border-0">
-          <img
-            :src="gallery.cover"
-            class="gallery-image"
-            style="background-position: center center; background-size: cover"
-            alt=""
-          >
-        </div>
-      </router-link>
-
-      <div
-        class="position-absolute w-100"
-        style="bottom: 50%"
-      >
-        <router-link :to="`/inspiratie/${gallery.id}/${gallery.slug}`">
-          <h5 class="card-title text-center">
-            {{ gallery.name }}
-          </h5>
-        </router-link>
+  <div>
+    <router-link
+      class="card gallery-index-card"
+      :to="`/inspiratie/${gallery.id}/${gallery.slug}`"
+    >
+      <div class="image">
+        <img
+          :src="gallery.cover"
+          class="gallery-image"
+          alt=""
+        >
       </div>
-    </div>
+      <div class="card-body">
+        <div class="title">
+          {{ gallery.name }}
+        </div>
+        <div class="mt-30 text-center" />
+      </div>
+    </router-link>
   </div>
 </template>
 
-<script lang="ts">
-    import Vue from "vue";
-    import Component, {mixins} from "vue-class-component"
-
-    const GalleryIndexCardProps = Vue.extend({
-        props: {
-            gallery: {
-                type: Object,
-                required: true
-            }
-        },
-    })
-
-    @Component
-    export default class GalleryIndexCard extends mixins(GalleryIndexCardProps) {
+<script>
+export default{
+  name: 'GalleryIndexCard',
+  props: {
+    gallery: {
+      type: Object,
+      required: true
     }
+  }
+}
 </script>
-
-<style lang="scss" scoped>
-    .card {
-        width: 250px;
-        height: 250px;
-        background: rgba(52, 58, 64, 1);
-        filter: blur(1px) brightness(50%);
-        transition: .5s;
-        border-radius: 25px;
-
-        img {
-            border-radius: 25px;
-        }
-
-        &:hover {
-            filter: blur(0);
-        }
-
-    }
-
-    .card-title {
-        color: white;
-
-
-    }
-</style>
