@@ -1,28 +1,30 @@
 <template>
   <div>
     <div class="yippo-container">
-
       <div id="login-form">
         <div class="card">
           <div class="card-header">
-            <div class="card-header-title">Welkom terug bij Yippo!</div>
-            <div class="card-header-subtitle"> Log in om verder te gaan</div>
+            <div class="card-header-title">
+              Welkom terug bij Yippo!
+            </div>
+            <div class="card-header-subtitle">
+              Log in om verder te gaan
+            </div>
           </div>
 
           <div class="card-body">
-
             <div class="mt-40">
               <div class="form-group">
                 <label for="">E-mailadres</label>
                 <input
-                    v-model="email"
-                    type="text"
-                    class="form-control"
+                  v-model="email"
+                  type="text"
+                  class="form-control"
                 >
 
                 <div
-                    v-if="errors.hasOwnProperty('email')"
-                    class="alert alert-danger"
+                  v-if="errors.hasOwnProperty('email')"
+                  class="alert alert-danger"
                 >
                   {{ errors.email[0] }}
                 </div>
@@ -30,13 +32,13 @@
               <div class="form-group">
                 <label for="">Wachtwoord</label> <br>
                 <input
-                    v-model="password"
-                    type="password"
-                    class="form-control"
+                  v-model="password"
+                  type="password"
+                  class="form-control"
                 >
                 <div
-                    v-if="errors.hasOwnProperty('password')"
-                    class="alert alert-danger"
+                  v-if="errors.hasOwnProperty('password')"
+                  class="alert alert-danger"
                 >
                   {{ errors.password[0] }}
                 </div>
@@ -45,19 +47,18 @@
 
               <div class="form-group mt-30">
                 <button
-                    class="btn btn-primary btn-block"
-                    @click="signIn"
+                  class="btn btn-primary btn-block"
+                  @click="signIn"
                 >
                   Aanmelden
                 </button>
-                <error-message/>
+                <error-message />
               </div>
-              <div>
-            </div>
+              <div />
 
-<!--              <router-link to="/signup">-->
-<!--                Nog geen account?-->
-<!--              </router-link>-->
+              <!--              <router-link to="/signup">-->
+              <!--                Nog geen account?-->
+              <!--              </router-link>-->
             </div>
           </div>
         </div>

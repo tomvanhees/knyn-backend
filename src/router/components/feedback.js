@@ -1,5 +1,5 @@
 import Menu from "@/components/layout/header.vue";
-import store from "@/store/index";
+
 export const feedback = {
     path      : '/feedback',
     components: {
@@ -24,19 +24,5 @@ export const feedback = {
                 default: () => import('@/views/Feedback/Answers/Index.vue'),
             }
         },
-        // {
-        //     path     : ':id',
-        //     name     : "FeedbackShow",
-        //     component: () => import('@/views/Feedback/Show.vue')
-        // },
-
-
-    ],
-    beforeEnter(to, from, next) {
-        if (store.getters["authentication/isAuthenticated"]) {
-            next()
-        } else {
-            next("/signin")
-        }
-    }
+    ]
 }

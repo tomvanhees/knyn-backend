@@ -8,6 +8,21 @@
   letter-spacing: 1px;
   display: inline-block;
   border: 0 solid transparent;
+
+
+  .button-icon{
+    width: 15px;
+    height: 21px;
+    margin-left: 5px;
+    position: relative;
+
+    .icon{
+      position: absolute;
+      top:50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+  }
 }
 
 .btn-block {

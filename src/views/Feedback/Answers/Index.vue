@@ -4,10 +4,22 @@
 
     <div class="answers-container">
       <div
-        v-for="(feedback,index) in answers"
+        v-for="(clients, name,index) in answers"
         :key="index"
       >
-        <answer-card :feedback="feedback" />
+        <div class="answer-container">
+          <div class="date">
+            <h2>{{ name }}</h2>
+          </div>
+          <div>
+            <div
+              v-for="(feedback,client_id) in clients"
+              :key="client_id"
+            >
+              <answer-card :feedback="feedback" />
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -42,10 +54,25 @@ export default {
 }
 </script>
 
-<style scoped>
-.answers-container{
+<style lang="scss" scoped>
+.answers-container {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 1fr;
   grid-gap: 15px;
+
+  .answer-container {
+    display: grid;
+    grid-template-columns: 200px 1fr;
+    position: relative;
+
+    .date {
+      position: relative;
+      width: 200px;
+      h2{
+        position: sticky;
+        top:0
+      }
+    }
+  }
 }
 </style>

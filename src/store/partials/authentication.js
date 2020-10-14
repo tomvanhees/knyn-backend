@@ -14,10 +14,10 @@ export const authentication = {
         }
     },
     mutations : {
-        setToken(state, token) {
+        set(state, token) {
             state.token = token;
         },
-        clearToken(state) {
+        clear(state) {
             state.token = "";
         },
 
@@ -36,11 +36,11 @@ export const authentication = {
             if (!token) {
                 return;
             }
-            commit('setToken', token);
+            commit('set', token);
         },
         logout      : ({dispatch}) => {
             http.post("/user/logout").finally(()=>{
-                dispatch('clearToken')
+                dispatch('clear')
             })
 
         }

@@ -11,13 +11,13 @@ export const brands = {
     }
   },
   mutations: {
-    setBrands (state, brands) {
+    set (state, brands) {
       brands.forEach(brand => state.brands.push(brand))
     },
-    addBrand (state, brand) {
+    add(state, brand) {
       state.brands.push(brand)
     },
-    deleteBrand (state, value) {
+    delete (state, value) {
       const index = state.brands.indexOf(value)
       state.brands.splice(index, 1)
     }
@@ -27,19 +27,19 @@ export const brands = {
       if (state.brands.length === 0) {
         const response = await BrandService.fetch()
         const collection = BrandService.deserializeCollection(response)
-        commit('setBrands', collection)
+        commit('set', collection)
       }
     },
     addBrand: async ({ commit }, brand) => {
 
       const response = await BrandService.post(brand)
       const deserializedBrand = BrandService.deserialize(response.data.content)
-      commit('addBrand', deserializedBrand)
+      commit('add', deserializedBrand)
     },
     deleteBrand: ({ commit }, brand) => {
       BrandService.delete(brand)
         .then(() => {
-          commit('deleteBrand', brand)
+          commit('delete', brand)
         })
     }
   }

@@ -1,18 +1,10 @@
 import Menu from "@/components/layout/header.vue";
-import store from "@/store/index";
 
 export const gallery = {
     path: '/inspiratie',
     components: {
-        default: () => import('@/views/Gallery/Gallery.vue'),
+        default: () => import('@/views/PageContainer.vue'),
         menu: Menu
-    },
-    beforeEnter(to, from, next) {
-        if (store.getters["authentication/isAuthenticated"]) {
-            next()
-        } else {
-            next("/signin")
-        }
     }, children: [
         {
             path: '',
@@ -21,13 +13,6 @@ export const gallery = {
                 default: () => import('@/views/Gallery/Index.vue'),
                 menu: Menu
             },
-            beforeEnter(to, from, next) {
-                if (store.getters["authentication/isAuthenticated"]) {
-                    next()
-                } else {
-                    next("/signin")
-                }
-            },
         },
         {
             path: 'create',
@@ -35,13 +20,6 @@ export const gallery = {
             components: {
                 default: () => import('@/views/Gallery/Edit.vue'),
                 menu: Menu
-            },
-            beforeEnter(to, from, next) {
-                if (store.getters["authentication/isAuthenticated"]) {
-                    next()
-                } else {
-                    next("/signin")
-                }
             },
         },
         {
@@ -52,13 +30,6 @@ export const gallery = {
                     () => import('@/views/Gallery/Edit.vue'),
                 menu: Menu
             },
-            beforeEnter(to, from, next) {
-                if (store.getters["authentication/isAuthenticated"]) {
-                    next()
-                } else {
-                    next("/signin")
-                }
-            }
         }
     ]
 }

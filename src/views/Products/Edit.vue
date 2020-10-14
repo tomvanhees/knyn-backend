@@ -24,7 +24,7 @@
         <div class="product-data-grid">
           <div>
             <div class="form-group">
-              <label for="">Naam</label>
+              <label for="">Naam *</label>
               <input
                 v-model="product.name"
                 class="form-control"
@@ -32,7 +32,7 @@
               >
             </div>
             <div class="form-group">
-              <label for="">Prijs</label>
+              <label for="">Prijs *</label>
               <input
                 v-model="product.price"
                 class="form-control"
@@ -43,7 +43,7 @@
 
           <div>
             <div class="form-group">
-              <label>Merk</label>
+              <label>Merk *</label>
               <label
                 for="brand"
                 class="select-wrapper"
@@ -65,7 +65,7 @@
             </div>
 
             <div class="form-group">
-              <label for="">Categorie</label>
+              <label for="">Categorie *</label>
               <label
                 class="select-wrapper form-control"
               >
@@ -180,6 +180,7 @@ import ImageGallery from '@/components/Images/ImageGallery.vue'
 import EditBrand from '@/components/Products/EditBrand'
 import EditCategory from '@/components/Products/EditCategory'
 import AngleRightButtonIcon from '@/components/layout/AngleRightButtonIcon'
+// import { MessagesService } from '@/classes/MessagesService'
 
 export default {
   name: 'Edit',
@@ -243,26 +244,45 @@ export default {
       this.createProduct()
     },
     createProduct () {
-      ProductService.create(this.product).then(response => {
-        this.product = new ProductModel().deserialize(response.data['content'])
-      })
-    },
-    updateProduct () {
-      ProductService.update(this.product)
-    },
-    toggleShowCategories () {
-      this.showCategories = !this.showCategories
-    },
-    removeCategory (category) {
-      const index = this.product.categories.findIndex(iteration => iteration.id === category.id)
-      this.product.categories.splice(index, 1)
-    },
 
-    deleteProduct () {
-      ProductService.delete(this.product).then(() => {
-        this.$router.push('/products')
-      })
-    },
+      ProductService
+          .create(this.product)
+          .then(response => {
+            this.product = new ProductModel().deserialize(response.data['content'])
+          })
+
+    // <!--.-->
+      // catch(errors)
+      // {
+      //   //   MessagesService.throwErrorMessages(errors)
+      //   // }
+      //
+      }
+    ,
+      updateProduct()
+      {
+        ProductService.update(this.product)
+      }
+    ,
+      toggleShowCategories()
+      {
+        this.showCategories = !this.showCategories
+      }
+    ,
+      removeCategory(category)
+      {
+        const index = this.product.categories.findIndex(iteration => iteration.id === category.id)
+        this.product.categories.splice(index, 1)
+      }
+    ,
+
+      deleteProduct()
+      {
+        ProductService.delete(this.product).then(() => {
+          this.$router.push('/products')
+        })
+      }
+    ,
+    }
   }
-}
 </script>

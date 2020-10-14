@@ -74,7 +74,7 @@ export class HandleMediaClass {
   }
 
   /**
-   * @return {[File]}
+   * @return {File[]}
    */
   getMedia () {
     return this.media

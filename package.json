@@ -8,6 +8,9 @@
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint"
   },
+  "gitHooks": {
+    "pre-commit": "lint-staged"
+  },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.31",
     "@fortawesome/free-regular-svg-icons": "^5.15.0",

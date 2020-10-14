@@ -1,4 +1,3 @@
-
 import {MediaItemClass} from "@/classes/media/mediaItem.class";
 
 export class GalleryModel {

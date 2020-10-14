@@ -1,8 +1,9 @@
+
 <template>
   <div>
     <transition
-      mode="out-in"
       name="component-fade"
+      mode="out-in"
     >
       <div class="yippo-container">
         <router-view />
@@ -11,13 +12,4 @@
   </div>
 </template>
 
-<script>
-export default {
-  name: 'Product',
 
-}
-</script>
-
-<style scoped>
-
-</style>

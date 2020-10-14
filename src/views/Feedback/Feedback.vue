@@ -5,7 +5,7 @@
       mode="out-in"
     >
       <div class="yippo-container">
-      <router-view />
+        <router-view />
       </div>
     </transition>
   </div>

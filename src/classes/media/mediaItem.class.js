@@ -5,7 +5,6 @@ export class MediaItemClass{
     path;
 
     /**
-     *
      * @param input
      * @return {MediaItemClass}
      */

@@ -1,8 +1,10 @@
 <template>
   <div class="d-flex">
     {{ text }}
-    <div class="ml-5">
-      <font-awesome-icon icon="angle-right" />
+    <div class="button-icon">
+      <div class="icon">
+        <font-awesome-icon icon="angle-right" />
+      </div>
     </div>
   </div>
 </template>

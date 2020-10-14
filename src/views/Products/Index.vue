@@ -9,7 +9,6 @@
       </div>
     </view-title>
 
-
     <div class="product-index-container">
       <div>
         <div class="card">
@@ -58,13 +57,13 @@
 
 <script>
 
-import ProductCard from "@/components/Products/ProductCard.vue";
-import ProductService from "@/classes/product/product.service";
+import ProductCard from '@/components/Products/ProductCard.vue'
+import ProductService from '@/classes/product/product.service'
 import CategoriesMenu from '@/components/Products/CategoriesMenu.vue'
 import BrandsMenu from '@/components/Products/BrandsMenu.vue'
 
-import CreateNewButton from "@/components/Buttons/CreateNewHeaderButton.vue";
-import ViewTitle from "@/components/layout/ViewTitle.vue";
+import CreateNewButton from '@/components/Buttons/CreateNewHeaderButton.vue'
+import ViewTitle from '@/components/layout/ViewTitle.vue'
 import Paginator from '@/components/Paginator.vue'
 
 export default {
@@ -77,7 +76,7 @@ export default {
     ViewTitle,
     Paginator
   },
-  data() {
+  data () {
     return {
       selectedBrands: [],
       selectedCategories: [],
@@ -86,30 +85,32 @@ export default {
     }
   },
   computed: {
-    FilteredProducts() {
+    FilteredProducts () {
       return this.products
     },
-    HasProducts() {
-      return this.FilteredProducts.length !== 0;
+    HasProducts () {
+      return this.FilteredProducts.length !== 0
     },
   },
-  created() {
+  created () {
     this.update()
+    this.$store.dispatch('brands/getBrands')
+    this.$store.dispatch('categories/getCategories')
   },
   methods: {
-    setSelectedBrands(event) {
-      this.selectedBrands = event;
-      this.update();
-    },
-    setSelectedCategories(event) {
-      this.selectedCategories = event;
+    setSelectedBrands (event) {
+      this.selectedBrands = event
       this.update()
     },
-    update() {
+    setSelectedCategories (event) {
+      this.selectedCategories = event
+      this.update()
+    },
+    update () {
       this.fetchProducts(1)
     },
-    async fetchProducts(page = 1) {
-      const response = await ProductService.fetch(page, this.selectedBrands, this.selectedCategories);
+    async fetchProducts (page = 1) {
+      const response = await ProductService.fetch(page, this.selectedBrands, this.selectedCategories)
 
       this.paginator = response.data.meta
       this.products = await ProductService.deserialize(response)

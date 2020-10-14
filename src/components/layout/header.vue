@@ -52,17 +52,23 @@
         </nav>
 
         <div class="ml-auto">
-          <!--          <router-link-->
-          <!--            tag="a"-->
-          <!--            class="menu-link"-->
-          <!--            to="/information"-->
-          <!--          >-->
-          <!--            <span><font-awesome-icon icon="cog" /></span> Instellingen (wip)-->
-          <!--          </router-link>-->
-          <a
-            class="logout"
-            @click="logout"
-          >Afmelden</a>
+          <div class="menu-container">
+            <div class="menu-item">
+              <router-link
+                tag="a"
+                class="menu-link"
+                to="/configuration"
+              >
+                <span><font-awesome-icon icon="cog" /></span> Instellingen (wip)
+              </router-link>
+            </div>
+            <div class="menu-item">
+              <a
+                class="logout"
+                @click="logout"
+              >Afmelden</a>
+            </div>
+          </div>
         </div>
       </div>
     </div>

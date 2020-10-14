@@ -2,7 +2,7 @@
   <div>
     <div>
       <div
-        class="create-button"
+        class="header-button"
         @click="toggleShow"
       >
         <div class="title-button-container">

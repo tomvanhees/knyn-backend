@@ -1,18 +1,10 @@
 import Menu from "@/components/layout/header.vue";
-import store from "@/store/index";
 
 export const products =  {
     path      : '/products',
     components: {
-        default: () => import('@/views/Products/Product.vue'),
+        default: () => import('@/views/PageContainer.vue'),
         menu   : Menu
-    },
-    beforeEnter(to, from, next) {
-        if (store.getters["authentication/isAuthenticated"]) {
-            next()
-        } else {
-            next("/signin")
-        }
     },
     children:[
         {
@@ -22,13 +14,6 @@ export const products =  {
                 default: () => import('@/views/Products/Index.vue'),
                 menu   : Menu
             },
-            beforeEnter(to, from, next) {
-                if (store.getters["authentication/isAuthenticated"]) {
-                    next()
-                } else {
-                    next("/signin")
-                }
-            },
         },
         {
             path      : 'create',
@@ -37,13 +22,6 @@ export const products =  {
                 default: () => import('@/views/Products/Edit.vue'),
                 menu   : Menu
             },
-            beforeEnter(to, from, next) {
-                if (store.getters["authentication/isAuthenticated"]) {
-                    next()
-                } else {
-                    next("/signin")
-                }
-            },
         },
         {
             path      : ':id',
@@ -51,13 +29,6 @@ export const products =  {
             components: {
                 default: () => import('@/views/Products/Edit.vue'),
                 menu   : Menu
-            },
-            beforeEnter(to, from, next) {
-                if (store.getters["authentication/isAuthenticated"]) {
-                    next()
-                } else {
-                    next("/signin")
-                }
             },
         },
     ]

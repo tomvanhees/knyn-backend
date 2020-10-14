@@ -3,7 +3,7 @@ import App from './App.vue'
 
 import router from '@/router/index'
 import store from '@/store/index'
-import Notifications from 'vue-notification'
+
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
 import { faTrash } from '@fortawesome/free-solid-svg-icons'
@@ -14,8 +14,6 @@ import { faCloudUploadAlt } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faCog } from '@fortawesome/free-solid-svg-icons'
 
-
-
 library.add(faPlus)
 library.add(faTrash)
 library.add(faAngleRight)
@@ -25,6 +23,7 @@ library.add(faCloudUploadAlt)
 library.add(faCog)
 Vue.component('font-awesome-icon', FontAwesomeIcon)
 
+import Notifications from 'vue-notification'
 Vue.use(Notifications)
 
 Vue.config.productionTip = false

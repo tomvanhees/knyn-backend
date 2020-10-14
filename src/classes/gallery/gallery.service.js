@@ -4,7 +4,6 @@ import http from "@/http/http";
 export default class GalleryService {
 
     /**
-     *
      * @return {Promise<AxiosResponse<any>>}
      */
     static async fetch() {
@@ -13,7 +12,7 @@ export default class GalleryService {
 
     /**
      *
-     * @param id
+     * @param id {number}
      * @return {Promise<AxiosResponse<any>>}
      */
     static async find(id){
@@ -22,7 +21,7 @@ export default class GalleryService {
 
     /**
      *
-     * @param gallery
+     * @param gallery {GalleryModel}
      * @return {Promise<AxiosResponse<any>>}
      */
     static async create(gallery) {
@@ -34,7 +33,7 @@ export default class GalleryService {
 
     /**
      *
-     * @param gallery
+     * @param gallery {GalleryModel}
      * @return {Promise<AxiosResponse<any>>}
      */
     static async update(gallery) {
@@ -46,7 +45,7 @@ export default class GalleryService {
 
     /**
      *
-     * @param gallery
+     * @param gallery {GalleryModel}
      * @return {Promise<AxiosResponse<any>>}
      */
     static async delete(gallery) {

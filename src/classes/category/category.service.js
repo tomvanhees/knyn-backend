@@ -16,12 +16,20 @@ export default class CategoryService {
     return new CategoryModel().deserialize(category)
   }
 
+  /**
+   * @param category {CategoryModel}
+   * @return {Promise<AxiosResponse<any>>}
+   */
   static async post (category) {
     return http.post('/product/categories', {
       content: category.serialize()
     })
   }
 
+  /**
+   * @param category {CategoryModel}
+   * @return {Promise<AxiosResponse<any>>}
+   */
   static async delete (category) {
     return http.post(`product/categories/${category.id}`, {
       '_method': 'DELETE'

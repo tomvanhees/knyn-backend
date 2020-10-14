@@ -11,13 +11,13 @@ export const categories = {
     }
   },
   mutations: {
-    setCategories (state, categories) {
+    set (state, categories) {
       categories.forEach(category => state.categories.push(new CategoryModel().deserialize(category)))
     },
-    addCategory (state, category) {
+    add (state, category) {
       state.categories.push(category)
     },
-    deleteCategory (state, value) {
+    delete (state, value) {
       const index = state.categories.indexOf(value)
       state.categories.splice(index, 1)
     }
@@ -26,17 +26,17 @@ export const categories = {
       if (state.categories.length === 0) {
         const respons = await CategoryService.fetch()
         const collection = await CategoryService.deserializeCollection(respons)
-        commit('setCategories', collection)
+        commit('set', collection)
       }
     }, addCategory: async ({ commit }, category) => {
       const response = await CategoryService.post(category)
       const categoryModel =  CategoryService.deserialize(response.data.content)
-      commit('addCategory', categoryModel)
+      commit('add', categoryModel)
 
     }, deleteCategory: ({ commit }, category) => {
       CategoryService.delete(category)
         .then(() => {
-          commit('deleteCategory', category)
+          commit('delete', category)
         })
     }
   }

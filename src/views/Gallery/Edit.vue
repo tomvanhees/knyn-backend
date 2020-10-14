@@ -29,6 +29,11 @@
             </div>
           </div>
         </div>
+      </div>
+      <div class="card-title">
+        Afbeeldingen toevoegen
+      </div>
+      <div class="card-body">
         <div>
           <image-upload
             :is-active="hasGallery"
@@ -41,8 +46,10 @@
     </div>
 
     <div class="card mt-25">
+      <div class="card-title">
+        Afbeeldingen
+      </div>
       <div class="card-body">
-        <label for="">Afbeeldingen</label>
         <div>
           <image-gallery :images="gallery.media" />
         </div>
